@@ -10,4 +10,4 @@ records it internally, and can be checked using the `didFail()` method.
 Most dataclasses extend the `Insertable`, `Selectable`, and/or `Clearable` abstract classes, which allow for easier insertion into a specified table. 
 Each of these is a descendant of `Queriable`, which helps to handle database queries.
 
-Classes run on the Furman CS Department servers' `cronjob` at varying intervals, from every ~20 seconds for `ShuttleScraper` to once a week for `HoursScraper`. 
+The scrapers run on the Furman CS Department servers' `cronjob` at varying intervals, from every ~20 seconds for `ShuttleScraper` to once a week for `HoursScraper`. 
