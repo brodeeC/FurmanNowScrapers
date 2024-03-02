@@ -8,9 +8,9 @@ This script will scrape hours from several webpages, format/clean them, and upda
 
 from dateutil.parser import parse
 import datetime 
-from TimeClasses import Schedule, TimeRange
+from Utilities.TimeClasses import Schedule, TimeRange
 import re
-import WebConnectors
+import Utilities.WebConnectors as WebConnectors
 from typing import List
 from abc import abstractmethod
 
@@ -337,13 +337,14 @@ def main():
                 BonAppetitScraper(), LibraryScraper()]
     """ Here, we read all pages, and deal with the database """
     # each page is read w/ separate functions because of their formatting
+
     connection = WebConnectors.formConnections()
 
     for scraper in scrapers:
         newscheds = scraper.tryPull()        
         for n in newscheds:
         
-            parsesuccess = n.noFails()
+            parsesuccess = not scraper.didFail() and n.noFails()
             print('----------------------------')
             print(n.name)
             print("Successful parse." if parsesuccess else "Failed in parsing.")

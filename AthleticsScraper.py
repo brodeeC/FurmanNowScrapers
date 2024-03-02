@@ -13,7 +13,7 @@ Created on Fri Feb  2 12:11:24 2024
 
 #Example for one day https://furmanpaladins.com/services/responsive-calendar.ashx?type=events&sport=0&location=all&date=2021-08-13T00%3A00%3A00
 #for this date
-from WebConnectors import Scraper
+from Utilities.WebConnectors import Scraper
 import requests
 from collections.abc import Iterable
 from datetime import datetime
@@ -21,8 +21,8 @@ from datetime import date
 from datetime import timedelta
 import pymysql.cursors
 import sys
-from SQLQueryClasses import Insertable
-from WebConnectors import formConnections
+from Utilities.SQLQueryClasses import Insertable
+from Utilities.WebConnectors import formConnections
 from dataclasses import dataclass
 from dataclass_builder import (dataclass_builder, build)
 from dateutil.parser import parse as parseDate
@@ -95,7 +95,7 @@ class AthleticsScraper(Scraper):
         builder.location =  maybeGetValStr(event, "location")     #ignore if Home game
         builder.sport =     maybeGetValStr(event, "sport", "title")       #ex Men's Soccer
         builder.sportAbbrev = maybeGetValStr(event, "sport", "abbreviation")   #ex: MSOC
-        builder.opponent =  maybeGetValStr(event, "opponent", "title")  
+        builder.opponent =  maybeGetValStr(event, "opponent", "title").strip()  
         builder.noplayText = maybeGetValStr(event, "noplay_text")       #ex: postponed or canceled (Sic)
        
         if builder.noplayText == "Canceled":

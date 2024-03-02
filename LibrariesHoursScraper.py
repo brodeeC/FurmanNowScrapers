@@ -11,8 +11,8 @@ import requests
 import json
 import datetime
 from HoursOpenScrapers import TimesScraper
-from WebConnectors import getLibraryAPIToken, formConnections
-from TimeClasses import Schedule, TimeRange
+from Utilities.WebConnectors import getLibraryAPIToken, formConnections
+from Utilities.TimeClasses import Schedule, TimeRange
 from typing import List
 from dateutil.parser import parse
 

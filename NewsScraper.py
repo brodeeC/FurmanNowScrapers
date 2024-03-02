@@ -6,12 +6,43 @@ Created on Fri Mar  1 10:14:53 2024
 """
 
 import feedparser
-from TimeClasses import Article
-from WebConnectors import Scraper, formConnections, youTubePullLatest
+from Utilities.WebConnectors import Scraper, formConnections, youTubePullLatest
+from Utilities.SQLQueryClasses import Insertable
 from dateutil.parser import parse as parseTime
 from bs4 import BeautifulSoup as soup
 from abc import abstractmethod
 import json
+from dataclasses import dataclass
+from typing import List, ClassVar
+from datetime import datetime
+
+@dataclass
+class Article(Insertable):
+    
+    title: str
+    author: str
+    description: str
+    mediatype: str
+    link: str
+    publisherID: int
+    section: str
+    publishDate: datetime
+    imagelink: str = None
+    
+    LINK : ClassVar[str] = "link"
+    VIDEO : ClassVar[str] = "video"
+    
+    def insertInto(self, table, connection, commit = True):
+        attrs = [["title", self.title],
+                 ["author", self.author],
+                 ["description", self.description],
+                 ["media", self.mediatype],
+                 ["linktocontent", self.link],
+                 ["publisherID", self.publisherID],
+                 ["section", self.section],
+                 ["publishdate", self.publishDate.strftime("%Y-%m-%d %H:%M:%S")],
+                 ["imagelink", self.imagelink]]
+        Article._insertIntoHelper(table, connection, attrs, commit)
 
 PALADIN_FEED = "https://thepaladin.news/feed/"
 CHRISTO_FEED = "https://christoetdoctrinae.com/articles?format=rss"
@@ -55,8 +86,7 @@ class ChristoScraper(Scraper):
     def cleanDescription(description):
         noBreaks = description.split("\n")
         return " ".join(e.strip() for e in noBreaks)
-        
-    
+           
     def _pull(self):
         articles = []
         site = ChristoScraper.getSite(CHRISTO_FEED)
@@ -251,7 +281,6 @@ def purgeOldEvents(connection, publisherID):
         except:
             connection.rollback()
             print("Failed to purge.")
-        
     
 def main():
     newsScrapers = [PaladinScraper(), ChristoScraper(), PresidentScraper(),

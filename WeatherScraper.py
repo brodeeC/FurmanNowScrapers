@@ -18,8 +18,8 @@ Dependencies: urllib, json, time, pymysql, feedparser
 import json
 import urllib.request
 import feedparser
-from WebConnectors import Scraper, FailedWebPullException, formConnections
-from SQLQueryClasses import Clearable, Insertable
+from Utilities.WebConnectors import Scraper, FailedWebPullException, formConnections
+from Utilities.SQLQueryClasses import Clearable, Insertable
 from dataclasses import dataclass
 import traceback
 

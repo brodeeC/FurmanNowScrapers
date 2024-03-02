@@ -13,7 +13,6 @@ import re
 from datetime import datetime
 import datetime
 import pytz
-import sys
 
 syncDin = "https://furman.campuslabs.com/engage/events.rss"
 clp = "https://25livepub.collegenet.com/calendars/clp.rss"

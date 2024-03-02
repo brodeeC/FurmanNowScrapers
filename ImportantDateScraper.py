@@ -10,8 +10,8 @@ from datetime import date, timedelta
 from dateutil.parser import parse as parseTime
 from html import unescape
 from unicodedata import normalize
-from TimeClasses import Event, TimeRange
-from WebConnectors import formConnections
+from Utilities.TimeClasses import Event, TimeRange
+from Utilities.WebConnectors import formConnections
 
 START_STOP_TIME_STRING = " – "
 IMPORTANT_DATES_TABLE = "importantDates"

@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import pymysql.cursors
 import re
-from datetime import tzinfo, timedelta, datetime
+from datetime import datetime
 import calendar
 from pytz import timezone
 

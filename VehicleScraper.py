@@ -17,9 +17,9 @@ to JSon tree access.
 
 import json
 import datetime
-import WebConnectors
+import Utilities.WebConnectors as WebConnectors
 from dataclasses import dataclass
-from SQLQueryClasses import Insertable, Clearable
+from Utilities.SQLQueryClasses import Insertable, Clearable
 
 # This link appears to be the realtime link to the 503 bus location
 #updated every 30 seconds

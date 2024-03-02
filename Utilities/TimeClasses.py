@@ -8,7 +8,7 @@ Created on Sun Jan 21 14:39:08 2024
 from datetime import datetime
 from dataclasses import dataclass
 from typing import List, ClassVar
-from SQLQueryClasses import Queriable, Insertable, Clearable, Selector
+from Utilities.SQLQueryClasses import Queriable, Insertable, Clearable, Selector
 import traceback
 
 @dataclass
@@ -301,30 +301,3 @@ class Event(Insertable):
                  ["description", self.description]]
         Event._insertIntoHelper(table, connection, attrs, commit)
        
-@dataclass
-class Article(Insertable):
-    
-    title: str
-    author: str
-    description: str
-    mediatype: str
-    link: str
-    publisherID: int
-    section: str
-    publishDate: datetime
-    imagelink: str = None
-    
-    LINK : ClassVar[str] = "link"
-    VIDEO : ClassVar[str] = "video"
-    
-    def insertInto(self, table, connection, commit = True):
-        attrs = [["title", self.title],
-                 ["author", self.author],
-                 ["description", self.description],
-                 ["media", self.mediatype],
-                 ["linktocontent", self.link],
-                 ["publisherID", self.publisherID],
-                 ["section", self.section],
-                 ["publishdate", self.publishDate.strftime("%Y-%m-%d %H:%M:%S")],
-                 ["imagelink", self.imagelink]]
-        Article._insertIntoHelper(table, connection, attrs, commit)
