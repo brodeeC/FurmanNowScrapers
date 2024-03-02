@@ -18,6 +18,9 @@ CHRISTO_FEED = "https://christoetdoctrinae.com/articles?format=rss"
 PRESIDENT_FEED = "https://www.furman.edu/about/president/communications/feed"
 FURMAN_NEWS_FEED = "https://www.furman.edu/news/feed"
 
+FUNC_YOUTUBE_CHANNEL_ID = "UC3UaWOCIldF5_qWnCYEt0RQ"
+KNIGHTLY_YOUTUBE_CHANNEL_ID = "UCiKdNbjss18h2LI1eesPRbA"
+
 NEWS_TABLE = "newsContent"
 
 NewsSources = {
@@ -32,10 +35,12 @@ NewsSources = {
     "Magazine" :    {"id": 9, "name": "Furman Magazine"},           ## TO-DO
 }
 
+
 class NewsScraper(Scraper):
     @abstractmethod
     def getTableID(self) -> int:
         raise NotImplementedError("Must override 'getTableID'.")
+
 
 class ChristoScraper(Scraper):
     
@@ -66,7 +71,7 @@ class ChristoScraper(Scraper):
                     mediatype = Article.LINK,
                     link = entry.link,
                     publisherID = self.getTableID(),
-                    section = "",
+                    section = None,
                     publishDate = parseTime(entry.published),
                     imagelink = ChristoScraper.getImage(entry)
                     )
@@ -99,7 +104,7 @@ class PaladinScraper(NewsScraper):
                     publisherID = self.getTableID(),
                     section = PaladinScraper.getSection(entry),
                     publishDate = parseTime(entry.published),
-                    imagelink =  ""
+                    imagelink =  None
                     )
                 )
         return articles
@@ -164,7 +169,7 @@ class FurmanNewsScraper(NewsScraper):
                     mediatype = Article.LINK,
                     link = entry.link,
                     publisherID = self.getTableID(),
-                    section = "",
+                    section = None,
                     publishDate = parseTime(entry.published),
                     imagelink =  FurmanNewsScraper.getImage(entry)
                     )
@@ -179,7 +184,7 @@ class FUNCScraper(NewsScraper):
     
     def _pull(self):
         articles = []
-        req = youTubePullLatest("UC3UaWOCIldF5_qWnCYEt0RQ")
+        req = youTubePullLatest(FUNC_YOUTUBE_CHANNEL_ID)
         feed = json.loads(req.content)["items"]
         
         for entry in feed:
@@ -193,9 +198,9 @@ class FUNCScraper(NewsScraper):
                     mediatype = Article.VIDEO,
                     link = "https://youtu.be/" + entry["contentDetails"]["upload"]["videoId"],
                     publisherID = self.getTableID(),
-                    section = "",
+                    section = None,
                     publishDate = parseTime(entry["snippet"]["publishedAt"]),
-                    imagelink = ""
+                    imagelink = None
                     )
                 )
         return articles
@@ -216,7 +221,7 @@ class KnightlyNewsScraper(Scraper):
         
     def _pull(self):
         articles = []
-        req = youTubePullLatest("UCiKdNbjss18h2LI1eesPRbA", 20)
+        req = youTubePullLatest(KNIGHTLY_YOUTUBE_CHANNEL_ID, 20)
         feed = json.loads(req.content)["items"]
         
         for entry in feed:
@@ -230,9 +235,9 @@ class KnightlyNewsScraper(Scraper):
                     mediatype = Article.VIDEO,
                     link = "https://youtu.be/" + entry["contentDetails"]["upload"]["videoId"],
                     publisherID = self.getTableID(),
-                    section = "",
+                    section = None,
                     publishDate = parseTime(entry["snippet"]["publishedAt"]),
-                    imagelink = ""
+                    imagelink = None
                     )
                 )
         return articles
