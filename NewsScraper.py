@@ -187,8 +187,33 @@ class FurmanNewsScraper(NewsScraper):
             
     def getSummary(entry):
         summarySoup = soup(entry.summary, features="html.parser")
-        summary = summarySoup.findAll("p")[0].contents
+        summary = summarySoup.findAll("p")[0].contents[0]
         return summary
+    
+    def getLink(entry):
+        # We can either use the Furman News link or the link that they are 
+        # sending people to. If the latter exists, and the story is shorter than
+        # two paragraphs (the feed always has a third, disclaimer at the bottom),
+        # we prioritize it.
+        pageLink = entry.link
+        contentSoup = soup(entry.content[0]["value"], features="html.parser")
+        try:
+            lines = contentSoup.find_all("p")            
+            links = []
+            
+            for n in lines:
+                for potLnk in n.find_all("a"):
+                    if "href" in potLnk.attrs and "furman.edu" not in potLnk["href"]:
+                        links.append(potLnk["href"])
+                        
+            if len(lines) <= 3 and len(links) == 1:
+                return links[0]
+            else:
+                return pageLink
+            
+        except Exception as e:
+            print(e)
+            return pageLink
                         
     def _pull(self):
         articles = []
@@ -202,7 +227,7 @@ class FurmanNewsScraper(NewsScraper):
                     author = entry.author,
                     description = FurmanNewsScraper.getSummary(entry),
                     mediatype = Article.LINK,
-                    link = entry.link,
+                    link = FurmanNewsScraper.getLink(entry),
                     publisherID = self.getTableID(),
                     section = None,
                     publishDate = parseTime(entry.published),
