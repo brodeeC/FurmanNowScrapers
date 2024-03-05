@@ -17,9 +17,12 @@ to JSon tree access.
 
 import json
 import datetime
-import Utilities.WebConnectors as WebConnectors
+import WebConnectors
 from dataclasses import dataclass
-from Utilities.SQLQueryClasses import Insertable, Clearable
+from SQLQueryClasses import Insertable, Clearable
+from RouteScraper import RouteScraper
+from math import cos, sin, radians, sqrt
+from numpy import arctan2, degrees
 
 # This link appears to be the realtime link to the 503 bus location
 #updated every 30 seconds
@@ -29,16 +32,51 @@ from Utilities.SQLQueryClasses import Insertable, Clearable
 ##URL_GREENLINK_MAIN = "https://trackgreenlink.com"
 SHUTTLE_URL = "https://furmansaferide.ridesystems.net/Services/JSONPRelay.svc/GetMapVehiclePoints?apiKey=8882812681"
 URL_GREENLINK_LOCATION = "https://greenlink.cadavl.com:4437/SWIV/GTA/proxy/restWS/topo/vehicules"
-ID_FOR_503_BUS = 17959
+
 SHUTTLE_LOCATION_TABLE = "shuttleLocations"
 
 @dataclass
-class Vehicle(Clearable, Insertable):
+class Positioned():
+    lat: float
+    lon: float
+    
+    def distanceBetween(first : "Positioned", second : "Positioned"):
+        # Approximate radius of earth in miles
+        R = 3958.8 
+        
+        lat1 = radians(first.lat)
+        lon1 = radians(first.lon)
+        lat2 = radians(second.lat)
+        lon2 = radians(second.lon)
+        
+        dlon = lon2 - lon1
+        dlat = lat2 - lat1
+        
+        a = sin(dlat / 2)**2 + cos(lat1) * cos(lat2) * sin(dlon / 2)**2
+        c = 2 * arctan2(sqrt(a), sqrt(1 - a))
+        
+        return R * c
+    
+    def headingBetween(first : "Positioned", second : "Positioned"):
+        dltLonRad = radians(second.lon - first.lon)
+        lat1rad = radians(first.lat)
+        lat2rad = radians(second.lat)
+        
+        x = cos(lat2rad) * sin(dltLonRad)
+        y = cos(lat1rad) * sin(lat2rad) - sin(lat2rad) * cos(lat2rad) * cos(dltLonRad)
+        hdRad = arctan2(x,y)
+        heading = degrees(hdRad)
+        return int(heading)
+    
+    
+@dataclass
+class Directioned(Positioned):
+    heading: int
+
+@dataclass
+class Vehicle(Clearable, Insertable, Directioned):
     name : str
-    latitude : int
-    longitude : int
     speed : int
-    heading : int
     eta : int = -1
     capacity : str = None
     
@@ -52,8 +90,8 @@ class Vehicle(Clearable, Insertable):
         
     def insertInto(self, table, connection, commit=True):
         attrs = [["vehicle", self.name],
-                 ["latitude", self.latitude],
-                 ["longitude", self.longitude],
+                 ["latitude", self.lat],
+                 ["longitude", self.lon],
                  ["speed", self.speed],
                  ["direction", self.heading],
                  ["estimatedTime", self.eta],
@@ -83,16 +121,17 @@ class ShuttleScraper(WebConnectors.Scraper):
         elif name == "Saferide":
             name = "SafeRide"
             
-        return Vehicle(name, 
+        return Vehicle( 
                 ShuttleScraper.maybeGetValue(jsonDct, "Latitude"),
                 ShuttleScraper.maybeGetValue(jsonDct, "Longitude"),
+                name,
                 ShuttleScraper.maybeGetValue(jsonDct, "GroundSpeed"),
                 ShuttleScraper.maybeGetValue(jsonDct, "Heading")
                )
             
     def _pull(self):
         vehicles = []
-        page_soup = ShuttleScraper.getSoup(SHUTTLE_URL).text
+        page_soup = ShuttleScraper.getSite(SHUTTLE_URL)
         j = json.loads(page_soup)
         
         for vehicle in j:
@@ -100,6 +139,9 @@ class ShuttleScraper(WebConnectors.Scraper):
         return vehicles    
     
 class BusScraper(WebConnectors.Scraper):
+    def __init__(self, busID):
+        self.busID = busID
+        
     def _pull(self):
         vehicles = []
         try:
@@ -109,32 +151,39 @@ class BusScraper(WebConnectors.Scraper):
             print("Json parsing failed; ensure webpage has not been moved.")  
             return []
         
-        buses = ShuttleScraper.maybeGetValue(buses, "vehicule", default=None)
+        buses = BusScraper.maybeGetValue(buses, "vehicule", default=None)
         if buses is None:
             print("Json search failed to find expected 'vehicule' entry; ensure webpage has not been changed.")
             return []
         
         for b in buses:
-            if ShuttleScraper.maybeGetValue(b, "conduite", "idLigne", default=None) != ID_FOR_503_BUS:
+            if ShuttleScraper.maybeGetValue(b, "conduite", "idLigne", default=None) != self.busID:
                 continue
             vehicles.append(
-                Vehicle("503 Bus", 
-                         ShuttleScraper.maybeGetValue(b, "localisation", "lat"),
-                         ShuttleScraper.maybeGetValue(b, "localisation", "lng"),
-                         ShuttleScraper.maybeGetValue(b, "conduite", "vitesse"),
-                         ShuttleScraper.maybeGetValue(b, "localisation", "cap")
+                Vehicle(
+                         BusScraper.maybeGetValue(b, "localisation", "lat"),
+                         BusScraper.maybeGetValue(b, "localisation", "lng"),
+                         BusScraper.maybeGetValue(b, "localisation", "cap"),
+                         "503 Bus", 
+                         BusScraper.maybeGetValue(b, "conduite", "vitesse"),
                         )
                 )
                 
         return vehicles
 
+
 def main():
+    shutRoute = RouteScraper.loadRouteFromJSONFile("./ShuttleRoute.json")
+    busRoute = RouteScraper.loadRouteFromJSONFile("./503Route.json")
+    
+    
     shut = []
-    shut += ShuttleScraper().tryPull()
-    shut += BusScraper().tryPull()
+    shut.append((ShuttleScraper().tryPull(), shutRoute))
+    shut.append((BusScraper(busRoute.lineID).tryPull(), busRoute))
             
     connection = WebConnectors.formConnections()
-    for shuttle in shut:
+    for shuttle, route in shut:
+        print(route.distToStops(shuttle))
         shuttle.updateInto(SHUTTLE_LOCATION_TABLE, connection)
     connection.close()
 

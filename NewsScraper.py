@@ -117,7 +117,12 @@ class PaladinScraper(NewsScraper):
         for tag in entry["tags"]:
             if tag["term"] != "Showcase":
                 return tag["term"]
-
+            
+    def getImage(articleLink):
+        page_soup = PaladinScraper.getSoup(articleLink)
+        div = page_soup.find("div",attrs={"class": "sno-story-photo-image-area"})
+        return div.find("img")["src"]
+        
     def _pull(self):
         articles = []
         site = PaladinScraper.getSite(PALADIN_FEED)
@@ -134,7 +139,7 @@ class PaladinScraper(NewsScraper):
                     publisherID = self.getTableID(),
                     section = PaladinScraper.getSection(entry),
                     publishDate = parseTime(entry.published),
-                    imagelink =  None
+                    imagelink =  PaladinScraper.getImage(entry.link)
                     )
                 )
         return articles
