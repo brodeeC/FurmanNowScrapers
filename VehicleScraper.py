@@ -17,7 +17,7 @@ to JSon tree access.
 
 import json
 import datetime
-import WebConnectors
+import Utilities.WebConnectors as WebConnectors
 from dataclasses import dataclass
 from SQLQueryClasses import Insertable, Clearable
 from RouteScraper import RouteScraper
@@ -124,9 +124,9 @@ class ShuttleScraper(WebConnectors.Scraper):
         return Vehicle( 
                 ShuttleScraper.maybeGetValue(jsonDct, "Latitude"),
                 ShuttleScraper.maybeGetValue(jsonDct, "Longitude"),
+                ShuttleScraper.maybeGetValue(jsonDct, "Heading"),
                 name,
-                ShuttleScraper.maybeGetValue(jsonDct, "GroundSpeed"),
-                ShuttleScraper.maybeGetValue(jsonDct, "Heading")
+                ShuttleScraper.maybeGetValue(jsonDct, "GroundSpeed")
                )
             
     def _pull(self):
@@ -157,7 +157,7 @@ class BusScraper(WebConnectors.Scraper):
             return []
         
         for b in buses:
-            if ShuttleScraper.maybeGetValue(b, "conduite", "idLigne", default=None) != self.busID:
+            if BusScraper.maybeGetValue(b, "conduite", "idLigne", default=None) != self.busID:
                 continue
             vehicles.append(
                 Vehicle(
