@@ -67,8 +67,8 @@ class Vehicle(Clearable, Insertable, Directioned):
     def clearFrom(self, table, connection, commit=True):
         Vehicle._clearHelper(table, 
                              connection,
-                             [["updated", "(NOW() - INTERVAL 3 MINUTE)", "<"],
-                              ["vehicle", self.name, "=", "AND"]],
+                             [["updated", "(NOW() - INTERVAL 3 MINUTE)", "<", "AND"],
+                              ["vehicle", self.name, "="]],
                              commit)
         
 class ShuttleScraper(WebConnectors.Scraper):
@@ -94,7 +94,7 @@ class ShuttleScraper(WebConnectors.Scraper):
     def _pull(self):
         vehicles = []
         page_soup = ShuttleScraper.getSite(SHUTTLE_URL)
-        j = json.loads(page_soup)
+        j = json.loads(page_soup.text)
         
         for vehicle in j:
             vehicles.append(ShuttleScraper._parseVehicle(vehicle))
@@ -138,12 +138,12 @@ def main():
     shutRoute = RouteScraper.loadRouteFromJSONFile("./ShuttleRoute.json")
     busRoute = RouteScraper.loadRouteFromJSONFile("./503Route.json")
     
-    
     shut = []
     shut += [(s, shutRoute) for s in ShuttleScraper().tryPull()]
     shut += [(b, busRoute) for b in BusScraper(busRoute.lineID).tryPull()]
             
     connection = WebConnectors.formConnections()
+    
     for shuttle, route in shut:
         print(route.distToStops(shuttle))
         shuttle.updateInto(SHUTTLE_LOCATION_TABLE, connection)
