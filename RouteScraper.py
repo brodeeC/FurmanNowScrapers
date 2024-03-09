@@ -7,11 +7,11 @@ Created on Sat Mar  2 22:21:32 2024
 """
 
 import json
-from Utilities.WebConnectors import Scraper
-from Utilities.SQLQueryClasses import Insertable
 from typing import List, Union, Tuple
 import polyline
-from VehicleScraper import Positioned, Directioned
+from Utilities.WebConnectors import Scraper
+from Utilities.SQLQueryClasses import Insertable
+from Utilities.PositionClasses import Positioned, Directioned
 
 GREENLINK_WEBSITE = "https://greenlink.cadavl.com:4437/SWIV/GTA"
 URL_GREENLINK_STOPS_AND_ROUTE_AND_ID = "https://greenlink.cadavl.com:4437/SWIV/GTA/proxy/restWS/topo"
@@ -19,6 +19,8 @@ URL_GREENLINK_STOPS_AND_ROUTE_AND_ID = "https://greenlink.cadavl.com:4437/SWIV/G
 SHUTTLE_WEBSITE = "https://furmansaferide.ridesystems.net/routes"
 CAMPUS_SHUTTLE_STOPS_AND_ROUTE = "https://furmansaferide.ridesystems.net/Services/JSONPRelay.svc/GetStops?apiKey=8882812681"
 CAMPUS_SHUTTLE_ID = "https://furmansaferide.ridesystems.net/Services/JSONPRelay.svc/GetRoutes?apiKey=8882812681"
+
+ROUTE_TABLE = 'routes'
 
 class LinePoint(Directioned):
     def __init__(self, orderID, lat, lon, lineName, isStop = False, heading = None, distance = None):
@@ -86,6 +88,8 @@ class RouteScraper(Scraper, Insertable):
     idInTable : int
     lineID : int
     lineRoute: List[LinePoint]
+    website: str
+    routePolyline: str
     
     def __init__(self, lineName, lineIdentifier, idInTable):
         self.lineName = lineName
@@ -94,19 +98,21 @@ class RouteScraper(Scraper, Insertable):
         self.lineID = None
         self.lineRoute = None
     
-    def insertInto(self, table, connection):
+    def insertInto(self, table, connection, commit=True):
         pline = []
         for p in self.lineRoute:
             pline.append((p.lat, p.lon))
         
         encodedPolyline = polyline.encode(pline)
-        print(encodedPolyline)
+        self.routePolyline = encodedPolyline
         
-        insert = [["id", self.idInTable ],
+        attrs = [["id", self.idInTable ],
                   ["shuttleName", self.lineName],
                   ["shuttleIDExternal", self.lineID],
-                  ["routePolyline", encodedPolyline],
+                  ["routePolyline", self.routePolyline],
                   ["website", self.website]]
+        
+        RouteScraper._insertIntoHelper(table, connection, attrs, commit)
                 
     def saveRouteToJSONFile(self, filepath):
         dct = {"lineName" : self.lineName,
