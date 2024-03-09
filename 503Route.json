@@ -1,0 +1,6163 @@
+{
+  "lineName": "503 Bus",
+  "lineIdentifier": "503",
+  "idInTable": 2,
+  "lineID": 18119,
+  "website": "https://greenlink.cadavl.com:4437/SWIV/GTA",
+  "lineRoute": [
+    {
+      "orderID": 0,
+      "lat": 34.9253775751438,
+      "lon": -82.43437618161468,
+      "heading": -92,
+      "lineName": "503 Bus",
+      "isStop": true,
+      "distance": 0,
+      "stopName": "1059-Furman Univ. Entrance",
+      "stopOrderID": 0
+    },
+    {
+      "orderID": 1,
+      "lat": 34.92536325523165,
+      "lon": -82.4345264241295,
+      "heading": -124,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 0.008568576042752263
+    },
+    {
+      "orderID": 2,
+      "lat": 34.925243247098344,
+      "lon": -82.43459641996368,
+      "heading": -124,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 0.017759781279456363
+    },
+    {
+      "orderID": 3,
+      "lat": 34.92517325175799,
+      "lon": -82.4346364264075,
+      "heading": -126,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 0.023100746753538206
+    },
+    {
+      "orderID": 4,
+      "lat": 34.92506325581663,
+      "lon": -82.43469642276199,
+      "heading": 97,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 0.03142618902451248
+    },
+    {
+      "orderID": 5,
+      "lat": 34.92499325232694,
+      "lon": -82.43448642256905,
+      "heading": 98,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 0.04426845360368736
+    },
+    {
+      "orderID": 6,
+      "lat": 34.92489325181145,
+      "lon": -82.43422642387985,
+      "heading": 101,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 0.0605375968857067
+    },
+    {
+      "orderID": 7,
+      "lat": 34.924753247597685,
+      "lon": -82.4339464229772,
+      "heading": 108,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 0.0791167569037029
+    },
+    {
+      "orderID": 8,
+      "lat": 34.924643250750606,
+      "lon": -82.4338164259622,
+      "heading": 111,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 0.08969959880311355
+    },
+    {
+      "orderID": 9,
+      "lat": 34.92444325053433,
+      "lon": -82.43361641970351,
+      "heading": 115,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 0.10756969477346137
+    },
+    {
+      "orderID": 10,
+      "lat": 34.92425324974167,
+      "lon": -82.43345642234186,
+      "heading": 124,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 0.12352270262446985
+    },
+    {
+      "orderID": 11,
+      "lat": 34.92403324829439,
+      "lon": -82.43332642394121,
+      "heading": 138,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 0.14041355109494313
+    },
+    {
+      "orderID": 12,
+      "lat": 34.92372325167837,
+      "lon": -82.43321642843797,
+      "heading": 165,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 0.16272051904560164
+    },
+    {
+      "orderID": 13,
+      "lat": 34.92325325619211,
+      "lon": -82.43316642067553,
+      "heading": -179,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 0.19531777275364723
+    },
+    {
+      "orderID": 14,
+      "lat": 34.922693256266875,
+      "lon": -82.43316642582792,
+      "heading": 179,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 0.23401046046882001
+    },
+    {
+      "orderID": 15,
+      "lat": 34.92261325241876,
+      "lon": -82.4331664249357,
+      "heading": 179,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 0.23953825390474504
+    },
+    {
+      "orderID": 16,
+      "lat": 34.92224325145897,
+      "lon": -82.43316642246157,
+      "heading": -179,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 0.26510313515970074
+    },
+    {
+      "orderID": 17,
+      "lat": 34.921883256495626,
+      "lon": -82.43316642429728,
+      "heading": -179,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 0.28997666115066634
+    },
+    {
+      "orderID": 18,
+      "lat": 34.92001325582034,
+      "lon": -82.43316642549561,
+      "heading": 167,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 0.4191826643891608
+    },
+    {
+      "orderID": 19,
+      "lat": 34.91966324871526,
+      "lon": -82.43313642195932,
+      "heading": 164,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 0.44342575371381815
+    },
+    {
+      "orderID": 20,
+      "lat": 34.919293253225085,
+      "lon": -82.43309642927093,
+      "heading": 150,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 0.4690904663076284
+    },
+    {
+      "orderID": 21,
+      "lat": 34.91898324969605,
+      "lon": -82.4330264199871,
+      "heading": 143,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 0.4908740171457941
+    },
+    {
+      "orderID": 22,
+      "lat": 34.918683255170734,
+      "lon": -82.43293642046906,
+      "heading": 139,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 0.5122198004078261
+    },
+    {
+      "orderID": 23,
+      "lat": 34.918423248967066,
+      "lon": -82.43284642712452,
+      "heading": 131,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 0.5308941864211505
+    },
+    {
+      "orderID": 24,
+      "lat": 34.91813324848291,
+      "lon": -82.43271642110697,
+      "heading": 125,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 0.552242365586469
+    },
+    {
+      "orderID": 25,
+      "lat": 34.91786325393961,
+      "lon": -82.43256642946989,
+      "heading": 124,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 0.572741703978502
+    },
+    {
+      "orderID": 26,
+      "lat": 34.917573250032625,
+      "lon": -82.43239642463101,
+      "heading": 119,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 0.5949739615021703
+    },
+    {
+      "orderID": 27,
+      "lat": 34.91730325204455,
+      "lon": -82.43220642355007,
+      "heading": 117,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 0.6165122110341208
+    },
+    {
+      "orderID": 28,
+      "lat": 34.91704325681157,
+      "lon": -82.43200642498009,
+      "heading": 113,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 0.6377514083427778
+    },
+    {
+      "orderID": 29,
+      "lat": 34.9167032503842,
+      "lon": -82.43169643018173,
+      "heading": 111,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 0.6670832322746069
+    },
+    {
+      "orderID": 30,
+      "lat": 34.91645325101483,
+      "lon": -82.43143642204755,
+      "heading": 108,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 0.6897851639039205
+    },
+    {
+      "orderID": 31,
+      "lat": 34.91622325698735,
+      "lon": -82.43115642898891,
+      "heading": 106,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 0.7122390804329307
+    },
+    {
+      "orderID": 32,
+      "lat": 34.91595325459686,
+      "lon": -82.43078643019918,
+      "heading": 112,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 0.7403010045041684
+    },
+    {
+      "orderID": 33,
+      "lat": 34.91568324991682,
+      "lon": -82.43052643012295,
+      "heading": 111,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 0.7640713931107876
+    },
+    {
+      "orderID": 34,
+      "lat": 34.91546325212577,
+      "lon": -82.43030642884032,
+      "heading": 103,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 0.7837290304854372
+    },
+    {
+      "orderID": 35,
+      "lat": 34.91520325533696,
+      "lon": -82.4298864270202,
+      "heading": 105,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 0.8135445814249256
+    },
+    {
+      "orderID": 36,
+      "lat": 34.915093253258064,
+      "lon": -82.42972643112596,
+      "heading": 107,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 0.825374216475818
+    },
+    {
+      "orderID": 37,
+      "lat": 34.91493325238947,
+      "lon": -82.42952642837085,
+      "heading": 108,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 0.8412052319618716
+    },
+    {
+      "orderID": 38,
+      "lat": 34.91476325409058,
+      "lon": -82.42932642266078,
+      "heading": 109,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 0.8575262446018892
+    },
+    {
+      "orderID": 39,
+      "lat": 34.914563254047955,
+      "lon": -82.42909643179283,
+      "heading": 109,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 0.8765199111901382
+    },
+    {
+      "orderID": 40,
+      "lat": 34.914463255675635,
+      "lon": -82.42898642163446,
+      "heading": 105,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 0.8858251581050715
+    },
+    {
+      "orderID": 41,
+      "lat": 34.91432325678539,
+      "lon": -82.42878642918825,
+      "heading": -170,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 0.9007235801857559
+    },
+    {
+      "orderID": 42,
+      "lat": 34.9140332561559,
+      "lon": -82.42880642552261,
+      "heading": -152,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 0.9207929150929532
+    },
+    {
+      "orderID": 43,
+      "lat": 34.91349325725837,
+      "lon": -82.42891642751017,
+      "heading": -142,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 0.958620617998323
+    },
+    {
+      "orderID": 44,
+      "lat": 34.91336325348586,
+      "lon": -82.42895642161027,
+      "heading": -146,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 0.9678845232390549
+    },
+    {
+      "orderID": 45,
+      "lat": 34.912903252647816,
+      "lon": -82.42907643199192,
+      "heading": -138,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 1.0003870708713665
+    },
+    {
+      "orderID": 46,
+      "lat": 34.912533256470525,
+      "lon": -82.42920642238535,
+      "heading": -132,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 1.026991414403707
+    },
+    {
+      "orderID": 47,
+      "lat": 34.91246325011345,
+      "lon": -82.42923642480609,
+      "heading": 100,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 1.0321184511777186
+    },
+    {
+      "orderID": 48,
+      "lat": 34.91240325172523,
+      "lon": -82.42910642758547,
+      "heading": 98,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 1.0405704548468244
+    },
+    {
+      "orderID": 49,
+      "lat": 34.91213325312296,
+      "lon": -82.42838642851511,
+      "heading": 98,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 1.085428193679272
+    },
+    {
+      "orderID": 50,
+      "lat": 34.91204325266184,
+      "lon": -82.42814642983988,
+      "heading": 99,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 1.1003807747477048
+    },
+    {
+      "orderID": 51,
+      "lat": 34.91198324979632,
+      "lon": -82.42800643175477,
+      "heading": 98,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 1.1093310735916795
+    },
+    {
+      "orderID": 52,
+      "lat": 34.911923254757504,
+      "lon": -82.42783642736842,
+      "heading": 98,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 1.1198175240975194
+    },
+    {
+      "orderID": 53,
+      "lat": 34.911843251557364,
+      "lon": -82.42762642905046,
+      "heading": 97,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 1.132937267825625
+    },
+    {
+      "orderID": 54,
+      "lat": 34.911728001338055,
+      "lon": -82.42743700447541,
+      "heading": 92,
+      "lineName": "503 Bus",
+      "isStop": true,
+      "distance": 1.1463014765187396,
+      "stopName": "1060-New Plaza Dr  & Poinsett Hwy",
+      "stopOrderID": 1
+    },
+    {
+      "orderID": 55,
+      "lat": 34.91171325734848,
+      "lon": -82.42729643117742,
+      "heading": 97,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 1.1543311826042444
+    },
+    {
+      "orderID": 56,
+      "lat": 34.9116632529693,
+      "lon": -82.42713642242296,
+      "heading": 100,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 1.1640332426999462
+    },
+    {
+      "orderID": 57,
+      "lat": 34.911613256445285,
+      "lon": -82.42702642485801,
+      "heading": 101,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 1.1711589979101613
+    },
+    {
+      "orderID": 58,
+      "lat": 34.91158325337404,
+      "lon": -82.42696642321988,
+      "heading": 99,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 1.1751408620168773
+    },
+    {
+      "orderID": 59,
+      "lat": 34.911553255739356,
+      "lon": -82.42689643049287,
+      "heading": 105,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 1.1796155918021658
+    },
+    {
+      "orderID": 60,
+      "lat": 34.9115032548216,
+      "lon": -82.426826430838,
+      "heading": 109,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 1.1848754246270021
+    },
+    {
+      "orderID": 61,
+      "lat": 34.911413254845115,
+      "lon": -82.42672643290739,
+      "heading": 116,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 1.1932879906921627
+    },
+    {
+      "orderID": 62,
+      "lat": 34.91136325526323,
+      "lon": -82.42668642897866,
+      "heading": 111,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 1.1974198577650452
+    },
+    {
+      "orderID": 63,
+      "lat": 34.911323252783696,
+      "lon": -82.42664642848884,
+      "heading": 120,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 1.2009942108548977
+    },
+    {
+      "orderID": 64,
+      "lat": 34.91126325593272,
+      "lon": -82.42660643220334,
+      "heading": 134,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 1.205718632864309
+    },
+    {
+      "orderID": 65,
+      "lat": 34.91121325419279,
+      "lon": -82.42658643263157,
+      "heading": 86,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 1.2093545506175643
+    },
+    {
+      "orderID": 66,
+      "lat": 34.91122325406995,
+      "lon": -82.42651643211792,
+      "heading": 82,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 1.2133805052782067
+    },
+    {
+      "orderID": 67,
+      "lat": 34.91127325072957,
+      "lon": -82.4263664281412,
+      "heading": 80,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 1.2225549228955674
+    },
+    {
+      "orderID": 68,
+      "lat": 34.911303253854015,
+      "lon": -82.42629642346381,
+      "heading": 80,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 1.2270304404526338
+    },
+    {
+      "orderID": 69,
+      "lat": 34.91136325637745,
+      "lon": -82.42614642270111,
+      "heading": 119,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 1.2364867149360697
+    },
+    {
+      "orderID": 70,
+      "lat": 34.91063325694549,
+      "lon": -82.42563643210003,
+      "heading": 112,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 1.2946162419941278
+    },
+    {
+      "orderID": 71,
+      "lat": 34.91043325533433,
+      "lon": -82.4254464255103,
+      "heading": 111,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 1.3121338409711167
+    },
+    {
+      "orderID": 72,
+      "lat": 34.910353258543246,
+      "lon": -82.42536642675837,
+      "heading": 114,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 1.319282063978476
+    },
+    {
+      "orderID": 73,
+      "lat": 34.910283257032475,
+      "lon": -82.42530642444541,
+      "heading": 113,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 1.325194082894864
+    },
+    {
+      "orderID": 74,
+      "lat": 34.910183253206654,
+      "lon": -82.42521642824346,
+      "heading": 110,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 1.3337816214651688
+    },
+    {
+      "orderID": 75,
+      "lat": 34.91004325719542,
+      "lon": -82.42506642930731,
+      "heading": 112,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 1.3466579035163224
+    },
+    {
+      "orderID": 76,
+      "lat": 34.90947325265771,
+      "lon": -82.42450643173184,
+      "heading": 111,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 1.3972334580194643
+    },
+    {
+      "orderID": 77,
+      "lat": 34.9093832544781,
+      "lon": -82.4244164296657,
+      "heading": 111,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 1.405275467208332
+    },
+    {
+      "orderID": 78,
+      "lat": 34.90907325254121,
+      "lon": -82.42409642443783,
+      "heading": 111,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 1.4333388346453337
+    },
+    {
+      "orderID": 79,
+      "lat": 34.90867325087364,
+      "lon": -82.42368643193741,
+      "heading": 112,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 1.4694430661960567
+    },
+    {
+      "orderID": 80,
+      "lat": 34.90843325167359,
+      "lon": -82.42345642587983,
+      "heading": 111,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 1.4905339992621187
+    },
+    {
+      "orderID": 81,
+      "lat": 34.907503252114395,
+      "lon": -82.42251643109154,
+      "heading": 111,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 1.5739958331283126
+    },
+    {
+      "orderID": 82,
+      "lat": 34.90635325322571,
+      "lon": -82.42136642755466,
+      "heading": 111,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 1.6767564593990276
+    },
+    {
+      "orderID": 83,
+      "lat": 34.9059807823056,
+      "lon": -82.42098885496198,
+      "heading": 111,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 1.7102235273029245
+    },
+    {
+      "orderID": 84,
+      "lat": 34.90562325100984,
+      "lon": -82.42062643088217,
+      "heading": 111,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 1.742348151606131
+    },
+    {
+      "orderID": 85,
+      "lat": 34.90542325560194,
+      "lon": -82.42042642415957,
+      "heading": 111,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 1.760219672283593
+    },
+    {
+      "orderID": 86,
+      "lat": 34.905208716228685,
+      "lon": -82.42021188790345,
+      "heading": 111,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 1.7793903080113784
+    },
+    {
+      "orderID": 87,
+      "lat": 34.90508325257644,
+      "lon": -82.4200864267567,
+      "heading": 111,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 1.790601372340413
+    },
+    {
+      "orderID": 88,
+      "lat": 34.904540307463684,
+      "lon": -82.41953954325014,
+      "heading": 111,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 1.8392596476438623
+    },
+    {
+      "orderID": 89,
+      "lat": 34.90421127859265,
+      "lon": -82.41920813232362,
+      "heading": 111,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 1.8687468288585722
+    },
+    {
+      "orderID": 90,
+      "lat": 34.903942067360575,
+      "lon": -82.4189369747003,
+      "heading": 111,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 1.8928731651117825
+    },
+    {
+      "orderID": 91,
+      "lat": 34.9037032513765,
+      "lon": -82.41869643404449,
+      "heading": 110,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 1.9142754775344224
+    },
+    {
+      "orderID": 92,
+      "lat": 34.903463252462195,
+      "lon": -82.4184464313541,
+      "heading": 112,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 1.9360852868946765
+    },
+    {
+      "orderID": 93,
+      "lat": 34.90327325885229,
+      "lon": -82.41826642879228,
+      "heading": 111,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 1.9527095952876616
+    },
+    {
+      "orderID": 94,
+      "lat": 34.903083251825805,
+      "lon": -82.41807642565563,
+      "heading": 113,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 1.9696882265789317
+    },
+    {
+      "orderID": 95,
+      "lat": 34.902673258405834,
+      "lon": -82.41770642717447,
+      "heading": 114,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 2.004931163144643
+    },
+    {
+      "orderID": 96,
+      "lat": 34.9026032530635,
+      "lon": -82.4176464256318,
+      "heading": 108,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 2.0108435564132194
+    },
+    {
+      "orderID": 97,
+      "lat": 34.90250325798186,
+      "lon": -82.41752643257553,
+      "heading": 110,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 2.020537297874797
+    },
+    {
+      "orderID": 98,
+      "lat": 34.90226153891154,
+      "lon": -82.41747392361337,
+      "heading": 101,
+      "lineName": "503 Bus",
+      "isStop": true,
+      "distance": 2.037501639177618,
+      "stopName": "1370-Poinsett Hwy  & Abelia Dr",
+      "stopOrderID": 2
+    },
+    {
+      "orderID": 99,
+      "lat": 34.90202325957461,
+      "lon": -82.41701643035374,
+      "heading": 110,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 2.0682120179227352
+    },
+    {
+      "orderID": 100,
+      "lat": 34.901903256289955,
+      "lon": -82.41688643312193,
+      "heading": 111,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 2.0793031870771914
+    },
+    {
+      "orderID": 101,
+      "lat": 34.901763254294,
+      "lon": -82.41674643072308,
+      "heading": 111,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 2.0918136730755204
+    },
+    {
+      "orderID": 102,
+      "lat": 34.901733258977224,
+      "lon": -82.4167164319175,
+      "heading": 111,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 2.0944941581811505
+    },
+    {
+      "orderID": 103,
+      "lat": 34.90142871501342,
+      "lon": -82.41641188969928,
+      "heading": 111,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 2.121707945271699
+    },
+    {
+      "orderID": 104,
+      "lat": 34.90124467268903,
+      "lon": -82.41622784986862,
+      "heading": 111,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 2.138153777308245
+    },
+    {
+      "orderID": 105,
+      "lat": 34.90116325661983,
+      "lon": -82.41614643524838,
+      "heading": 110,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 2.1454290254712594
+    },
+    {
+      "orderID": 106,
+      "lat": 34.90092325712956,
+      "lon": -82.41588643543973,
+      "heading": 112,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 2.1676113089212796
+    },
+    {
+      "orderID": 107,
+      "lat": 34.90069325362117,
+      "lon": -82.41566643174359,
+      "heading": 111,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 2.1878097574385147
+    },
+    {
+      "orderID": 108,
+      "lat": 34.90050325152772,
+      "lon": -82.41547642937658,
+      "heading": 111,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 2.2047883120174308
+    },
+    {
+      "orderID": 109,
+      "lat": 34.90035871576995,
+      "lon": -82.4153318951425,
+      "heading": 111,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 2.217703950961193
+    },
+    {
+      "orderID": 110,
+      "lat": 34.90022325302256,
+      "lon": -82.41519643443006,
+      "heading": 108,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 2.229808816979098
+    },
+    {
+      "orderID": 111,
+      "lat": 34.90016325735228,
+      "lon": -82.41512642719262,
+      "heading": 113,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 2.2355465925656843
+    },
+    {
+      "orderID": 112,
+      "lat": 34.90001325608235,
+      "lon": -82.41498642852638,
+      "heading": 108,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 2.248598615833573
+    },
+    {
+      "orderID": 113,
+      "lat": 34.89995326016468,
+      "lon": -82.4149164325493,
+      "heading": 112,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 2.254335969616397
+    },
+    {
+      "orderID": 114,
+      "lat": 34.899625387876995,
+      "lon": -82.41459697095486,
+      "heading": 112,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 2.283334775934693
+    },
+    {
+      "orderID": 115,
+      "lat": 34.899563256066024,
+      "lon": -82.41453643334357,
+      "heading": 111,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 2.2888300427230446
+    },
+    {
+      "orderID": 116,
+      "lat": 34.899193258673634,
+      "lon": -82.41416643144984,
+      "heading": 111,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 2.3218932865557416
+    },
+    {
+      "orderID": 117,
+      "lat": 34.898843258951764,
+      "lon": -82.41380643726689,
+      "heading": 112,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 2.353531622183984
+    },
+    {
+      "orderID": 118,
+      "lat": 34.89848325654963,
+      "lon": -82.41345643380026,
+      "heading": 111,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 2.3853453494252395
+    },
+    {
+      "orderID": 119,
+      "lat": 34.898445068466536,
+      "lon": -82.41341705139749,
+      "heading": 111,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 2.388801180014576
+    },
+    {
+      "orderID": 120,
+      "lat": 34.89816326003294,
+      "lon": -82.4131264310097,
+      "heading": 111,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 2.4143033996843912
+    },
+    {
+      "orderID": 121,
+      "lat": 34.89771325759659,
+      "lon": -82.4126664331077,
+      "heading": 111,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 2.4548776139844843
+    },
+    {
+      "orderID": 122,
+      "lat": 34.89740358953972,
+      "lon": -82.41256539334174,
+      "heading": 106,
+      "lineName": "503 Bus",
+      "isStop": true,
+      "distance": 2.47702675075059,
+      "stopName": "5002-Poinsett Hwy & Skyland Ave",
+      "stopOrderID": 3
+    },
+    {
+      "orderID": 123,
+      "lat": 34.89675325476836,
+      "lon": -82.41170642931178,
+      "heading": 111,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 2.543272965241584
+    },
+    {
+      "orderID": 124,
+      "lat": 34.89655325356219,
+      "lon": -82.41150643170768,
+      "heading": 111,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 2.561145244236361
+    },
+    {
+      "orderID": 125,
+      "lat": 34.89607325295726,
+      "lon": -82.41102643478727,
+      "heading": 111,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 2.604038758865746
+    },
+    {
+      "orderID": 126,
+      "lat": 34.89553326111186,
+      "lon": -82.4104764323343,
+      "heading": 113,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 2.6526551899452953
+    },
+    {
+      "orderID": 127,
+      "lat": 34.89539325646932,
+      "lon": -82.41034642939461,
+      "heading": 111,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 2.6648147376099844
+    },
+    {
+      "orderID": 128,
+      "lat": 34.89527871581705,
+      "lon": -82.41023188915374,
+      "heading": 111,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 2.675050313712078
+    },
+    {
+      "orderID": 129,
+      "lat": 34.89503325724374,
+      "lon": -82.40998643287584,
+      "heading": 111,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 2.6969849391180163
+    },
+    {
+      "orderID": 130,
+      "lat": 34.894773254368495,
+      "lon": -82.40971643341841,
+      "heading": 111,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 2.7205827222917636
+    },
+    {
+      "orderID": 131,
+      "lat": 34.89467326125062,
+      "lon": -82.40961642837141,
+      "heading": 111,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 2.729518770799261
+    },
+    {
+      "orderID": 132,
+      "lat": 34.893863256597854,
+      "lon": -82.40880643786937,
+      "heading": 111,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 2.801902340875018
+    },
+    {
+      "orderID": 133,
+      "lat": 34.89339326069601,
+      "lon": -82.40832642911539,
+      "heading": 111,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 2.8442646395512403
+    },
+    {
+      "orderID": 134,
+      "lat": 34.89283325709605,
+      "lon": -82.40776643684207,
+      "heading": 111,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 2.8943078633176844
+    },
+    {
+      "orderID": 135,
+      "lat": 34.8924232572516,
+      "lon": -82.40735643493522,
+      "heading": 114,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 2.930946861875567
+    },
+    {
+      "orderID": 136,
+      "lat": 34.89219325722791,
+      "lon": -82.40715643253169,
+      "heading": 114,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 2.9504666052553077
+    },
+    {
+      "orderID": 137,
+      "lat": 34.8919832613238,
+      "lon": -82.40697643321505,
+      "heading": 117,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 2.968203228011671
+    },
+    {
+      "orderID": 138,
+      "lat": 34.89176325491434,
+      "lon": -82.40680643332557,
+      "heading": 118,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 2.98620037632104
+    },
+    {
+      "orderID": 139,
+      "lat": 34.89168885096632,
+      "lon": -82.40675232194374,
+      "heading": 118,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 2.9921864491165002
+    },
+    {
+      "orderID": 140,
+      "lat": 34.89165325412912,
+      "lon": -82.40672643365274,
+      "heading": 119,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 2.9950503456572366
+    },
+    {
+      "orderID": 141,
+      "lat": 34.89145906235007,
+      "lon": -82.40659199152589,
+      "heading": 119,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 3.010480291134748
+    },
+    {
+      "orderID": 142,
+      "lat": 34.89139325339873,
+      "lon": -82.40654643108351,
+      "heading": 119,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 3.015709287087124
+    },
+    {
+      "orderID": 143,
+      "lat": 34.8913232564781,
+      "lon": -82.40649643572058,
+      "heading": 128,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 3.0213145318332777
+    },
+    {
+      "orderID": 144,
+      "lat": 34.89124325834967,
+      "lon": -82.40645643910818,
+      "heading": 170,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 3.027288668400944
+    },
+    {
+      "orderID": 145,
+      "lat": 34.891150002007045,
+      "lon": -82.40644999733031,
+      "heading": 128,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 3.033742465160988
+    },
+    {
+      "orderID": 146,
+      "lat": 34.89100999631173,
+      "lon": -82.40637999517389,
+      "heading": 127,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 3.0441979551937974
+    },
+    {
+      "orderID": 147,
+      "lat": 34.89068000132069,
+      "lon": -82.4062099984991,
+      "heading": 130,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 3.068950602411188
+    },
+    {
+      "orderID": 148,
+      "lat": 34.89054999776269,
+      "lon": -82.40614999786263,
+      "heading": 89,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 3.078555195158708
+    },
+    {
+      "orderID": 149,
+      "lat": 34.890553254166306,
+      "lon": -82.40603643392276,
+      "heading": 89,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 3.084995268730852
+    },
+    {
+      "orderID": 150,
+      "lat": 34.8905544604638,
+      "lon": -82.40598941790506,
+      "heading": 103,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 3.0876611656484565
+    },
+    {
+      "orderID": 151,
+      "lat": 34.89047000245026,
+      "lon": -82.40584999983706,
+      "heading": 88,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 3.097483888072804
+    },
+    {
+      "orderID": 152,
+      "lat": 34.89049000215036,
+      "lon": -82.40549000298287,
+      "heading": 86,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 3.1179331716428655
+    },
+    {
+      "orderID": 153,
+      "lat": 34.890510000812725,
+      "lon": -82.40533999893806,
+      "heading": 85,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 3.1265460958722966
+    },
+    {
+      "orderID": 154,
+      "lat": 34.890550000171785,
+      "lon": -82.40514999799186,
+      "heading": 78,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 3.1376632524646304
+    },
+    {
+      "orderID": 155,
+      "lat": 34.89052162137318,
+      "lon": -82.40499234673466,
+      "heading": 38,
+      "lineName": "503 Bus",
+      "isStop": true,
+      "distance": 3.1468106360474875,
+      "stopName": "1371-N Pleasantburg  & Poinsett Hwy",
+      "stopOrderID": 4
+    },
+    {
+      "orderID": 156,
+      "lat": 34.89073324950882,
+      "lon": -82.40492422983567,
+      "heading": 76,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 3.1619339132791944
+    },
+    {
+      "orderID": 157,
+      "lat": 34.890813261878094,
+      "lon": -82.40478643216817,
+      "heading": 72,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 3.1715021962251173
+    },
+    {
+      "orderID": 158,
+      "lat": 34.89098325392588,
+      "lon": -82.40456643110277,
+      "heading": 78,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 3.188631546630683
+    },
+    {
+      "orderID": 159,
+      "lat": 34.8910073375518,
+      "lon": -82.40452027206965,
+      "heading": 78,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 3.1917319545159333
+    },
+    {
+      "orderID": 160,
+      "lat": 34.891103254098304,
+      "lon": -82.40433643641208,
+      "heading": 81,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 3.2040798019976013
+    },
+    {
+      "orderID": 161,
+      "lat": 34.891193253151506,
+      "lon": -82.40410643868994,
+      "heading": 83,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 3.218521944007268
+    },
+    {
+      "orderID": 162,
+      "lat": 34.891215918706735,
+      "lon": -82.40402428017467,
+      "heading": 83,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 3.223434478615897
+    },
+    {
+      "orderID": 163,
+      "lat": 34.891230337784556,
+      "lon": -82.40397201351509,
+      "heading": 83,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 3.2265596770046954
+    },
+    {
+      "orderID": 164,
+      "lat": 34.891273259163086,
+      "lon": -82.4038164303784,
+      "heading": 89,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 3.2358625067115296
+    },
+    {
+      "orderID": 165,
+      "lat": 34.89127469305256,
+      "lon": -82.40377913363056,
+      "heading": 89,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 3.2379785708909146
+    },
+    {
+      "orderID": 166,
+      "lat": 34.891281597863916,
+      "lon": -82.40359952925381,
+      "heading": 90,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 3.2481685840192855
+    },
+    {
+      "orderID": 167,
+      "lat": 34.89127439063133,
+      "lon": -82.40340131254743,
+      "heading": 91,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 3.2594132838957317
+    },
+    {
+      "orderID": 168,
+      "lat": 34.891132464673674,
+      "lon": -82.4024961242566,
+      "heading": -85,
+      "lineName": "503 Bus",
+      "isStop": true,
+      "distance": 3.311642511479603,
+      "stopName": "1369-N Pleasantburg  & State Park Rd",
+      "stopOrderID": 5
+    },
+    {
+      "orderID": 169,
+      "lat": 34.891263254978064,
+      "lon": -82.4032064337503,
+      "heading": 97,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 3.352900245616576
+    },
+    {
+      "orderID": 170,
+      "lat": 34.8912132558639,
+      "lon": -82.4030464344129,
+      "heading": 97,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 3.362603787250966
+    },
+    {
+      "orderID": 171,
+      "lat": 34.89117236141953,
+      "lon": -82.402923753922,
+      "heading": 97,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 3.3701087653431685
+    },
+    {
+      "orderID": 172,
+      "lat": 34.89112325394675,
+      "lon": -82.40277643555169,
+      "heading": 102,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 3.3791209752621665
+    },
+    {
+      "orderID": 173,
+      "lat": 34.89091151611564,
+      "lon": -82.40238092057314,
+      "heading": 103,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 3.405888123236944
+    },
+    {
+      "orderID": 174,
+      "lat": 34.89056999554183,
+      "lon": -82.40181000042804,
+      "heading": 101,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 3.4459350259146433
+    },
+    {
+      "orderID": 175,
+      "lat": 34.89029997288659,
+      "lon": -82.40127319373812,
+      "heading": 102,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 3.481623239330678
+    },
+    {
+      "orderID": 176,
+      "lat": 34.89019803960394,
+      "lon": -82.4010948134027,
+      "heading": 102,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 3.493944261228846
+    },
+    {
+      "orderID": 177,
+      "lat": 34.890169003716544,
+      "lon": -82.40104400158964,
+      "heading": 102,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 3.497453921891026
+    },
+    {
+      "orderID": 178,
+      "lat": 34.89015325449422,
+      "lon": -82.40101644101739,
+      "heading": 103,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 3.499357579770301
+    },
+    {
+      "orderID": 179,
+      "lat": 34.88992325692758,
+      "lon": -82.40062643623416,
+      "heading": 103,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 3.5265806648723137
+    },
+    {
+      "orderID": 180,
+      "lat": 34.88982325377804,
+      "lon": -82.40045643952382,
+      "heading": 103,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 3.538436742346389
+    },
+    {
+      "orderID": 181,
+      "lat": 34.88979326145238,
+      "lon": -82.4004064406886,
+      "heading": 102,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 3.541947308029596
+    },
+    {
+      "orderID": 182,
+      "lat": 34.88939934521983,
+      "lon": -82.39972055733503,
+      "heading": 102,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 3.589400843092085
+    },
+    {
+      "orderID": 183,
+      "lat": 34.889027110416166,
+      "lon": -82.39907243745371,
+      "heading": 102,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 3.6342420866801555
+    },
+    {
+      "orderID": 184,
+      "lat": 34.88939397774963,
+      "lon": -82.3994484528507,
+      "heading": 116,
+      "lineName": "503 Bus",
+      "isStop": true,
+      "distance": 3.667358335707555,
+      "stopName": "1368-N Pleasantburg  & Furman Hall",
+      "stopOrderID": 6
+    },
+    {
+      "orderID": 185,
+      "lat": 34.888829799141675,
+      "lon": -82.39898946837152,
+      "heading": -125,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 3.714222261422348
+    },
+    {
+      "orderID": 186,
+      "lat": 34.8887632619093,
+      "lon": -82.39902643571972,
+      "heading": -121,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 3.719274493287402
+    },
+    {
+      "orderID": 187,
+      "lat": 34.88852594687066,
+      "lon": -82.39918083585165,
+      "heading": -121,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 3.7378604724156874
+    },
+    {
+      "orderID": 188,
+      "lat": 34.88840871570027,
+      "lon": -82.39925710754672,
+      "heading": -121,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 3.747041748050891
+    },
+    {
+      "orderID": 189,
+      "lat": 34.88793326220154,
+      "lon": -82.39956643952493,
+      "heading": 0,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 3.7842781352903048
+    },
+    {
+      "orderID": 190,
+      "lat": 34.88793326220154,
+      "lon": -82.39956643952493,
+      "heading": -121,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 3.7842781352903048
+    },
+    {
+      "orderID": 191,
+      "lat": 34.88749777217144,
+      "lon": -82.39984486736606,
+      "heading": -121,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 3.8182547520583374
+    },
+    {
+      "orderID": 192,
+      "lat": 34.887323260090604,
+      "lon": -82.39995643965074,
+      "heading": -111,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 3.831870044688202
+    },
+    {
+      "orderID": 193,
+      "lat": 34.88729325802106,
+      "lon": -82.39998643655099,
+      "heading": -122,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 3.8345510115807055
+    },
+    {
+      "orderID": 194,
+      "lat": 34.886953260824086,
+      "lon": -82.40019643212504,
+      "heading": -122,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 3.8608857404501196
+    },
+    {
+      "orderID": 195,
+      "lat": 34.88656325738877,
+      "lon": -82.4004364326757,
+      "heading": -118,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 3.8910712365638767
+    },
+    {
+      "orderID": 196,
+      "lat": 34.88637326057107,
+      "lon": -82.40057643621479,
+      "heading": -120,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 3.9064107050004853
+    },
+    {
+      "orderID": 197,
+      "lat": 34.88577325743145,
+      "lon": -82.40097643247002,
+      "heading": -120,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 3.9536612713519212
+    },
+    {
+      "orderID": 198,
+      "lat": 34.885323256213375,
+      "lon": -82.40127643967196,
+      "heading": -122,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 3.9890994515604357
+    },
+    {
+      "orderID": 199,
+      "lat": 34.88510325754372,
+      "lon": -82.40141643786295,
+      "heading": -120,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 4.0062464486166025
+    },
+    {
+      "orderID": 200,
+      "lat": 34.883783257591126,
+      "lon": -82.40231643780217,
+      "heading": -121,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 4.1107465999653146
+    },
+    {
+      "orderID": 201,
+      "lat": 34.88344326097414,
+      "lon": -82.40253643621483,
+      "heading": -120,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 4.137342570678224
+    },
+    {
+      "orderID": 202,
+      "lat": 34.883073260979884,
+      "lon": -82.40278643823586,
+      "heading": -121,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 4.166571772175886
+    },
+    {
+      "orderID": 203,
+      "lat": 34.882861065113,
+      "lon": -82.40304263715576,
+      "heading": -126,
+      "lineName": "503 Bus",
+      "isStop": true,
+      "distance": 4.187207283267384,
+      "stopName": "1372-Furman Hall Rd  & Cherrydale Dr",
+      "stopOrderID": 7
+    },
+    {
+      "orderID": 204,
+      "lat": 34.88164326261267,
+      "lon": -82.40370643949767,
+      "heading": -122,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 4.279378980557974
+    },
+    {
+      "orderID": 205,
+      "lat": 34.881243258957284,
+      "lon": -82.40395643975883,
+      "heading": -117,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 4.310437723313428
+    },
+    {
+      "orderID": 206,
+      "lat": 34.88120325855412,
+      "lon": -82.40398643237769,
+      "heading": -123,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 4.313682494997893
+    },
+    {
+      "orderID": 207,
+      "lat": 34.8810532560761,
+      "lon": -82.40407644050481,
+      "heading": -121,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 4.325234376536048
+    },
+    {
+      "orderID": 208,
+      "lat": 34.88088326053804,
+      "lon": -82.40418643296576,
+      "heading": -111,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 4.338532107635346
+    },
+    {
+      "orderID": 209,
+      "lat": 34.880833264116454,
+      "lon": -82.40423643260954,
+      "heading": -111,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 4.343000324318493
+    },
+    {
+      "orderID": 210,
+      "lat": 34.88078325866059,
+      "lon": -82.40428643204598,
+      "heading": -107,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 4.347469017250625
+    },
+    {
+      "orderID": 211,
+      "lat": 34.880743259478216,
+      "lon": -82.40433643234412,
+      "heading": -99,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 4.351427551150236
+    },
+    {
+      "orderID": 212,
+      "lat": 34.88072326385184,
+      "lon": -82.40438643429923,
+      "heading": -100,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 4.354580520123689
+    },
+    {
+      "orderID": 213,
+      "lat": 34.880573257951056,
+      "lon": -82.40469644093875,
+      "heading": 166,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 4.374981021206793
+    },
+    {
+      "orderID": 214,
+      "lat": 34.87949326394953,
+      "lon": -82.404596441147,
+      "heading": 166,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 4.4498171910490285
+    },
+    {
+      "orderID": 215,
+      "lat": 34.878973261328795,
+      "lon": -82.40454643832649,
+      "heading": 164,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 4.485857917740467
+    },
+    {
+      "orderID": 216,
+      "lat": 34.8787932634928,
+      "lon": -82.40452643758363,
+      "heading": 172,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 4.498346269421602
+    },
+    {
+      "orderID": 217,
+      "lat": 34.87859325823173,
+      "lon": -82.40451643339598,
+      "heading": 170,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 4.51217708140275
+    },
+    {
+      "orderID": 218,
+      "lat": 34.87828325935109,
+      "lon": -82.40449643287111,
+      "heading": 161,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 4.533626154343411
+    },
+    {
+      "orderID": 219,
+      "lat": 34.87813326234103,
+      "lon": -82.40447643490918,
+      "heading": 165,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 4.544051867218595
+    },
+    {
+      "orderID": 220,
+      "lat": 34.87793326080672,
+      "lon": -82.4044564327912,
+      "heading": 164,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 4.557917224538593
+    },
+    {
+      "orderID": 221,
+      "lat": 34.87765325750103,
+      "lon": -82.40442643689778,
+      "heading": 170,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 4.577338368418526
+    },
+    {
+      "orderID": 222,
+      "lat": 34.8769232566456,
+      "lon": -82.404376440872,
+      "heading": 179,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 4.627856667309197
+    },
+    {
+      "orderID": 223,
+      "lat": 34.876713259088596,
+      "lon": -82.40437643461168,
+      "heading": 173,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 4.642366258346551
+    },
+    {
+      "orderID": 224,
+      "lat": 34.87649325886225,
+      "lon": -82.4043664404068,
+      "heading": 179,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 4.657577527603101
+    },
+    {
+      "orderID": 225,
+      "lat": 34.876143262799765,
+      "lon": -82.40436643365967,
+      "heading": -176,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 4.68176018859675
+    },
+    {
+      "orderID": 226,
+      "lat": 34.87502863097735,
+      "lon": -82.40454095516186,
+      "heading": 143,
+      "lineName": "503 Bus",
+      "isStop": true,
+      "distance": 4.75940743159151,
+      "stopName": "1373-Poinsett Hwy  & Henry St",
+      "stopOrderID": 8
+    },
+    {
+      "orderID": 227,
+      "lat": 34.87453325920769,
+      "lon": -82.40439643721209,
+      "heading": 179,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 4.7946013879130955
+    },
+    {
+      "orderID": 228,
+      "lat": 34.87264325930193,
+      "lon": -82.40439643481213,
+      "heading": -178,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 4.925189219870053
+    },
+    {
+      "orderID": 229,
+      "lat": 34.871803262853184,
+      "lon": -82.40440643978924,
+      "heading": 179,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 4.983230784824976
+    },
+    {
+      "orderID": 230,
+      "lat": 34.87097325826879,
+      "lon": -82.40440643695715,
+      "heading": 179,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 5.040579199954936
+    },
+    {
+      "orderID": 231,
+      "lat": 34.870163266020484,
+      "lon": -82.40440643598215,
+      "heading": -178,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 5.096544880845652
+    },
+    {
+      "orderID": 232,
+      "lat": 34.86902689654051,
+      "lon": -82.40458411919678,
+      "heading": 162,
+      "lineName": "503 Bus",
+      "isStop": true,
+      "distance": 5.1757047560137766,
+      "stopName": "1539-Poinsett Hwy  & Cathey St (IB)",
+      "stopOrderID": 9
+    },
+    {
+      "orderID": 233,
+      "lat": 34.86773326143981,
+      "lon": -82.4044264375517,
+      "heading": 171,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 5.265533165762453
+    },
+    {
+      "orderID": 234,
+      "lat": 34.86757326242696,
+      "lon": -82.40441643831932,
+      "heading": -170,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 5.276602676195899
+    },
+    {
+      "orderID": 235,
+      "lat": 34.8674232621701,
+      "lon": -82.40442643383626,
+      "heading": -179,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 5.286982286909368
+    },
+    {
+      "orderID": 236,
+      "lat": 34.86719325970828,
+      "lon": -82.40442643667586,
+      "heading": 179,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 5.3028740987257725
+    },
+    {
+      "orderID": 237,
+      "lat": 34.86712326020365,
+      "lon": -82.40442643090307,
+      "heading": -179,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 5.3077106511197885
+    },
+    {
+      "orderID": 238,
+      "lat": 34.86701326214191,
+      "lon": -82.40442643278828,
+      "heading": -179,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 5.3153108675853336
+    },
+    {
+      "orderID": 239,
+      "lat": 34.86638326583393,
+      "lon": -82.40442643551074,
+      "heading": -171,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 5.358839891978286
+    },
+    {
+      "orderID": 240,
+      "lat": 34.86622325898697,
+      "lon": -82.40443644087385,
+      "heading": 179,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 5.369909961271459
+    },
+    {
+      "orderID": 241,
+      "lat": 34.86598325914099,
+      "lon": -82.40443643196762,
+      "heading": -172,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 5.386492533299955
+    },
+    {
+      "orderID": 242,
+      "lat": 34.8655832664656,
+      "lon": -82.40445643623889,
+      "heading": 179,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 5.4141529229567515
+    },
+    {
+      "orderID": 243,
+      "lat": 34.865543258989305,
+      "lon": -82.40445643279872,
+      "heading": 179,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 5.41691720330849
+    },
+    {
+      "orderID": 244,
+      "lat": 34.865236268917286,
+      "lon": -82.40465692660742,
+      "heading": 115,
+      "lineName": "503 Bus",
+      "isStop": true,
+      "distance": 5.440981862024024,
+      "stopName": "1072-Rutherford St  & Stall St",
+      "stopOrderID": 10
+    },
+    {
+      "orderID": 245,
+      "lat": 34.86498326569997,
+      "lon": -82.40444643355603,
+      "heading": -179,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 5.462147586435325
+    },
+    {
+      "orderID": 246,
+      "lat": 34.864933260722616,
+      "lon": -82.40444644027129,
+      "heading": -131,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 5.465602635083786
+    },
+    {
+      "orderID": 247,
+      "lat": 34.86484325996288,
+      "lon": -82.4044864412876,
+      "heading": 179,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 5.472221744764237
+    },
+    {
+      "orderID": 248,
+      "lat": 34.86469326328694,
+      "lon": -82.40448643978968,
+      "heading": -172,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 5.482585629255877
+    },
+    {
+      "orderID": 249,
+      "lat": 34.864313265191015,
+      "lon": -82.40450643417118,
+      "heading": 175,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 5.508865710790279
+    },
+    {
+      "orderID": 250,
+      "lat": 34.863736769252064,
+      "lon": -82.40463853104472,
+      "heading": 105,
+      "lineName": "503 Bus",
+      "isStop": true,
+      "distance": 5.549396055376304,
+      "stopName": "1325-Rutherford St  & James St",
+      "stopOrderID": 11
+    },
+    {
+      "orderID": 251,
+      "lat": 34.86363326168724,
+      "lon": -82.4044864390044,
+      "heading": -173,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 5.560598525287057
+    },
+    {
+      "orderID": 252,
+      "lat": 34.86246326004292,
+      "lon": -82.4045364328067,
+      "heading": -88,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 5.641488400332208
+    },
+    {
+      "orderID": 253,
+      "lat": 34.86249326110479,
+      "lon": -82.40495643625374,
+      "heading": -89,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 5.665389934505233
+    },
+    {
+      "orderID": 254,
+      "lat": 34.86249326588282,
+      "lon": -82.40510643666482,
+      "heading": -94,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 5.673893985402177
+    },
+    {
+      "orderID": 255,
+      "lat": 34.86246326031862,
+      "lon": -82.40525643413976,
+      "heading": -95,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 5.682646942914707
+    },
+    {
+      "orderID": 256,
+      "lat": 34.86241326721725,
+      "lon": -82.40545643354882,
+      "heading": -98,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 5.694500098595146
+    },
+    {
+      "orderID": 257,
+      "lat": 34.862343264906485,
+      "lon": -82.40564643427717,
+      "heading": -101,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 5.706307990883089
+    },
+    {
+      "orderID": 258,
+      "lat": 34.86226326265889,
+      "lon": -82.4057964373691,
+      "heading": -101,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 5.7164508247283035
+    },
+    {
+      "orderID": 259,
+      "lat": 34.86224326115206,
+      "lon": -82.40583643170152,
+      "heading": -105,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 5.719106216588291
+    },
+    {
+      "orderID": 260,
+      "lat": 34.86213326248526,
+      "lon": -82.40599643874876,
+      "heading": -108,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 5.730940664183913
+    },
+    {
+      "orderID": 261,
+      "lat": 34.86197326476545,
+      "lon": -82.4061864401475,
+      "heading": -110,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 5.7463758415946495
+    },
+    {
+      "orderID": 262,
+      "lat": 34.86179326296621,
+      "lon": -82.40637643866162,
+      "heading": -111,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 5.762829151054768
+    },
+    {
+      "orderID": 263,
+      "lat": 34.86168326562689,
+      "lon": -82.40648644090935,
+      "heading": -112,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 5.772660534949793
+    },
+    {
+      "orderID": 264,
+      "lat": 34.86125326283909,
+      "lon": -82.4069064336328,
+      "heading": -108,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 5.810735386549027
+    },
+    {
+      "orderID": 265,
+      "lat": 34.86106326823709,
+      "lon": -82.40712643852682,
+      "heading": -107,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 5.828843629297143
+    },
+    {
+      "orderID": 266,
+      "lat": 34.86094326560424,
+      "lon": -82.40727643335936,
+      "heading": -104,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 5.840720693379121
+    },
+    {
+      "orderID": 267,
+      "lat": 34.86086326456647,
+      "lon": -82.40739643300657,
+      "heading": -106,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 5.849486519148623
+    },
+    {
+      "orderID": 268,
+      "lat": 34.86070326540558,
+      "lon": -82.40760643223253,
+      "heading": -103,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 5.865733427824104
+    },
+    {
+      "orderID": 269,
+      "lat": 34.86048326054769,
+      "lon": -82.40797643810993,
+      "heading": -100,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 5.891639481623802
+    },
+    {
+      "orderID": 270,
+      "lat": 34.86022499707532,
+      "lon": -82.40863600310261,
+      "heading": -103,
+      "lineName": "503 Bus",
+      "isStop": true,
+      "distance": 5.933073032131181,
+      "stopName": "1036-Mulberry St  & Pinckney St",
+      "stopOrderID": 12
+    },
+    {
+      "orderID": 271,
+      "lat": 34.8599132675881,
+      "lon": -82.40915644058366,
+      "heading": -101,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 5.969604333145902
+    },
+    {
+      "orderID": 272,
+      "lat": 34.85937326640237,
+      "lon": -82.41020643990248,
+      "heading": -101,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 6.039860645932269
+    },
+    {
+      "orderID": 273,
+      "lat": 34.85880799621425,
+      "lon": -82.41137499643243,
+      "heading": -103,
+      "lineName": "503 Bus",
+      "isStop": true,
+      "distance": 6.116768422361236,
+      "stopName": "1037-Mulberry St  & Pine St",
+      "stopOrderID": 13
+    },
+    {
+      "orderID": 274,
+      "lat": 34.858373264922506,
+      "lon": -82.41211643623453,
+      "heading": -101,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 6.168434058138289
+    },
+    {
+      "orderID": 275,
+      "lat": 34.858283261871506,
+      "lon": -82.41229643418094,
+      "heading": -102,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 6.180384738516449
+    },
+    {
+      "orderID": 276,
+      "lat": 34.85803326401695,
+      "lon": -82.41275642985977,
+      "heading": -179,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 6.211666419832266
+    },
+    {
+      "orderID": 277,
+      "lat": 34.85789326395804,
+      "lon": -82.41275643742888,
+      "heading": 171,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 6.221339597132498
+    },
+    {
+      "orderID": 278,
+      "lat": 34.857723267249646,
+      "lon": -82.4127464328821,
+      "heading": 179,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 6.233099053965567
+    },
+    {
+      "orderID": 279,
+      "lat": 34.85764326085421,
+      "lon": -82.4127464292997,
+      "heading": 106,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 6.238627023410569
+    },
+    {
+      "orderID": 280,
+      "lat": 34.85735000015694,
+      "lon": -82.41250000457421,
+      "heading": 98,
+      "lineName": "503 Bus",
+      "isStop": true,
+      "distance": 6.263239540133526,
+      "stopName": "1045-W Washington St & Shirley St",
+      "stopOrderID": 14
+    },
+    {
+      "orderID": 281,
+      "lat": 34.85723326158478,
+      "lon": -82.4121764325666,
+      "heading": 106,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 6.28328000795779
+    },
+    {
+      "orderID": 282,
+      "lat": 34.85690326276203,
+      "lon": -82.41173643200302,
+      "heading": 106,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 6.317076876054541
+    },
+    {
+      "orderID": 283,
+      "lat": 34.856713264266105,
+      "lon": -82.41147643511857,
+      "heading": 106,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 6.336816180746657
+    },
+    {
+      "orderID": 284,
+      "lat": 34.856553266993004,
+      "lon": -82.41125643797582,
+      "heading": 106,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 6.3534833130823785
+    },
+    {
+      "orderID": 285,
+      "lat": 34.85635326548735,
+      "lon": -82.41098643500122,
+      "heading": 106,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 6.37410645783668
+    },
+    {
+      "orderID": 286,
+      "lat": 34.85598326270404,
+      "lon": -82.41048643089846,
+      "heading": 105,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 6.412280337557811
+    },
+    {
+      "orderID": 287,
+      "lat": 34.85551971759653,
+      "lon": -82.4099345550981,
+      "heading": 102,
+      "lineName": "503 Bus",
+      "isStop": true,
+      "distance": 6.457056370757788,
+      "stopName": "1042-W Washington St & Madison St",
+      "stopOrderID": 15
+    },
+    {
+      "orderID": 288,
+      "lat": 34.85533326684889,
+      "lon": -82.40960643900549,
+      "heading": 107,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 6.47968507999264
+    },
+    {
+      "orderID": 289,
+      "lat": 34.85519326225682,
+      "lon": -82.40942643379013,
+      "heading": 106,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 6.493747063533221
+    },
+    {
+      "orderID": 290,
+      "lat": 34.8546632645172,
+      "lon": -82.40869643868518,
+      "heading": 106,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 6.549011144886837
+    },
+    {
+      "orderID": 291,
+      "lat": 34.85409326714526,
+      "lon": -82.40793643972552,
+      "heading": 106,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 6.607388481461254
+    },
+    {
+      "orderID": 292,
+      "lat": 34.85396326243658,
+      "lon": -82.40776643650851,
+      "heading": 101,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 6.620564142883987
+    },
+    {
+      "orderID": 293,
+      "lat": 34.853853263815935,
+      "lon": -82.4075464376063,
+      "heading": 102,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 6.635170987029713
+    },
+    {
+      "orderID": 294,
+      "lat": 34.85363399565063,
+      "lon": -82.40730399822776,
+      "heading": 96,
+      "lineName": "503 Bus",
+      "isStop": true,
+      "distance": 6.655627885642146,
+      "stopName": "1044-W Washington St & S Hudson St",
+      "stopOrderID": 16
+    },
+    {
+      "orderID": 295,
+      "lat": 34.85346326857634,
+      "lon": -82.40671644069961,
+      "heading": 98,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 6.690969014113501
+    },
+    {
+      "orderID": 296,
+      "lat": 34.853403267352775,
+      "lon": -82.4065564325767,
+      "heading": 98,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 6.700943778665649
+    },
+    {
+      "orderID": 297,
+      "lat": 34.85327326459857,
+      "lon": -82.40619643479037,
+      "heading": 99,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 6.7232445857230365
+    },
+    {
+      "orderID": 298,
+      "lat": 34.853173268576164,
+      "lon": -82.40595643928852,
+      "heading": 98,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 6.73850585214204
+    },
+    {
+      "orderID": 299,
+      "lat": 34.85307326600848,
+      "lon": -82.40568643656202,
+      "heading": 98,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 6.755302054123596
+    },
+    {
+      "orderID": 300,
+      "lat": 34.85282899553912,
+      "lon": -82.4048320010186,
+      "heading": -84,
+      "lineName": "503 Bus",
+      "isStop": true,
+      "distance": 6.806604350873946,
+      "stopName": "1140-W Washington St & Butler Ave",
+      "stopOrderID": 17
+    },
+    {
+      "orderID": 301,
+      "lat": 34.852943265876,
+      "lon": -82.40533643683892,
+      "heading": 98,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 6.8362756815399415
+    },
+    {
+      "orderID": 302,
+      "lat": 34.85280326215726,
+      "lon": -82.40497644201143,
+      "heading": 98,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 6.858863625048207
+    },
+    {
+      "orderID": 303,
+      "lat": 34.852583263735774,
+      "lon": -82.40439643765477,
+      "heading": 98,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 6.895093082616779
+    },
+    {
+      "orderID": 304,
+      "lat": 34.85252326853661,
+      "lon": -82.40423643296718,
+      "heading": 99,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 6.9050675852678705
+    },
+    {
+      "orderID": 305,
+      "lat": 34.85244326253667,
+      "lon": -82.40404644117567,
+      "heading": 98,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 6.917175737471113
+    },
+    {
+      "orderID": 306,
+      "lat": 34.851953261497776,
+      "lon": -82.40275643967016,
+      "heading": 98,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 6.997775162848836
+    },
+    {
+      "orderID": 307,
+      "lat": 34.851819003098626,
+      "lon": -82.40260099958404,
+      "heading": 92,
+      "lineName": "503 Bus",
+      "isStop": true,
+      "distance": 7.010570942496956,
+      "stopName": "1043-W Washington St & S Academy St",
+      "stopOrderID": 18
+    },
+    {
+      "orderID": 308,
+      "lat": 34.851793263327565,
+      "lon": -82.40232644274336,
+      "heading": 96,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 7.026239815728749
+    },
+    {
+      "orderID": 309,
+      "lat": 34.851773267182594,
+      "lon": -82.40225644303887,
+      "heading": 97,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 7.030442456433447
+    },
+    {
+      "orderID": 310,
+      "lat": 34.851753267378,
+      "lon": -82.40219643842023,
+      "heading": 0,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 7.034114692635579
+    },
+    {
+      "orderID": 311,
+      "lat": 34.851753267378,
+      "lon": -82.40219643842023,
+      "heading": 98,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 7.034114692635579
+    },
+    {
+      "orderID": 312,
+      "lat": 34.85172326832607,
+      "lon": -82.4021164430691,
+      "heading": 94,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 7.039101665911206
+    },
+    {
+      "orderID": 313,
+      "lat": 34.85171326227962,
+      "lon": -82.40206643407085,
+      "heading": 97,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 7.042020289316685
+    },
+    {
+      "orderID": 314,
+      "lat": 34.851693262261165,
+      "lon": -82.40200644047265,
+      "heading": 97,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 7.045691954447299
+    },
+    {
+      "orderID": 315,
+      "lat": 34.85163326227679,
+      "lon": -82.40182643797993,
+      "heading": 96,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 7.05670809244157
+    },
+    {
+      "orderID": 316,
+      "lat": 34.85151326332017,
+      "lon": -82.40143643759872,
+      "heading": 97,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 7.080324782308235
+    },
+    {
+      "orderID": 317,
+      "lat": 34.851493263120354,
+      "lon": -82.40137643335572,
+      "heading": 97,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 7.083997019014176
+    },
+    {
+      "orderID": 318,
+      "lat": 34.851373268121286,
+      "lon": -82.40099644033943,
+      "heading": 97,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 7.107083194568118
+    },
+    {
+      "orderID": 319,
+      "lat": 34.85130326736774,
+      "lon": -82.40079643779342,
+      "heading": 120,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 7.119411917774046
+    },
+    {
+      "orderID": 320,
+      "lat": 34.851183263432105,
+      "lon": -82.4007164397927,
+      "heading": -128,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 7.1288631193519345
+    },
+    {
+      "orderID": 321,
+      "lat": 34.85112326816659,
+      "lon": -82.40074643358332,
+      "heading": -134,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 7.1333437448848445
+    },
+    {
+      "orderID": 322,
+      "lat": 34.85097326701933,
+      "lon": -82.40080644153646,
+      "heading": -123,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 7.144252170609684
+    },
+    {
+      "orderID": 323,
+      "lat": 34.850923269165506,
+      "lon": -82.40083643555054,
+      "heading": -132,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 7.148102671488825
+    },
+    {
+      "orderID": 324,
+      "lat": 34.85085626237672,
+      "lon": -82.4008654390331,
+      "heading": -131,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 7.1530158494857154
+    },
+    {
+      "orderID": 325,
+      "lat": 34.850817823435236,
+      "lon": -82.40088298757772,
+      "heading": -131,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 7.155852028141813
+    },
+    {
+      "orderID": 326,
+      "lat": 34.850764265479995,
+      "lon": -82.40090743838256,
+      "heading": -121,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 7.159803747726352
+    },
+    {
+      "orderID": 327,
+      "lat": 34.85067326854516,
+      "lon": -82.40096643681066,
+      "heading": -114,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 7.166925675858613
+    },
+    {
+      "orderID": 328,
+      "lat": 34.850603264939146,
+      "lon": -82.40102643648733,
+      "heading": -106,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 7.1728391476401185
+    },
+    {
+      "orderID": 329,
+      "lat": 34.850573267267045,
+      "lon": -82.40106643701155,
+      "heading": -107,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 7.175911638332215
+    },
+    {
+      "orderID": 330,
+      "lat": 34.850533268483474,
+      "lon": -82.40111644295844,
+      "heading": -104,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 7.179871127927004
+    },
+    {
+      "orderID": 331,
+      "lat": 34.85047326952498,
+      "lon": -82.40120643875247,
+      "heading": -104,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 7.18644574518874
+    },
+    {
+      "orderID": 332,
+      "lat": 34.85045326388936,
+      "lon": -82.401236433579,
+      "heading": -107,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 7.188637379636074
+    },
+    {
+      "orderID": 333,
+      "lat": 34.85035326950612,
+      "lon": -82.40136644003441,
+      "heading": -107,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 7.198740604792462
+    },
+    {
+      "orderID": 334,
+      "lat": 34.85024326496098,
+      "lon": -82.40150644047398,
+      "heading": 98,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 7.209730901047051
+    },
+    {
+      "orderID": 335,
+      "lat": 34.850203269907134,
+      "lon": -82.40139643972503,
+      "heading": 96,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 7.216552917497207
+    },
+    {
+      "orderID": 336,
+      "lat": 34.8501732631865,
+      "lon": -82.4012864393447,
+      "heading": 98,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 7.223125717454573
+    },
+    {
+      "orderID": 337,
+      "lat": 34.85014326365119,
+      "lon": -82.4012064348642,
+      "heading": 96,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 7.228113254657623
+    },
+    {
+      "orderID": 338,
+      "lat": 34.85012326686351,
+      "lon": -82.40113643677824,
+      "heading": 97,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 7.2323158984567
+    },
+    {
+      "orderID": 339,
+      "lat": 34.8500902637429,
+      "lon": -82.40104043925241,
+      "heading": 94,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 7.238217500641772
+    },
+    {
+      "orderID": 340,
+      "lat": 34.85008326964482,
+      "lon": -82.4010064355621,
+      "heading": 96,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 7.2402052184742685
+    },
+    {
+      "orderID": 341,
+      "lat": 34.850089828344444,
+      "lon": -82.40068573287364,
+      "heading": -91,
+      "lineName": "503 Bus",
+      "isStop": true,
+      "distance": 7.258395369839825,
+      "stopName": "3000-Greenlink Terminal",
+      "stopOrderID": 19
+    },
+    {
+      "orderID": 342,
+      "lat": 34.85007226780886,
+      "lon": -82.40096643900861,
+      "heading": 56,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 7.274358168526169
+    },
+    {
+      "orderID": 343,
+      "lat": 34.85052657342419,
+      "lon": -82.4006152175734,
+      "heading": -115,
+      "lineName": "503 Bus",
+      "isStop": true,
+      "distance": 7.311532436388777,
+      "stopName": "1000-Greenlink Transit Center",
+      "stopOrderID": 20
+    },
+    {
+      "orderID": 344,
+      "lat": 34.85017326444394,
+      "lon": -82.40090643534869,
+      "heading": -123,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 7.341004292913946
+    },
+    {
+      "orderID": 345,
+      "lat": 34.85007226780886,
+      "lon": -82.40096643900861,
+      "heading": 0,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 7.348767804805839
+    },
+    {
+      "orderID": 346,
+      "lat": 34.85007226780886,
+      "lon": -82.40096643900861,
+      "heading": -83,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 7.348767804805839
+    },
+    {
+      "orderID": 347,
+      "lat": 34.85008326964482,
+      "lon": -82.4010064355621,
+      "heading": -85,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 7.351159699450798
+    },
+    {
+      "orderID": 348,
+      "lat": 34.8500902637429,
+      "lon": -82.40104043925241,
+      "heading": -82,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 7.353147417283294
+    },
+    {
+      "orderID": 349,
+      "lat": 34.85012326686351,
+      "lon": -82.40113643677824,
+      "heading": -83,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 7.359049019468366
+    },
+    {
+      "orderID": 350,
+      "lat": 34.85014326365119,
+      "lon": -82.4012064348642,
+      "heading": -81,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 7.363251663267443
+    },
+    {
+      "orderID": 351,
+      "lat": 34.8501732631865,
+      "lon": -82.4012864393447,
+      "heading": -83,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 7.3682392004704935
+    },
+    {
+      "orderID": 352,
+      "lat": 34.850203269907134,
+      "lon": -82.40139643972503,
+      "heading": -81,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 7.374812000427859
+    },
+    {
+      "orderID": 353,
+      "lat": 34.85024326496098,
+      "lon": -82.40150644047398,
+      "heading": -82,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 7.3816340168780155
+    },
+    {
+      "orderID": 354,
+      "lat": 34.85028326535574,
+      "lon": -82.40162643635507,
+      "heading": -82,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 7.388977922990364
+    },
+    {
+      "orderID": 355,
+      "lat": 34.85047326263925,
+      "lon": -82.40221643280898,
+      "heading": -84,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 7.424915364571613
+    },
+    {
+      "orderID": 356,
+      "lat": 34.85049326408277,
+      "lon": -82.4022964374229,
+      "heading": -82,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 7.429657605103104
+    },
+    {
+      "orderID": 357,
+      "lat": 34.85057326688122,
+      "lon": -82.40252643582924,
+      "heading": -86,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 7.443822052916625
+    },
+    {
+      "orderID": 358,
+      "lat": 34.85058326544651,
+      "lon": -82.40259643404382,
+      "heading": -81,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 7.447850747572682
+    },
+    {
+      "orderID": 359,
+      "lat": 34.85062326845263,
+      "lon": -82.40270643599513,
+      "heading": 56,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 7.4546730226067135
+    },
+    {
+      "orderID": 360,
+      "lat": 34.850723265184705,
+      "lon": -82.40264643940439,
+      "heading": 52,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 7.462374307344028
+    },
+    {
+      "orderID": 361,
+      "lat": 34.85111326669544,
+      "lon": -82.40244644237823,
+      "heading": 52,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 7.4916100500562886
+    },
+    {
+      "orderID": 362,
+      "lat": 34.85163326933629,
+      "lon": -82.4021764415042,
+      "heading": 59,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 7.530664855428066
+    },
+    {
+      "orderID": 363,
+      "lat": 34.85172326832607,
+      "lon": -82.4021164430691,
+      "heading": 0,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 7.537753006040509
+    },
+    {
+      "orderID": 364,
+      "lat": 34.85172326832607,
+      "lon": -82.4021164430691,
+      "heading": -81,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 7.537753006040509
+    },
+    {
+      "orderID": 365,
+      "lat": 34.851753267378,
+      "lon": -82.40219643842023,
+      "heading": 0,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 7.542739979316136
+    },
+    {
+      "orderID": 366,
+      "lat": 34.851753267378,
+      "lon": -82.40219643842023,
+      "heading": -82,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 7.542739979316136
+    },
+    {
+      "orderID": 367,
+      "lat": 34.851773267182594,
+      "lon": -82.40225644303887,
+      "heading": -83,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 7.546412215518267
+    },
+    {
+      "orderID": 368,
+      "lat": 34.851793263327565,
+      "lon": -82.40232644274336,
+      "heading": -82,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 7.550614856222966
+    },
+    {
+      "orderID": 369,
+      "lat": 34.851935994984665,
+      "lon": -82.40248600239632,
+      "heading": -88,
+      "lineName": "503 Bus",
+      "isStop": true,
+      "distance": 7.563998001829213,
+      "stopName": "1143-W Washington St & N Academy St",
+      "stopOrderID": 21
+    },
+    {
+      "orderID": 370,
+      "lat": 34.851953261497776,
+      "lon": -82.40275643967016,
+      "heading": -81,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 7.579378347584222
+    },
+    {
+      "orderID": 371,
+      "lat": 34.85244326253667,
+      "lon": -82.40404644117567,
+      "heading": -80,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 7.659977772961945
+    },
+    {
+      "orderID": 372,
+      "lat": 34.85252326853661,
+      "lon": -82.40423643296718,
+      "heading": -81,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 7.672085925165187
+    },
+    {
+      "orderID": 373,
+      "lat": 34.852583263735774,
+      "lon": -82.40439643765477,
+      "heading": -81,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 7.682060427816278
+    },
+    {
+      "orderID": 374,
+      "lat": 34.85280326215726,
+      "lon": -82.40497644201143,
+      "heading": -81,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 7.71828988538485
+    },
+    {
+      "orderID": 375,
+      "lat": 34.852943265876,
+      "lon": -82.40533643683892,
+      "heading": 0,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 7.740877828893116
+    },
+    {
+      "orderID": 376,
+      "lat": 34.852943265876,
+      "lon": -82.40533643683892,
+      "heading": -81,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 7.740877828893116
+    },
+    {
+      "orderID": 377,
+      "lat": 34.85307326600848,
+      "lon": -82.40568643656202,
+      "heading": -81,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 7.762660960471975
+    },
+    {
+      "orderID": 378,
+      "lat": 34.853173268576164,
+      "lon": -82.40595643928852,
+      "heading": -80,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 7.779457162453531
+    },
+    {
+      "orderID": 379,
+      "lat": 34.85327326459857,
+      "lon": -82.40619643479037,
+      "heading": -81,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 7.794718428872534
+    },
+    {
+      "orderID": 380,
+      "lat": 34.853403267352775,
+      "lon": -82.4065564325767,
+      "heading": -81,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 7.817019235929922
+    },
+    {
+      "orderID": 381,
+      "lat": 34.85346326857634,
+      "lon": -82.40671644069961,
+      "heading": -81,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 7.8269940004820695
+    },
+    {
+      "orderID": 382,
+      "lat": 34.85362326482216,
+      "lon": -82.40713643730882,
+      "heading": -77,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 7.853248517511614
+    },
+    {
+      "orderID": 383,
+      "lat": 34.85383300092494,
+      "lon": -82.40737599571641,
+      "heading": -82,
+      "lineName": "503 Bus",
+      "isStop": true,
+      "distance": 7.873110498883643,
+      "stopName": "1144-W Washington St & N Hudson St",
+      "stopOrderID": 22
+    },
+    {
+      "orderID": 384,
+      "lat": 34.85396326243658,
+      "lon": -82.40776643650851,
+      "heading": -73,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 7.897007914935982
+    },
+    {
+      "orderID": 385,
+      "lat": 34.85409326714526,
+      "lon": -82.40793643972552,
+      "heading": -73,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 7.910183576358715
+    },
+    {
+      "orderID": 386,
+      "lat": 34.8546632645172,
+      "lon": -82.40869643868518,
+      "heading": -73,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 7.968560912933133
+    },
+    {
+      "orderID": 387,
+      "lat": 34.85519326225682,
+      "lon": -82.40942643379013,
+      "heading": -72,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 8.023824994286748
+    },
+    {
+      "orderID": 388,
+      "lat": 34.85533326684889,
+      "lon": -82.40960643900549,
+      "heading": -71,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 8.03788697782733
+    },
+    {
+      "orderID": 389,
+      "lat": 34.855597001609006,
+      "lon": -82.40985600088794,
+      "heading": -76,
+      "lineName": "503 Bus",
+      "isStop": true,
+      "distance": 8.060958073406239,
+      "stopName": "1142-W Washington St & Lloyd St",
+      "stopOrderID": 23
+    },
+    {
+      "orderID": 390,
+      "lat": 34.85598326270404,
+      "lon": -82.41048643089846,
+      "heading": -73,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 8.105566558585437
+    },
+    {
+      "orderID": 391,
+      "lat": 34.85635326548735,
+      "lon": -82.41098643500122,
+      "heading": -73,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 8.143740438306567
+    },
+    {
+      "orderID": 392,
+      "lat": 34.856553266993004,
+      "lon": -82.41125643797582,
+      "heading": -73,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 8.164363583060869
+    },
+    {
+      "orderID": 393,
+      "lat": 34.856713264266105,
+      "lon": -82.41147643511857,
+      "heading": -73,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 8.18103071539659
+    },
+    {
+      "orderID": 394,
+      "lat": 34.85690326276203,
+      "lon": -82.41173643200302,
+      "heading": -73,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 8.200770020088706
+    },
+    {
+      "orderID": 395,
+      "lat": 34.85723326158478,
+      "lon": -82.4121764325666,
+      "heading": -74,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 8.234566888185457
+    },
+    {
+      "orderID": 396,
+      "lat": 34.85735500052102,
+      "lon": -82.41224099547499,
+      "heading": -77,
+      "lineName": "503 Bus",
+      "isStop": true,
+      "distance": 8.24374031867415,
+      "stopName": "1141-W Washington St & Capital Ct",
+      "stopOrderID": 24
+    },
+    {
+      "orderID": 397,
+      "lat": 34.85764326085421,
+      "lon": -82.4127464292997,
+      "heading": 0,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 8.278638582764684
+    },
+    {
+      "orderID": 398,
+      "lat": 34.857723267249646,
+      "lon": -82.4127464328821,
+      "heading": -8,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 8.284166552209685
+    },
+    {
+      "orderID": 399,
+      "lat": 34.85789326395804,
+      "lon": -82.41275643742888,
+      "heading": 0,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 8.295926009042756
+    },
+    {
+      "orderID": 400,
+      "lat": 34.85803326401695,
+      "lon": -82.41275642985977,
+      "heading": 77,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 8.305599186342986
+    },
+    {
+      "orderID": 401,
+      "lat": 34.858283261871506,
+      "lon": -82.41229643418094,
+      "heading": 78,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 8.336880867658804
+    },
+    {
+      "orderID": 402,
+      "lat": 34.858373264922506,
+      "lon": -82.41211643623453,
+      "heading": 78,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 8.348831548036964
+    },
+    {
+      "orderID": 403,
+      "lat": 34.85886326106495,
+      "lon": -82.41118643728542,
+      "heading": 78,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 8.411492509678295
+    },
+    {
+      "orderID": 404,
+      "lat": 34.8591560009871,
+      "lon": -82.41055499942864,
+      "heading": 77,
+      "lineName": "503 Bus",
+      "isStop": true,
+      "distance": 8.452611260939717,
+      "stopName": "1136-Mulberry St  & Hampton Ave",
+      "stopOrderID": 25
+    },
+    {
+      "orderID": 405,
+      "lat": 34.8599132675881,
+      "lon": -82.40915644058366,
+      "heading": 78,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 8.547610694666757
+    },
+    {
+      "orderID": 406,
+      "lat": 34.860073261646875,
+      "lon": -82.40883643433112,
+      "heading": 79,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 8.568856105933513
+    },
+    {
+      "orderID": 407,
+      "lat": 34.86048326054769,
+      "lon": -82.40797643810993,
+      "heading": 76,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 8.625245822889283
+    },
+    {
+      "orderID": 408,
+      "lat": 34.8605499967066,
+      "lon": -82.40772599689839,
+      "heading": 69,
+      "lineName": "503 Bus",
+      "isStop": true,
+      "distance": 8.640174522273265,
+      "stopName": "1137-Mulberry St & Jay St",
+      "stopOrderID": 26
+    },
+    {
+      "orderID": 409,
+      "lat": 34.86086326456647,
+      "lon": -82.40739643300657,
+      "heading": 75,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 8.66876851404567
+    },
+    {
+      "orderID": 410,
+      "lat": 34.86094326560424,
+      "lon": -82.40727643335936,
+      "heading": 72,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 8.677534339815173
+    },
+    {
+      "orderID": 411,
+      "lat": 34.86106326823709,
+      "lon": -82.40712643852682,
+      "heading": 71,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 8.68941140389715
+    },
+    {
+      "orderID": 412,
+      "lat": 34.86125326283909,
+      "lon": -82.4069064336328,
+      "heading": 67,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 8.707519646645267
+    },
+    {
+      "orderID": 413,
+      "lat": 34.86168326562689,
+      "lon": -82.40648644090935,
+      "heading": 68,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 8.7455944982445
+    },
+    {
+      "orderID": 414,
+      "lat": 34.86179326296621,
+      "lon": -82.40637643866162,
+      "heading": 69,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 8.755425882139527
+    },
+    {
+      "orderID": 415,
+      "lat": 34.86197326476545,
+      "lon": -82.4061864401475,
+      "heading": 71,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 8.771879191599645
+    },
+    {
+      "orderID": 416,
+      "lat": 34.86213326248526,
+      "lon": -82.40599643874876,
+      "heading": 74,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 8.787314369010382
+    },
+    {
+      "orderID": 417,
+      "lat": 34.86224326115206,
+      "lon": -82.40583643170152,
+      "heading": 78,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 8.799148816606003
+    },
+    {
+      "orderID": 418,
+      "lat": 34.86226326265889,
+      "lon": -82.4057964373691,
+      "heading": 78,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 8.801804208465992
+    },
+    {
+      "orderID": 419,
+      "lat": 34.862343264906485,
+      "lon": -82.40564643427717,
+      "heading": 81,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 8.811947042311207
+    },
+    {
+      "orderID": 420,
+      "lat": 34.86241326721725,
+      "lon": -82.40545643354882,
+      "heading": 84,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 8.82375493459915
+    },
+    {
+      "orderID": 421,
+      "lat": 34.86246326031862,
+      "lon": -82.40525643413976,
+      "heading": 85,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 8.835608090279589
+    },
+    {
+      "orderID": 422,
+      "lat": 34.86249326588282,
+      "lon": -82.40510643666482,
+      "heading": 90,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 8.84436104779212
+    },
+    {
+      "orderID": 423,
+      "lat": 34.86249326110479,
+      "lon": -82.40495643625374,
+      "heading": 91,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 8.852865098689064
+    },
+    {
+      "orderID": 424,
+      "lat": 34.86246326004292,
+      "lon": -82.4045364328067,
+      "heading": 6,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 8.87676663286209
+    },
+    {
+      "orderID": 425,
+      "lat": 34.86332302401608,
+      "lon": -82.40439177089421,
+      "heading": -34,
+      "lineName": "503 Bus",
+      "isStop": true,
+      "distance": 8.936734709788107,
+      "stopName": "1324-Rutherford St  & W Earle St",
+      "stopOrderID": 27
+    },
+    {
+      "orderID": 426,
+      "lat": 34.86366326281834,
+      "lon": -82.40448644152072,
+      "heading": -4,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 8.960848097027785
+    },
+    {
+      "orderID": 427,
+      "lat": 34.864313265191015,
+      "lon": -82.40450643417118,
+      "heading": 7,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 9.005773722367495
+    },
+    {
+      "orderID": 428,
+      "lat": 34.86469326328694,
+      "lon": -82.40448643978968,
+      "heading": 0,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 9.032053803901897
+    },
+    {
+      "orderID": 429,
+      "lat": 34.86484325996288,
+      "lon": -82.4044864412876,
+      "heading": 48,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 9.042417688393536
+    },
+    {
+      "orderID": 430,
+      "lat": 34.864933260722616,
+      "lon": -82.40444644027129,
+      "heading": 0,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 9.049036798073987
+    },
+    {
+      "orderID": 431,
+      "lat": 34.86498326569997,
+      "lon": -82.40444643355603,
+      "heading": -5,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 9.052491846722448
+    },
+    {
+      "orderID": 432,
+      "lat": 34.86526326046516,
+      "lon": -82.40445643148001,
+      "heading": 0,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 9.07184613274048
+    },
+    {
+      "orderID": 433,
+      "lat": 34.865543258989305,
+      "lon": -82.40445643279872,
+      "heading": 0,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 9.091192377207696
+    },
+    {
+      "orderID": 434,
+      "lat": 34.8655832664656,
+      "lon": -82.40445643623889,
+      "heading": 7,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 9.093956657559433
+    },
+    {
+      "orderID": 435,
+      "lat": 34.86598325914099,
+      "lon": -82.40443643196762,
+      "heading": 0,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 9.12161704721623
+    },
+    {
+      "orderID": 436,
+      "lat": 34.86622325898697,
+      "lon": -82.40443644087385,
+      "heading": 8,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 9.138199619244725
+    },
+    {
+      "orderID": 437,
+      "lat": 34.86638326583393,
+      "lon": -82.40442643551074,
+      "heading": 0,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 9.149269688537897
+    },
+    {
+      "orderID": 438,
+      "lat": 34.86701326214191,
+      "lon": -82.40442643278828,
+      "heading": 0,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 9.192798712930848
+    },
+    {
+      "orderID": 439,
+      "lat": 34.86712326020365,
+      "lon": -82.40442643090307,
+      "heading": 0,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 9.200398929396393
+    },
+    {
+      "orderID": 440,
+      "lat": 34.86719325970828,
+      "lon": -82.40442643667586,
+      "heading": 0,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 9.205235481790409
+    },
+    {
+      "orderID": 441,
+      "lat": 34.8674232621701,
+      "lon": -82.40442643383626,
+      "heading": 9,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 9.221127293606813
+    },
+    {
+      "orderID": 442,
+      "lat": 34.86757326242696,
+      "lon": -82.40441643831932,
+      "heading": -8,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 9.231506904320282
+    },
+    {
+      "orderID": 443,
+      "lat": 34.86773326143981,
+      "lon": -82.4044264375517,
+      "heading": 0,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 9.242576414753728
+    },
+    {
+      "orderID": 444,
+      "lat": 34.869567516016005,
+      "lon": -82.40432449923523,
+      "heading": -19,
+      "lineName": "503 Bus",
+      "isStop": true,
+      "distance": 9.369444253879914,
+      "stopName": "1419-Poinsett Hwy  & Cathey St",
+      "stopOrderID": 28
+    },
+    {
+      "orderID": 445,
+      "lat": 34.870163266020484,
+      "lon": -82.40440643598215,
+      "heading": 0,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 9.410868298409468
+    },
+    {
+      "orderID": 446,
+      "lat": 34.87097325826879,
+      "lon": -82.40440643695715,
+      "heading": 0,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 9.466833979300185
+    },
+    {
+      "orderID": 447,
+      "lat": 34.871803262853184,
+      "lon": -82.40440643978924,
+      "heading": 1,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 9.524182394430145
+    },
+    {
+      "orderID": 448,
+      "lat": 34.87242299475528,
+      "lon": -82.40431099571941,
+      "heading": -5,
+      "lineName": "503 Bus",
+      "isStop": true,
+      "distance": 9.567342668294245,
+      "stopName": "1062-Poinsett Hwy  & Lila St",
+      "stopOrderID": 29
+    },
+    {
+      "orderID": 449,
+      "lat": 34.87453325920769,
+      "lon": -82.40439643721209,
+      "heading": 0,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 9.713229899042993
+    },
+    {
+      "orderID": 450,
+      "lat": 34.874783264411924,
+      "lon": -82.40439643599738,
+      "heading": 3,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 9.730503782232093
+    },
+    {
+      "orderID": 451,
+      "lat": 34.876143262799765,
+      "lon": -82.40436643365967,
+      "heading": 0,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 9.824487027721723
+    },
+    {
+      "orderID": 452,
+      "lat": 34.87649325886225,
+      "lon": -82.4043664404068,
+      "heading": -6,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 9.848669688715374
+    },
+    {
+      "orderID": 453,
+      "lat": 34.876605996240556,
+      "lon": -82.40428599618559,
+      "heading": -35,
+      "lineName": "503 Bus",
+      "isStop": true,
+      "distance": 9.857695688460327,
+      "stopName": "1063-Poinsett Hwy  & Old Paris Mtn",
+      "stopOrderID": 30
+    },
+    {
+      "orderID": 454,
+      "lat": 34.8769232566456,
+      "lon": -82.404376440872,
+      "heading": -9,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 9.880208036262157
+    },
+    {
+      "orderID": 455,
+      "lat": 34.87765325750103,
+      "lon": -82.40442643689778,
+      "heading": -15,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 9.930726335152828
+    },
+    {
+      "orderID": 456,
+      "lat": 34.87793326080672,
+      "lon": -82.4044564327912,
+      "heading": -14,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 9.950147479032761
+    },
+    {
+      "orderID": 457,
+      "lat": 34.87813326234103,
+      "lon": -82.40447643490918,
+      "heading": -18,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 9.964012836352758
+    },
+    {
+      "orderID": 458,
+      "lat": 34.87828325935109,
+      "lon": -82.40449643287111,
+      "heading": -9,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 9.974438549227942
+    },
+    {
+      "orderID": 459,
+      "lat": 34.87859325823173,
+      "lon": -82.40451643339598,
+      "heading": -7,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 9.995887622168603
+    },
+    {
+      "orderID": 460,
+      "lat": 34.8787932634928,
+      "lon": -82.40452643758363,
+      "heading": -15,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 10.00971843414975
+    },
+    {
+      "orderID": 461,
+      "lat": 34.878973261328795,
+      "lon": -82.40454643832649,
+      "heading": -13,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 10.022206785830885
+    },
+    {
+      "orderID": 462,
+      "lat": 34.87949326394953,
+      "lon": -82.404596441147,
+      "heading": -13,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 10.058247512522323
+    },
+    {
+      "orderID": 463,
+      "lat": 34.88016729249035,
+      "lon": -82.4045505758484,
+      "heading": 36,
+      "lineName": "503 Bus",
+      "isStop": true,
+      "distance": 10.104891408667523,
+      "stopName": "1538-Poinsett Hwy  & Furman Hall OB",
+      "stopOrderID": 31
+    },
+    {
+      "orderID": 464,
+      "lat": 34.88072326385184,
+      "lon": -82.40438643429923,
+      "heading": 80,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 10.144416346854813
+    },
+    {
+      "orderID": 465,
+      "lat": 34.880743259478216,
+      "lon": -82.40433643234412,
+      "heading": 72,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 10.147569315828266
+    },
+    {
+      "orderID": 466,
+      "lat": 34.88078325866059,
+      "lon": -82.40428643204598,
+      "heading": 68,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 10.151527849727877
+    },
+    {
+      "orderID": 467,
+      "lat": 34.880833264116454,
+      "lon": -82.40423643260954,
+      "heading": 68,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 10.15599654266001
+    },
+    {
+      "orderID": 468,
+      "lat": 34.88088326053804,
+      "lon": -82.40418643296576,
+      "heading": 58,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 10.160464759343157
+    },
+    {
+      "orderID": 469,
+      "lat": 34.8810532560761,
+      "lon": -82.40407644050481,
+      "heading": 56,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 10.173762490442455
+    },
+    {
+      "orderID": 470,
+      "lat": 34.88120325855412,
+      "lon": -82.40398643237769,
+      "heading": 62,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 10.185314371980608
+    },
+    {
+      "orderID": 471,
+      "lat": 34.881243258957284,
+      "lon": -82.40395643975883,
+      "heading": 57,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 10.188559143665072
+    },
+    {
+      "orderID": 472,
+      "lat": 34.88164326261267,
+      "lon": -82.40370643949767,
+      "heading": 58,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 10.219617886420528
+    },
+    {
+      "orderID": 473,
+      "lat": 34.88267325589895,
+      "lon": -82.40304643476031,
+      "heading": 58,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 10.30001751606013
+    },
+    {
+      "orderID": 474,
+      "lat": 34.883073260979884,
+      "lon": -82.40278643823586,
+      "heading": 59,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 10.331338783571148
+    },
+    {
+      "orderID": 475,
+      "lat": 34.8835020567953,
+      "lon": -82.40237502737436,
+      "heading": 27,
+      "lineName": "503 Bus",
+      "isStop": true,
+      "distance": 10.36904188202473,
+      "stopName": "1367-Furman Hall  & City Heights Ct",
+      "stopOrderID": 32
+    },
+    {
+      "orderID": 476,
+      "lat": 34.883783257591126,
+      "lon": -82.40231643780217,
+      "heading": 59,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 10.388752943186196
+    },
+    {
+      "orderID": 477,
+      "lat": 34.88510325754372,
+      "lon": -82.40141643786295,
+      "heading": 57,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 10.493253094534909
+    },
+    {
+      "orderID": 478,
+      "lat": 34.885323256213375,
+      "lon": -82.40127643967196,
+      "heading": 59,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 10.510400091591077
+    },
+    {
+      "orderID": 479,
+      "lat": 34.88577325743145,
+      "lon": -82.40097643247002,
+      "heading": 59,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 10.54583827179959
+    },
+    {
+      "orderID": 480,
+      "lat": 34.88637326057107,
+      "lon": -82.40057643621479,
+      "heading": 61,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 10.593088838151026
+    },
+    {
+      "orderID": 481,
+      "lat": 34.88656325738877,
+      "lon": -82.4004364326757,
+      "heading": 57,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 10.608428306587633
+    },
+    {
+      "orderID": 482,
+      "lat": 34.886953260824086,
+      "lon": -82.40019643212504,
+      "heading": 57,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 10.638613802701391
+    },
+    {
+      "orderID": 483,
+      "lat": 34.88729325802106,
+      "lon": -82.39998643655099,
+      "heading": 68,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 10.664948531570804
+    },
+    {
+      "orderID": 484,
+      "lat": 34.887323260090604,
+      "lon": -82.39995643965074,
+      "heading": 58,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 10.667629498463308
+    },
+    {
+      "orderID": 485,
+      "lat": 34.88749777217144,
+      "lon": -82.39984486736606,
+      "heading": 58,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 10.681244791093173
+    },
+    {
+      "orderID": 486,
+      "lat": 34.88793326220154,
+      "lon": -82.39956643952493,
+      "heading": 0,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 10.715221407861206
+    },
+    {
+      "orderID": 487,
+      "lat": 34.88793326220154,
+      "lon": -82.39956643952493,
+      "heading": 58,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 10.715221407861206
+    },
+    {
+      "orderID": 488,
+      "lat": 34.88840871570027,
+      "lon": -82.39925710754672,
+      "heading": 58,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 10.75245779510062
+    },
+    {
+      "orderID": 489,
+      "lat": 34.88852594687066,
+      "lon": -82.39918083585165,
+      "heading": 58,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 10.761639070735823
+    },
+    {
+      "orderID": 490,
+      "lat": 34.8887632619093,
+      "lon": -82.39902643571972,
+      "heading": 54,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 10.780225049864109
+    },
+    {
+      "orderID": 491,
+      "lat": 34.888829799141675,
+      "lon": -82.39898946837152,
+      "heading": 54,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 10.785277281729163
+    },
+    {
+      "orderID": 492,
+      "lat": 34.8889432549727,
+      "lon": -82.39892643342014,
+      "heading": -77,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 10.793892086872562
+    },
+    {
+      "orderID": 493,
+      "lat": 34.889027110416166,
+      "lon": -82.39907243745371,
+      "heading": -77,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 10.803993672222628
+    },
+    {
+      "orderID": 494,
+      "lat": 34.88939934521983,
+      "lon": -82.39972055733503,
+      "heading": -77,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 10.848834915810698
+    },
+    {
+      "orderID": 495,
+      "lat": 34.88979326145238,
+      "lon": -82.4004064406886,
+      "heading": -76,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 10.896288450873188
+    },
+    {
+      "orderID": 496,
+      "lat": 34.88982325377804,
+      "lon": -82.40045643952382,
+      "heading": -76,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 10.899799016556395
+    },
+    {
+      "orderID": 497,
+      "lat": 34.88992325692758,
+      "lon": -82.40062643623416,
+      "heading": -76,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 10.91165509403047
+    },
+    {
+      "orderID": 498,
+      "lat": 34.89015325449422,
+      "lon": -82.40101644101739,
+      "heading": -77,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 10.938878179132484
+    },
+    {
+      "orderID": 499,
+      "lat": 34.890169003716544,
+      "lon": -82.40104400158964,
+      "heading": -77,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 10.940781837011759
+    },
+    {
+      "orderID": 500,
+      "lat": 34.89019803960394,
+      "lon": -82.4010948134027,
+      "heading": -77,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 10.94429149767394
+    },
+    {
+      "orderID": 501,
+      "lat": 34.89029997288659,
+      "lon": -82.40127319373812,
+      "heading": -77,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 10.956612519572108
+    },
+    {
+      "orderID": 502,
+      "lat": 34.89059325527926,
+      "lon": -82.4017864344678,
+      "heading": -111,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 10.992062729012428
+    },
+    {
+      "orderID": 503,
+      "lat": 34.89056999554183,
+      "lon": -82.40181000042804,
+      "heading": -76,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 10.994152365355163
+    },
+    {
+      "orderID": 504,
+      "lat": 34.89091151611564,
+      "lon": -82.40238092057314,
+      "heading": -77,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 11.034199268032863
+    },
+    {
+      "orderID": 505,
+      "lat": 34.89112325394675,
+      "lon": -82.40277643555169,
+      "heading": -82,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 11.06096641600764
+    },
+    {
+      "orderID": 506,
+      "lat": 34.89117236141953,
+      "lon": -82.402923753922,
+      "heading": -82,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 11.069978625926638
+    },
+    {
+      "orderID": 507,
+      "lat": 34.8912132558639,
+      "lon": -82.4030464344129,
+      "heading": -82,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 11.07748360401884
+    },
+    {
+      "orderID": 508,
+      "lat": 34.891263254978064,
+      "lon": -82.4032064337503,
+      "heading": -88,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 11.08718714565323
+    },
+    {
+      "orderID": 509,
+      "lat": 34.89126979342226,
+      "lon": -82.40332085873185,
+      "heading": -88,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 11.093687747116999
+    },
+    {
+      "orderID": 510,
+      "lat": 34.89127439063133,
+      "lon": -82.40340131254743,
+      "heading": -89,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 11.09825841092078
+    },
+    {
+      "orderID": 511,
+      "lat": 34.891281597863916,
+      "lon": -82.40359952925381,
+      "heading": -90,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 11.109503110797226
+    },
+    {
+      "orderID": 512,
+      "lat": 34.89127469305256,
+      "lon": -82.40377913363056,
+      "heading": -90,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 11.119693123925597
+    },
+    {
+      "orderID": 513,
+      "lat": 34.891273259163086,
+      "lon": -82.4038164303784,
+      "heading": -96,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 11.121809188104981
+    },
+    {
+      "orderID": 514,
+      "lat": 34.891230337784556,
+      "lon": -82.40397201351509,
+      "heading": -96,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 11.131112017811816
+    },
+    {
+      "orderID": 515,
+      "lat": 34.891215918706735,
+      "lon": -82.40402428017467,
+      "heading": -96,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 11.134237216200615
+    },
+    {
+      "orderID": 516,
+      "lat": 34.891193253151506,
+      "lon": -82.40410643868994,
+      "heading": -98,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 11.139149750809244
+    },
+    {
+      "orderID": 517,
+      "lat": 34.891103254098304,
+      "lon": -82.40433643641208,
+      "heading": -101,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 11.15359189281891
+    },
+    {
+      "orderID": 518,
+      "lat": 34.8910073375518,
+      "lon": -82.40452027206965,
+      "heading": -101,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 11.16593974030058
+    },
+    {
+      "orderID": 519,
+      "lat": 34.89098325392588,
+      "lon": -82.40456643110277,
+      "heading": -107,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 11.16904014818583
+    },
+    {
+      "orderID": 520,
+      "lat": 34.890813261878094,
+      "lon": -82.40478643216817,
+      "heading": -103,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 11.186169498591397
+    },
+    {
+      "orderID": 521,
+      "lat": 34.89073324950882,
+      "lon": -82.40492422983567,
+      "heading": -122,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 11.19573778153732
+    },
+    {
+      "orderID": 522,
+      "lat": 34.89062999465677,
+      "lon": -82.4049899993929,
+      "heading": -101,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 11.203787127566887
+    },
+    {
+      "orderID": 523,
+      "lat": 34.890550000171785,
+      "lon": -82.40514999799186,
+      "heading": -94,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 11.214406640052408
+    },
+    {
+      "orderID": 524,
+      "lat": 34.890510000812725,
+      "lon": -82.40533999893806,
+      "heading": -93,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 11.225523796644742
+    },
+    {
+      "orderID": 525,
+      "lat": 34.89049000215036,
+      "lon": -82.40549000298287,
+      "heading": -91,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 11.234136720874174
+    },
+    {
+      "orderID": 526,
+      "lat": 34.89047000245026,
+      "lon": -82.40584999983706,
+      "heading": -76,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 11.254586004444235
+    },
+    {
+      "orderID": 527,
+      "lat": 34.8905544604638,
+      "lon": -82.40598941790506,
+      "heading": 89,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 11.264408726868583
+    },
+    {
+      "orderID": 528,
+      "lat": 34.8905632598493,
+      "lon": -82.40564643685805,
+      "heading": 90,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 11.283856397058585
+    },
+    {
+      "orderID": 529,
+      "lat": 34.89056325535479,
+      "lon": -82.40542643305278,
+      "heading": 89,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 11.29632492822668
+    },
+    {
+      "orderID": 530,
+      "lat": 34.89056325544352,
+      "lon": -82.40535643534953,
+      "heading": 83,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 11.30029198935658
+    },
+    {
+      "orderID": 531,
+      "lat": 34.890633255469204,
+      "lon": -82.40509643928807,
+      "heading": -92,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 11.3158005147045
+    },
+    {
+      "orderID": 532,
+      "lat": 34.8905544604638,
+      "lon": -82.40598941790506,
+      "heading": -90,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 11.366701302936065
+    },
+    {
+      "orderID": 533,
+      "lat": 34.890553254166306,
+      "lon": -82.40603643392276,
+      "heading": -90,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 11.369367199853668
+    },
+    {
+      "orderID": 534,
+      "lat": 34.89054999776269,
+      "lon": -82.40614999786263,
+      "heading": -49,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 11.375807273425812
+    },
+    {
+      "orderID": 535,
+      "lat": 34.89068000132069,
+      "lon": -82.4062099984991,
+      "heading": -52,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 11.385411866173332
+    },
+    {
+      "orderID": 536,
+      "lat": 34.89100999631173,
+      "lon": -82.40637999517389,
+      "heading": -51,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 11.410164513390722
+    },
+    {
+      "orderID": 537,
+      "lat": 34.891150002007045,
+      "lon": -82.40644999733031,
+      "heading": -9,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 11.420620003423531
+    },
+    {
+      "orderID": 538,
+      "lat": 34.89124325834967,
+      "lon": -82.40645643910818,
+      "heading": 120,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 11.427073800183575
+    },
+    {
+      "orderID": 539,
+      "lat": 34.89100326176042,
+      "lon": -82.40629643984651,
+      "heading": -59,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 11.445973497080919
+    },
+    {
+      "orderID": 540,
+      "lat": 34.89124325834967,
+      "lon": -82.40645643910818,
+      "heading": -51,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 11.464873193978264
+    },
+    {
+      "orderID": 541,
+      "lat": 34.8913232564781,
+      "lon": -82.40649643572058,
+      "heading": -60,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 11.47084733054593
+    },
+    {
+      "orderID": 542,
+      "lat": 34.89139325339873,
+      "lon": -82.40654643108351,
+      "heading": -60,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 11.476452575292083
+    },
+    {
+      "orderID": 543,
+      "lat": 34.89145906235007,
+      "lon": -82.40659199152589,
+      "heading": -60,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 11.481681571244458
+    },
+    {
+      "orderID": 544,
+      "lat": 34.89165325412912,
+      "lon": -82.40672643365274,
+      "heading": -61,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 11.497111516721969
+    },
+    {
+      "orderID": 545,
+      "lat": 34.89168885096632,
+      "lon": -82.40675232194374,
+      "heading": -61,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 11.499975413262705
+    },
+    {
+      "orderID": 546,
+      "lat": 34.89176325491434,
+      "lon": -82.40680643332557,
+      "heading": -62,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 11.505961486058165
+    },
+    {
+      "orderID": 547,
+      "lat": 34.8919832613238,
+      "lon": -82.40697643321505,
+      "heading": -65,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 11.523958634367535
+    },
+    {
+      "orderID": 548,
+      "lat": 34.89219325722791,
+      "lon": -82.40715643253169,
+      "heading": -65,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 11.541695257123898
+    },
+    {
+      "orderID": 549,
+      "lat": 34.8924232572516,
+      "lon": -82.40735643493522,
+      "heading": -68,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 11.561215000503639
+    },
+    {
+      "orderID": 550,
+      "lat": 34.89283325709605,
+      "lon": -82.40776643684207,
+      "heading": -68,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 11.597853999061522
+    },
+    {
+      "orderID": 551,
+      "lat": 34.89339326069601,
+      "lon": -82.40832642911539,
+      "heading": -68,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 11.647897222827966
+    },
+    {
+      "orderID": 552,
+      "lat": 34.893863256597854,
+      "lon": -82.40880643786937,
+      "heading": -68,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 11.690259521504188
+    },
+    {
+      "orderID": 553,
+      "lat": 34.89460699769675,
+      "lon": -82.40940599555512,
+      "heading": -77,
+      "lineName": "503 Bus",
+      "isStop": true,
+      "distance": 11.751865016681952,
+      "stopName": "1061-Poinsett Hwy  & Crestwood Dr",
+      "stopOrderID": 33
+    },
+    {
+      "orderID": 554,
+      "lat": 34.894773254368495,
+      "lon": -82.40971643341841,
+      "heading": -68,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 11.772876209011843
+    },
+    {
+      "orderID": 555,
+      "lat": 34.89503325724374,
+      "lon": -82.40998643287584,
+      "heading": -68,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 11.79647399218559
+    },
+    {
+      "orderID": 556,
+      "lat": 34.89527871581705,
+      "lon": -82.41023188915374,
+      "heading": -68,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 11.818408617591528
+    },
+    {
+      "orderID": 557,
+      "lat": 34.89539325646932,
+      "lon": -82.41034642939461,
+      "heading": -66,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 11.828644193693622
+    },
+    {
+      "orderID": 558,
+      "lat": 34.89553326111186,
+      "lon": -82.4104764323343,
+      "heading": -68,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 11.840803741358311
+    },
+    {
+      "orderID": 559,
+      "lat": 34.89607325295726,
+      "lon": -82.41102643478727,
+      "heading": -68,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 11.88942017243786
+    },
+    {
+      "orderID": 560,
+      "lat": 34.89655325356219,
+      "lon": -82.41150643170768,
+      "heading": -68,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 11.932313687067245
+    },
+    {
+      "orderID": 561,
+      "lat": 34.89675325476836,
+      "lon": -82.41170642931178,
+      "heading": -68,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 11.95018596606202
+    },
+    {
+      "orderID": 562,
+      "lat": 34.89745325630881,
+      "lon": -82.41240642832503,
+      "heading": -68,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 12.0127389273898
+    },
+    {
+      "orderID": 563,
+      "lat": 34.89777153828976,
+      "lon": -82.41260469437644,
+      "heading": -73,
+      "lineName": "503 Bus",
+      "isStop": true,
+      "distance": 12.037434282582435,
+      "stopName": "1420-Poinsett Hwy  & Mulligan St",
+      "stopOrderID": 34
+    },
+    {
+      "orderID": 564,
+      "lat": 34.89816326003294,
+      "lon": -82.4131264310097,
+      "heading": -68,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 12.077518160297913
+    },
+    {
+      "orderID": 565,
+      "lat": 34.898445068466536,
+      "lon": -82.41341705139749,
+      "heading": -68,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 12.103020379967727
+    },
+    {
+      "orderID": 566,
+      "lat": 34.89848325654963,
+      "lon": -82.41345643380026,
+      "heading": -67,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 12.106476210557064
+    },
+    {
+      "orderID": 567,
+      "lat": 34.898843258951764,
+      "lon": -82.41380643726689,
+      "heading": -68,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 12.13828993779832
+    },
+    {
+      "orderID": 568,
+      "lat": 34.899193258673634,
+      "lon": -82.41416643144984,
+      "heading": -68,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 12.169928273426562
+    },
+    {
+      "orderID": 569,
+      "lat": 34.899563256066024,
+      "lon": -82.41453643334357,
+      "heading": -67,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 12.202991517259258
+    },
+    {
+      "orderID": 570,
+      "lat": 34.899625387876995,
+      "lon": -82.41459697095486,
+      "heading": -67,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 12.20848678404761
+    },
+    {
+      "orderID": 571,
+      "lat": 34.89995326016468,
+      "lon": -82.4149164325493,
+      "heading": -71,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 12.237485590365905
+    },
+    {
+      "orderID": 572,
+      "lat": 34.90001325608235,
+      "lon": -82.41498642852638,
+      "heading": -66,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 12.24322294414873
+    },
+    {
+      "orderID": 573,
+      "lat": 34.90016325735228,
+      "lon": -82.41512642719262,
+      "heading": -71,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 12.25627496741662
+    },
+    {
+      "orderID": 574,
+      "lat": 34.90022325302256,
+      "lon": -82.41519643443006,
+      "heading": -68,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 12.262012743003206
+    },
+    {
+      "orderID": 575,
+      "lat": 34.90035871576995,
+      "lon": -82.4153318951425,
+      "heading": -68,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 12.274117609021111
+    },
+    {
+      "orderID": 576,
+      "lat": 34.90050325152772,
+      "lon": -82.41547642937658,
+      "heading": -68,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 12.287033247964875
+    },
+    {
+      "orderID": 577,
+      "lat": 34.90069325362117,
+      "lon": -82.41566643174359,
+      "heading": -67,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 12.30401180254379
+    },
+    {
+      "orderID": 578,
+      "lat": 34.90092325712956,
+      "lon": -82.41588643543973,
+      "heading": -69,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 12.324210251061025
+    },
+    {
+      "orderID": 579,
+      "lat": 34.90116325661983,
+      "lon": -82.41614643524838,
+      "heading": -68,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 12.346392534511045
+    },
+    {
+      "orderID": 580,
+      "lat": 34.90124467268903,
+      "lon": -82.41622784986862,
+      "heading": -68,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 12.35366778267406
+    },
+    {
+      "orderID": 581,
+      "lat": 34.90142871501342,
+      "lon": -82.41641188969928,
+      "heading": -68,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 12.370113614710606
+    },
+    {
+      "orderID": 582,
+      "lat": 34.901733258977224,
+      "lon": -82.4167164319175,
+      "heading": -68,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 12.397327401801155
+    },
+    {
+      "orderID": 583,
+      "lat": 34.901763254294,
+      "lon": -82.41674643072308,
+      "heading": -68,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 12.400007886906785
+    },
+    {
+      "orderID": 584,
+      "lat": 34.901903256289955,
+      "lon": -82.41688643312193,
+      "heading": -69,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 12.412518372905113
+    },
+    {
+      "orderID": 585,
+      "lat": 34.90202325957461,
+      "lon": -82.41701643035374,
+      "heading": -69,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 12.42360954205957
+    },
+    {
+      "orderID": 586,
+      "lat": 34.90238325525692,
+      "lon": -82.41739643389204,
+      "heading": -69,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 12.456509072127913
+    },
+    {
+      "orderID": 587,
+      "lat": 34.90250325798186,
+      "lon": -82.41752643257553,
+      "heading": -71,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 12.46760023841103
+    },
+    {
+      "orderID": 588,
+      "lat": 34.9026032530635,
+      "lon": -82.4176464256318,
+      "heading": -65,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 12.477293979872607
+    },
+    {
+      "orderID": 589,
+      "lat": 34.902673258405834,
+      "lon": -82.41770642717447,
+      "heading": -66,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 12.483206373141185
+    },
+    {
+      "orderID": 590,
+      "lat": 34.903083251825805,
+      "lon": -82.41807642565563,
+      "heading": -68,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 12.518449309706897
+    },
+    {
+      "orderID": 591,
+      "lat": 34.90327325885229,
+      "lon": -82.41826642879228,
+      "heading": -67,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 12.535427940998167
+    },
+    {
+      "orderID": 592,
+      "lat": 34.903463252462195,
+      "lon": -82.4184464313541,
+      "heading": -69,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 12.552052249391151
+    },
+    {
+      "orderID": 593,
+      "lat": 34.9037032513765,
+      "lon": -82.41869643404449,
+      "heading": -68,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 12.573862058751406
+    },
+    {
+      "orderID": 594,
+      "lat": 34.903942067360575,
+      "lon": -82.4189369747003,
+      "heading": -68,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 12.595264371174046
+    },
+    {
+      "orderID": 595,
+      "lat": 34.90421127859265,
+      "lon": -82.41920813232362,
+      "heading": -68,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 12.619390707427257
+    },
+    {
+      "orderID": 596,
+      "lat": 34.904540307463684,
+      "lon": -82.41953954325014,
+      "heading": -68,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 12.648877888641968
+    },
+    {
+      "orderID": 597,
+      "lat": 34.90508325257644,
+      "lon": -82.4200864267567,
+      "heading": -68,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 12.697536163945417
+    },
+    {
+      "orderID": 598,
+      "lat": 34.905208716228685,
+      "lon": -82.42021188790345,
+      "heading": -68,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 12.70874722827445
+    },
+    {
+      "orderID": 599,
+      "lat": 34.90542325560194,
+      "lon": -82.42042642415957,
+      "heading": -68,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 12.727917864002237
+    },
+    {
+      "orderID": 600,
+      "lat": 34.90562325100984,
+      "lon": -82.42062643088217,
+      "heading": -68,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 12.745789384679698
+    },
+    {
+      "orderID": 601,
+      "lat": 34.9059807823056,
+      "lon": -82.42098885496198,
+      "heading": -68,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 12.777914008982904
+    },
+    {
+      "orderID": 602,
+      "lat": 34.90635325322571,
+      "lon": -82.42136642755466,
+      "heading": -68,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 12.811381076886802
+    },
+    {
+      "orderID": 603,
+      "lat": 34.907503252114395,
+      "lon": -82.42251643109154,
+      "heading": -68,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 12.914141703157517
+    },
+    {
+      "orderID": 604,
+      "lat": 34.90843325167359,
+      "lon": -82.42345642587983,
+      "heading": -67,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 12.99760353702371
+    },
+    {
+      "orderID": 605,
+      "lat": 34.90867325087364,
+      "lon": -82.42368643193741,
+      "heading": -68,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 13.018694470089773
+    },
+    {
+      "orderID": 606,
+      "lat": 34.90907325254121,
+      "lon": -82.42409642443783,
+      "heading": -68,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 13.054798701640497
+    },
+    {
+      "orderID": 607,
+      "lat": 34.9093832544781,
+      "lon": -82.4244164296657,
+      "heading": -68,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 13.082862069077498
+    },
+    {
+      "orderID": 608,
+      "lat": 34.90947325265771,
+      "lon": -82.42450643173184,
+      "heading": -67,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 13.090904078266366
+    },
+    {
+      "orderID": 609,
+      "lat": 34.91004325719542,
+      "lon": -82.42506642930731,
+      "heading": -69,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 13.141479632769508
+    },
+    {
+      "orderID": 610,
+      "lat": 34.910183253206654,
+      "lon": -82.42521642824346,
+      "heading": -66,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 13.154355914820663
+    },
+    {
+      "orderID": 611,
+      "lat": 34.910283257032475,
+      "lon": -82.42530642444541,
+      "heading": -65,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 13.162943453390968
+    },
+    {
+      "orderID": 612,
+      "lat": 34.910353258543246,
+      "lon": -82.42536642675837,
+      "heading": -68,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 13.168855472307357
+    },
+    {
+      "orderID": 613,
+      "lat": 34.91043325533433,
+      "lon": -82.4254464255103,
+      "heading": -67,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 13.176003695314716
+    },
+    {
+      "orderID": 614,
+      "lat": 34.91063325694549,
+      "lon": -82.42563643210003,
+      "heading": -60,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 13.193521294291704
+    },
+    {
+      "orderID": 615,
+      "lat": 34.91136325637745,
+      "lon": -82.42614642270111,
+      "heading": -57,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 13.251650821349763
+    },
+    {
+      "orderID": 616,
+      "lat": 34.911473249510216,
+      "lon": -82.42621643109982,
+      "heading": -55,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 13.260223598290983
+    },
+    {
+      "orderID": 617,
+      "lat": 34.911613255687804,
+      "lon": -82.42629643037841,
+      "heading": -57,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 13.27090649187379
+    },
+    {
+      "orderID": 618,
+      "lat": 34.91169325044673,
+      "lon": -82.4263464246196,
+      "heading": -45,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 13.277117247659007
+    },
+    {
+      "orderID": 619,
+      "lat": 34.91184325572846,
+      "lon": -82.42640642332078,
+      "heading": -42,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 13.288024997896146
+    },
+    {
+      "orderID": 620,
+      "lat": 34.912673249632995,
+      "lon": -82.42670642515675,
+      "heading": -51,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 13.347838736979055
+    },
+    {
+      "orderID": 621,
+      "lat": 34.912853256408006,
+      "lon": -82.4267964315884,
+      "heading": -55,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 13.361281042636186
+    },
+    {
+      "orderID": 622,
+      "lat": 34.91302325151597,
+      "lon": -82.42689642613317,
+      "heading": -54,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 13.374321713215657
+    },
+    {
+      "orderID": 623,
+      "lat": 34.913313250923046,
+      "lon": -82.4270564224509,
+      "heading": -60,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 13.396314175541084
+    },
+    {
+      "orderID": 624,
+      "lat": 34.913583256923985,
+      "lon": -82.42724643111717,
+      "heading": -63,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 13.41785338093346
+    },
+    {
+      "orderID": 625,
+      "lat": 34.9138632520597,
+      "lon": -82.42746642977293,
+      "heading": -66,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 13.440867234419361
+    },
+    {
+      "orderID": 626,
+      "lat": 34.91410324922512,
+      "lon": -82.42768642660964,
+      "heading": -68,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 13.461611904451452
+    },
+    {
+      "orderID": 627,
+      "lat": 34.91434325265682,
+      "lon": -82.42792642978938,
+      "heading": -70,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 13.483057117634605
+    },
+    {
+      "orderID": 628,
+      "lat": 34.91450324947584,
+      "lon": -82.4281064230109,
+      "heading": -71,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 13.498097351006463
+    },
+    {
+      "orderID": 629,
+      "lat": 34.91465325781275,
+      "lon": -82.42828642441718,
+      "heading": -73,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 13.512638159250217
+    },
+    {
+      "orderID": 630,
+      "lat": 34.91480325444766,
+      "lon": -82.42848643136611,
+      "heading": -75,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 13.527994649756774
+    },
+    {
+      "orderID": 631,
+      "lat": 34.91499325122547,
+      "lon": -82.42877642218507,
+      "heading": -75,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 13.54902520093334
+    },
+    {
+      "orderID": 632,
+      "lat": 34.915103257657236,
+      "lon": -82.42894643024609,
+      "heading": -77,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 13.561295131838188
+    },
+    {
+      "orderID": 633,
+      "lat": 34.915223256148636,
+      "lon": -82.42915643086168,
+      "heading": -77,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 13.575797105446178
+    },
+    {
+      "orderID": 634,
+      "lat": 34.91573325528245,
+      "lon": -82.43010642545134,
+      "heading": -76,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 13.640129947888338
+    },
+    {
+      "orderID": 635,
+      "lat": 34.91591325741464,
+      "lon": -82.43041642469326,
+      "heading": -73,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 13.6616510802528
+    },
+    {
+      "orderID": 636,
+      "lat": 34.91622325294291,
+      "lon": -82.43082642670298,
+      "heading": -73,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 13.693248044706467
+    },
+    {
+      "orderID": 637,
+      "lat": 34.91641325280236,
+      "lon": -82.43108643044266,
+      "heading": -71,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 13.712979733708693
+    },
+    {
+      "orderID": 638,
+      "lat": 34.916633252627946,
+      "lon": -82.43134642544305,
+      "heading": -69,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 13.734146781049299
+    },
+    {
+      "orderID": 639,
+      "lat": 34.91684325136873,
+      "lon": -82.43156642846719,
+      "heading": -67,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 13.75327515521252
+    },
+    {
+      "orderID": 640,
+      "lat": 34.91705325264452,
+      "lon": -82.43176642698856,
+      "heading": -65,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 13.771685198110236
+    },
+    {
+      "orderID": 641,
+      "lat": 34.91727325665486,
+      "lon": -82.43195642776949,
+      "heading": -62,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 13.790311721239792
+    },
+    {
+      "orderID": 642,
+      "lat": 34.91752325172346,
+      "lon": -82.43214643070475,
+      "heading": -57,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 13.810664668121596
+    },
+    {
+      "orderID": 643,
+      "lat": 34.917793252802475,
+      "lon": -82.43231642632436,
+      "heading": -55,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 13.831659586096427
+    },
+    {
+      "orderID": 644,
+      "lat": 34.91805325045054,
+      "lon": -82.43246642391152,
+      "heading": -50,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 13.851532552575666
+    },
+    {
+      "orderID": 645,
+      "lat": 34.91832325705041,
+      "lon": -82.43259642077334,
+      "heading": -44,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 13.87158957563387
+    },
+    {
+      "orderID": 646,
+      "lat": 34.91860325450923,
+      "lon": -82.43270642740401,
+      "heading": -41,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 13.891914863629793
+    },
+    {
+      "orderID": 647,
+      "lat": 34.918883249002256,
+      "lon": -82.43280642073128,
+      "heading": -30,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 13.912073228722031
+    },
+    {
+      "orderID": 648,
+      "lat": 34.91918325559767,
+      "lon": -82.43287642500782,
+      "heading": -27,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 13.93317791921736
+    },
+    {
+      "orderID": 649,
+      "lat": 34.91937324881104,
+      "lon": -82.43291642900107,
+      "heading": -18,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 13.946499534627735
+    },
+    {
+      "orderID": 650,
+      "lat": 34.919593248540714,
+      "lon": -82.43294642082337,
+      "heading": -12,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 13.961794889824288
+    },
+    {
+      "orderID": 651,
+      "lat": 34.919813254185804,
+      "lon": -82.43296642070042,
+      "heading": -6,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 13.977038151251152
+    },
+    {
+      "orderID": 652,
+      "lat": 34.9200332567384,
+      "lon": -82.43297642840304,
+      "heading": -2,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 13.99224959848784
+    },
+    {
+      "orderID": 653,
+      "lat": 34.92063324892913,
+      "lon": -82.43298641994951,
+      "heading": 0,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 14.033709379986785
+    },
+    {
+      "orderID": 654,
+      "lat": 34.92106325086994,
+      "lon": -82.43298642488112,
+      "heading": 5,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 14.063419974690934
+    },
+    {
+      "orderID": 655,
+      "lat": 34.92134324804109,
+      "lon": -82.4329764292813,
+      "heading": 4,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 14.082774411699363
+    },
+    {
+      "orderID": 656,
+      "lat": 34.92168325494076,
+      "lon": -82.43296642605081,
+      "heading": 6,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 14.106273714949337
+    },
+    {
+      "orderID": 657,
+      "lat": 34.922103253697266,
+      "lon": -82.43294641982015,
+      "heading": 0,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 14.135315273772619
+    },
+    {
+      "orderID": 658,
+      "lat": 34.92234325628535,
+      "lon": -82.43294642172474,
+      "heading": 0,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 14.151898035257307
+    },
+    {
+      "orderID": 659,
+      "lat": 34.922403247883416,
+      "lon": -82.43294642478479,
+      "heading": 55,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 14.156043100402462
+    },
+    {
+      "orderID": 660,
+      "lat": 34.92261325033625,
+      "lon": -82.43282642718125,
+      "heading": 54,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 14.172066597538292
+    },
+    {
+      "orderID": 661,
+      "lat": 34.923093255514345,
+      "lon": -82.43255642256857,
+      "heading": 52,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 14.208589573256216
+    },
+    {
+      "orderID": 662,
+      "lat": 34.92364325149141,
+      "lon": -82.43226642536618,
+      "heading": 55,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 14.249990260971948
+    },
+    {
+      "orderID": 663,
+      "lat": 34.92378324965079,
+      "lon": -82.43218642104765,
+      "heading": 45,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 14.260672488886549
+    },
+    {
+      "orderID": 664,
+      "lat": 34.92393325080954,
+      "lon": -82.43212642785643,
+      "heading": 23,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 14.271579715126002
+    },
+    {
+      "orderID": 665,
+      "lat": 34.92410325542395,
+      "lon": -82.43209642077844,
+      "heading": -11,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 14.283448400234807
+    },
+    {
+      "orderID": 666,
+      "lat": 34.92422325052327,
+      "lon": -82.43210642956467,
+      "heading": -46,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 14.291758718793819
+    },
+    {
+      "orderID": 667,
+      "lat": 34.92434324899695,
+      "lon": -82.43215642030532,
+      "heading": -56,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 14.300520231254206
+    },
+    {
+      "orderID": 668,
+      "lat": 34.92447325348271,
+      "lon": -82.43223642645796,
+      "heading": -69,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 14.31058148525174
+    },
+    {
+      "orderID": 669,
+      "lat": 34.92459324902069,
+      "lon": -82.43236642523577,
+      "heading": -76,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 14.321670967508087
+    },
+    {
+      "orderID": 670,
+      "lat": 34.92468325010042,
+      "lon": -82.43251643046588,
+      "heading": -80,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 14.33220113693468
+    },
+    {
+      "orderID": 671,
+      "lat": 34.92474325085516,
+      "lon": -82.43266642356305,
+      "heading": -84,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 14.341655722426157
+    },
+    {
+      "orderID": 672,
+      "lat": 34.92479325123079,
+      "lon": -82.43286642040576,
+      "heading": -82,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 14.353500659490738
+    },
+    {
+      "orderID": 673,
+      "lat": 34.92492325434113,
+      "lon": -82.43324642001987,
+      "heading": -82,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 14.376826680085005
+    },
+    {
+      "orderID": 674,
+      "lat": 34.925253255561834,
+      "lon": -82.43419642627305,
+      "heading": -82,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 14.435275696769198
+    },
+    {
+      "orderID": 675,
+      "lat": 34.9253232505141,
+      "lon": -82.43440642671706,
+      "heading": 0,
+      "lineName": "503 Bus",
+      "isStop": false,
+      "distance": 14.448117717444882
+    }
+  ]
+}

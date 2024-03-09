@@ -40,7 +40,7 @@ class Positioned():
     lat: float
     lon: float
     
-    def distanceBetween(first : "Positioned", second : "Positioned"):
+    def distBetween(first : "Positioned", second : "Positioned"):
         # Approximate radius of earth in miles
         R = 3958.8 
         
