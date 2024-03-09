@@ -140,8 +140,8 @@ def main():
     
     
     shut = []
-    shut.append((ShuttleScraper().tryPull(), shutRoute))
-    shut.append((BusScraper(busRoute.lineID).tryPull(), busRoute))
+    shut += [(s, shutRoute) for s in ShuttleScraper().tryPull()]
+    shut += [(b, busRoute) for b in BusScraper(busRoute.lineID).tryPull()]
             
     connection = WebConnectors.formConnections()
     for shuttle, route in shut:
