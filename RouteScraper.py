@@ -140,7 +140,7 @@ class RouteScraper(Scraper, Insertable):
         minInd = -1
         for i, pnt in enumerate(self.lineRoute):
             dist = LinePoint.distBetween(vehic, pnt)
-            relativeHeading = (vehic.heading - dist.heading) % 360
+            relativeHeading = (vehic.heading - pnt.heading) % 360
             if dist < 0.05 and (relativeHeading > 270 or relativeHeading < 90) :
                 if dist < minDist:
                     minDist = pnt
