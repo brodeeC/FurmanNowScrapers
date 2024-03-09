@@ -153,12 +153,12 @@ class RouteScraper(Scraper, Insertable):
         stopDists = []
         for stop in self.lineRoute[minInd:]:
             if stop.isStop:
-                stopDists.append(stop, 
-                                 stop.distance - distanceIntoRoute)
+                stopDists.append((stop, 
+                                 stop.distance - distanceIntoRoute))
         for stop in self.lineRoute[:minInd]:
             if stop.isStop:
-                stopDists.append(stop, 
-                                 stop.distance + self.lineRoute[-1].distance - distanceIntoRoute)
+                stopDists.append((stop, 
+                                 stop.distance + self.lineRoute[-1].distance - distanceIntoRoute))
                 
         return stopDists            
                     
