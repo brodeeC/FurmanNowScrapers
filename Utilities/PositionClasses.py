@@ -39,8 +39,8 @@ class Positioned():
         x = cos(lat2rad) * sin(dltLonRad)
         y = cos(lat1rad) * sin(lat2rad) - sin(lat2rad) * cos(lat2rad) * cos(dltLonRad)
         hdRad = arctan2(x,y)
-        heading = degrees(hdRad)
-        return int(heading)
+        heading = degrees(hdRad) 
+        return int(heading) % 360
     
     
 @dataclass

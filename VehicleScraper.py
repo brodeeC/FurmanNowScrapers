@@ -135,8 +135,8 @@ class BusScraper(WebConnectors.Scraper):
 
 
 def main():
-    shutRoute = RouteScraper.loadRouteFromJSONFile("./ShuttleRoute.json")
-    busRoute = RouteScraper.loadRouteFromJSONFile("./503Route.json")
+    shutRoute = RouteScraper.loadRouteFromJSONFile("../aux/ShuttleRoute.json")
+    busRoute = RouteScraper.loadRouteFromJSONFile("../aux/503Route.json")
     
     shut = []
     shut += [(s, shutRoute) for s in ShuttleScraper().tryPull()]
@@ -146,6 +146,7 @@ def main():
     
     for shuttle, route in shut:
         print(route.distToStops(shuttle))
+        
         shuttle.updateInto(SHUTTLE_LOCATION_TABLE, connection)
     connection.close()
 

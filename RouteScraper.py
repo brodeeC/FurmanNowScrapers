@@ -56,10 +56,13 @@ class LinePoint(Directioned):
                         heading = dct["heading"],
                         distance = dct["distance"])
     
+    def __repr__(self):
+        return f"LinePoint({self.lat}, {self.lon}, {self.heading}, {self.distance})"
+    
 
 class LineStop(LinePoint, Insertable):
-    def __init__(self, orderID, lat, lon, lineName, stopName, stopOrderID, heading=None):
-        super().__init__(orderID, lat, lon, lineName, isStop = True, heading=heading, distance=0)
+    def __init__(self, orderID, lat, lon, lineName, stopName, stopOrderID, heading=None, distance=None):
+        super().__init__(orderID, lat, lon, lineName, isStop = True, heading=heading, distance=distance)
         self.stopName = stopName
         self.stopOrderID = stopOrderID
         
@@ -79,7 +82,8 @@ class LineStop(LinePoint, Insertable):
                         dct["lineName"],
                         dct["stopName"],
                         dct["stopOrderID"],
-                        heading=dct["heading"])
+                        heading=dct["heading"],
+                        distance=dct['distance'])
     
         
 class RouteScraper(Scraper, Insertable):
@@ -446,11 +450,11 @@ class BusRouteScraper(RouteScraper):
 def main():
     a = ShuttleRouteScraper("Campus Shuttle", "Furman University Shuttle", 2)
     a.tryPull()
-    a.saveRouteToJSONFile("./ShuttleRoute.json")
+    a.saveRouteToJSONFile("../aux/ShuttleRoute.json")
     
     b = BusRouteScraper("503 Bus", "503", 2)
     b.tryPull()
-    b.saveRouteToJSONFile("./503Route.json")
+    b.saveRouteToJSONFile("../aux/503Route.json")
     
     
     
