@@ -143,7 +143,7 @@ class RouteScraper(Scraper, Insertable):
             relativeHeading = (vehic.heading - pnt.heading) % 360
             if dist < 0.05 and (relativeHeading > 270 or relativeHeading < 90) :
                 if dist < minDist:
-                    minDist = pnt
+                    minDist = dist
                     minInd = i
             elif minDist < 1:
                 break
