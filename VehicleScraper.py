@@ -20,7 +20,7 @@ import datetime
 from dataclasses import dataclass
 import Utilities.WebConnectors as WebConnectors
 from Utilities.PositionClasses import Directioned
-from Utilities.SQLQueryClasses import Insertable, Clearable
+from Utilities.SQLQueryClasses import Insertable, Clearable, Queriable
 from RouteScraper import RouteScraper
 
 
@@ -41,6 +41,9 @@ class Vehicle(Clearable, Insertable, Directioned):
     speed : int
     eta : int = -1
     capacity : str = None
+    
+    def NoVehic():
+        return Vehicle(0, 0, 0, "", 0)
     
     def __post_init__(self):
         self.updated = datetime.datetime.now()
@@ -64,13 +67,7 @@ class Vehicle(Clearable, Insertable, Directioned):
             attrs.append(["capacity", self.capacity])
             
         Vehicle._insertIntoHelper(table, connection, attrs, commit)
-        
-    def clearFrom(self, table, connection, commit=True):
-        Vehicle._clearHelper(table, 
-                             connection,
-                             [["updated", "(NOW() - INTERVAL 3 MINUTE)", "<", "AND"],
-                              ["vehicle", self.name, "="]],
-                             commit)
+
         
 class ShuttleScraper(WebConnectors.Scraper):
     
@@ -112,12 +109,12 @@ class BusScraper(WebConnectors.Scraper):
             buses = json.loads(page_soup.text)
         except:
             print("Json parsing failed; ensure webpage has not been moved.")  
-            return []
+            return
         
         buses = BusScraper.maybeGetValue(buses, "vehicule", default=None)
         if buses is None:
             print("Json search failed to find expected 'vehicule' entry; ensure webpage has not been changed.")
-            return []
+            return
         
         for b in buses:
             if BusScraper.maybeGetValue(b, "conduite", "idLigne", default=None) != self.busID:
@@ -131,7 +128,6 @@ class BusScraper(WebConnectors.Scraper):
                          BusScraper.maybeGetValue(b, "conduite", "vitesse"),
                         )
                 )
-                
         return vehicles
 
 
@@ -147,8 +143,11 @@ def main():
     
     for shuttle, route in shut:
         print(route.distToStops(shuttle))
-        
         shuttle.updateInto(SHUTTLE_LOCATION_TABLE, connection)
+        
+    clearOutdated = f"UPDATE '{SHUTTLE_LOCATION_TABLE}' SET latitude = %s, longitude = %s, direction = %s, speed = %s, updated = %s WHERE updated < (NOW() - 3 MINUTES)"
+    var = (None, None, None, None, datetime.datetime.now())
+    Queriable(connection, (clearOutdated, var))
     connection.close()
 
 if __name__ == "__main__":
