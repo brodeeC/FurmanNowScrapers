@@ -145,7 +145,7 @@ def main():
         print(route.distToStops(shuttle))
         shuttle.updateInto(SHUTTLE_LOCATION_TABLE, connection)
         
-    clearOutdated = f"UPDATE `{SHUTTLE_LOCATION_TABLE}` SET latitude=%s, longitude=%s, direction=%s, speed=%s, updated=%s WHERE updated < (NOW() - 3 MINUTES)"
+    clearOutdated = f"UPDATE `{SHUTTLE_LOCATION_TABLE}` SET latitude=%s, longitude=%s, direction=%s, speed=%s, updated=%s WHERE updated < (NOW() - INTERVAL 3 MINUTE)"
     var = (None, None, None, None, datetime.datetime.now())
     Queriable.query(connection, (clearOutdated, var))
     connection.close()
