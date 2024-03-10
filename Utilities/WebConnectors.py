@@ -99,7 +99,7 @@ def formConnections():
     return connection
 
 def youTubePullLatest(channelID, numRequested = 10):
-    filename = "../aux/youtubeAPICred.txt"
+    filename = "/home/csdaemon/aux/youtubeAPICred.txt"
     file = open(filename, "r")
     apiKey = file.readlines()[0].strip()
     headers = {"Accept": "application/json", "Referer": "Mozilla"}
@@ -112,7 +112,7 @@ def youTubePullLatest(channelID, numRequested = 10):
 
 def getLibraryAPIToken():
     link = "https://libcal.furman.edu/1.1/oauth/token"
-    filename = "../aux/libraryAPICred.txt"
+    filename = "/home/csdaemon/aux/libraryAPICred.txt"
     file = open(filename, 'r')
     credentials = file.readlines()
     clientID = credentials[0].strip()
