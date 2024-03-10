@@ -147,7 +147,7 @@ def main():
         
     clearOutdated = f"UPDATE '{SHUTTLE_LOCATION_TABLE}' SET latitude = %s, longitude = %s, direction = %s, speed = %s, updated = %s WHERE updated < (NOW() - 3 MINUTES)"
     var = (None, None, None, None, datetime.datetime.now())
-    Queriable(connection, (clearOutdated, var))
+    Queriable.query(connection, (clearOutdated, var))
     connection.close()
 
 if __name__ == "__main__":
