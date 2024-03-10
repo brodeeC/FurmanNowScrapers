@@ -450,11 +450,11 @@ class BusRouteScraper(RouteScraper):
 def main():
     a = ShuttleRouteScraper("Campus Shuttle", "Furman University Shuttle", 2)
     a.tryPull()
-    a.saveRouteToJSONFile("../aux/ShuttleRoute.json")
+    a.saveRouteToJSONFile("/home/csdaemon/aux/ShuttleRoute.json")
     
     b = BusRouteScraper("503 Bus", "503", 2)
     b.tryPull()
-    b.saveRouteToJSONFile("../aux/503Route.json")
+    b.saveRouteToJSONFile("/home/csdaemon/aux/503Route.json")
     
     
     
