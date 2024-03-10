@@ -111,8 +111,8 @@ class RouteScraper(Scraper, Insertable):
         self.routePolyline = encodedPolyline
         
         attrs = [["id", self.idInTable ],
-                  ["shuttleName", self.lineName],
-                  ["shuttleIDExternal", self.lineID],
+                  ["name", self.lineName],
+                  ["externalID", self.lineID],
                   ["routePolyline", self.routePolyline],
                   ["website", self.website]]
         
