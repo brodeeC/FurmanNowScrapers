@@ -49,7 +49,7 @@ class Vehicle(Clearable, Insertable, Directioned):
         self.updated = datetime.datetime.now()
 
     def updateInto(self, table, connection):
-        query = f"UPDATE '{table}' SET latitude = %s, longitude = %s, direction = %s, speed = %s, updated = %s WHERE vehicle = %s"
+        query = f"UPDATE `{table}` SET latitude = %s, longitude = %s, direction = %s, speed = %s, updated = %s WHERE vehicle = %s"
         fields = (self.lat, self.lon, self.heading, self.speed, self.updated, self.name)
         Vehicle.query(connection, (query, fields))
         connection.commit()
