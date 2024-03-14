@@ -352,7 +352,7 @@ class TocquevilleScraper(NewsScraper):
                     imagelink =  TocquevilleScraper.getImage(entry)
                 )
             )
-            return articles
+        return articles
 
     def _pull(self):
         articles = []
@@ -415,7 +415,7 @@ class RileyScraper(NewsScraper):
                     imagelink =  RileyScraper.getImage(entry)
                 )
             )
-            return articles
+        return articles
     
     def _pull(self):
         articles = []

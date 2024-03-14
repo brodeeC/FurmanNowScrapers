@@ -3,3 +3,5 @@
 *.pyc
 __pycache__/VehicleScraper.cpython-38.pyc
 __pycache__/RouteScraper.cpython-38.pyc
+Utilities/__pycache__/WebConnectors.cpython-38.pyc
+/Utilities/__pycache__
