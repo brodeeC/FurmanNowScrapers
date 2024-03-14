@@ -80,7 +80,6 @@ class NewsScraper(Scraper):
         raise NotImplementedError("Must override 'getTableID'.")
     
     def youTubeFilterForVideos(req):
-        print(req)
         entries = json.loads(req.content)["items"]
         return filter(lambda entry: "upload" in entry["contentDetails"], entries)
 
@@ -314,8 +313,9 @@ class TocquevilleScraper(NewsScraper):
         summary = summarySoup.findAll("p")[0].contents[0]
         return summary
     
-    def getLink(blogEntry):
-        for link in blogEntry.media_content:
+    def getImage(blogEntry):
+        print(blogEntry)
+        for link in blogEntry.links:
             if "image" in link.type:
                 return link.url
 
@@ -338,7 +338,7 @@ class TocquevilleScraper(NewsScraper):
         site = Scraper.getSite(TOCQUEVILLE_BLOG_FEED)
         feed = feedparser.parse(site.content)
 
-        for entry in feed:
+        for entry in feed.entries:
             articles.append(
                 Article(
                     title = entry.title,
@@ -352,6 +352,7 @@ class TocquevilleScraper(NewsScraper):
                     imagelink =  TocquevilleScraper.getImage(entry)
                 )
             )
+            return articles
 
     def _pull(self):
         articles = []
@@ -369,12 +370,17 @@ class TocquevilleScraper(NewsScraper):
 
 class RileyScraper(NewsScraper): 
     def getTableID(self) -> int:
-        return NewsScraper["Riley"]["id"]
+        return NewsSources["Riley"]["id"]
     
     def getSummary(blogEntry):
         summarySoup = soup(blogEntry.summary, features="html.parser")
         summary = summarySoup.findAll("p")[0].contents[0]
         return summary
+    
+    def getImage(entry):
+        for link in entry.links:
+            if "image" in link.type:
+                return link.url
     
     def _pullYoutube(self):
         articles = []
@@ -395,7 +401,7 @@ class RileyScraper(NewsScraper):
         site = Scraper.getSite(RILEY_BLOG_FEED)
         feed = feedparser.parse(site.content)
 
-        for entry in feed:
+        for entry in feed.entries:
             articles.append(
                 Article(
                     title = entry.title,
@@ -409,6 +415,7 @@ class RileyScraper(NewsScraper):
                     imagelink =  RileyScraper.getImage(entry)
                 )
             )
+            return articles
     
     def _pull(self):
         articles = []
@@ -435,8 +442,7 @@ def purgeOldEvents(connection, publisherID):
             print("Failed to purge.")
     
 def main():
-    newsScrapers = [PaladinScraper(), ChristoScraper(), PresidentScraper(),
-                    FurmanNewsScraper(), KnightlyNewsScraper(), FUNCScraper(),
+    newsScrapers = [RileyScraper(),
                     TocquevilleScraper()]
     articles = []
     for scraper in newsScrapers:
@@ -448,6 +454,7 @@ def main():
             purgeOldEvents(connection, scraper.getTableID())
     for artic in articles:
         artic.insertInto(NEWS_TABLE, connection)
-    
+        
 if __name__ == "__main__":
     main()
+
