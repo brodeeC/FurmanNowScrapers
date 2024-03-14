@@ -324,7 +324,7 @@ class TocquevilleScraper(NewsScraper):
         req = youTubePullLatest(TOCQUEVILLE_YOUTUBE_CHANNEL_ID)
         feed = TocquevilleScraper.youTubeFilterForVideos(req)
 
-        for entry in req:
+        for entry in feed:
             articles.append(
                 TocquevilleScraper.parseYouTubeToArticle(
                     entry, "Tocqueville Center Staff", self.getTableID()
@@ -381,7 +381,7 @@ class RileyScraper(NewsScraper):
         req = youTubePullLatest(RILEY_YOUTUBE_CHANNEL_ID)
         feed = RileyScraper.youTubeFilterForVideos(req)
 
-        for entry in req:
+        for entry in feed:
             articles.append(
                 RileyScraper.parseYouTubeToArticle(
                     entry, "Riley Institue Staff", self.getTableID()
