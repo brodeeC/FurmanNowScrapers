@@ -43,6 +43,9 @@ class Article(Insertable):
                  ["publishdate", self.publishDate.strftime("%Y-%m-%d %H:%M:%S")],
                  ["imagelink", self.imagelink]]
         Article._insertIntoHelper(table, connection, attrs, commit)
+        
+    def __lt__(self, other): 
+        return self.publishDate < other.publishDate
 
 PALADIN_FEED = "https://thepaladin.news/feed/"
 CHRISTO_FEED = "https://christoetdoctrinae.com/articles?format=rss"
@@ -69,9 +72,9 @@ NewsSources = {
     "News" :        {"id": 7, "name": "Furman in the News"},    ## Online
     "President" :   {"id": 8, "name": "President's Page"},      ## Online
     "Magazine" :    {"id": 9, "name": "Furman Magazine"},           ## TO-DO
-    "Tocqueville" : {"id": 10, "name": "The Tocqueville Center"},       ## TO-DO
-    "Riley" :       {"id": 11, "name": "The Riley Institute"},          ## TO-DO
-}
+    "Tocqueville" : {"id": 10, "name": "The Tocqueville Center"},# Online
+    "Riley" :       {"id": 11, "name": "The Riley Institute"},  ## Online
+    }
 
 
 class NewsScraper(Scraper):
@@ -85,7 +88,7 @@ class NewsScraper(Scraper):
 
     def parseYouTubeToArticle(entry, authName, tableID):
         return Article(
-            title = entry["snippet"]["title"].title(),
+            title = entry["snippet"]["title"],
             author = authName,
             description = entry["snippet"]["description"],
             mediatype = Article.VIDEO,
@@ -298,7 +301,7 @@ class KnightlyNewsScraper(NewsScraper):
         
         for entry in feed:
             curArt = KnightlyNewsScraper.parseYouTubeToArticle(
-                entry, "Knightly News Team", self.getTableID
+                entry, "Knightly News Team", self.getTableID()
             )
             curArt.description = KnightlyNewsScraper.cleanDescription(curArt.description)
             articles.append(curArt)
@@ -364,7 +367,10 @@ class TocquevilleScraper(NewsScraper):
             articles += self._pullBlog()
         except Exception as e:
             print(e)
-        return articles
+            
+        articles.sort(reverse=True)
+        return articles[:10]
+
 
 
 class RileyScraper(NewsScraper): 
@@ -416,6 +422,27 @@ class RileyScraper(NewsScraper):
             )
         return articles
     
+    def _pullNews(self):
+        articles = []
+        site = Scraper.getSite(RILEY_NEWS_FEED)
+        feed = feedparser.parse(site.content)
+
+        for entry in feed.entries:
+            articles.append(
+                Article(
+                    title = entry.title,
+                    author = entry.author,
+                    description = RileyScraper.getSummary(entry),
+                    mediatype = Article.LINK,
+                    link = entry.link,
+                    publisherID = self.getTableID(),
+                    section = None,
+                    publishDate = parseTime(entry.published),
+                    imagelink =  RileyScraper.getImage(entry)
+                )
+            )
+        return articles
+    
     def _pull(self):
         articles = []
         try:
@@ -427,7 +454,9 @@ class RileyScraper(NewsScraper):
             articles += self._pullBlog()
         except Exception as e:
             print(e)
-        return articles
+            
+        articles.sort(reverse=True)
+        return articles[:10]
        
     
 def purgeOldEvents(connection, publisherID):
@@ -441,8 +470,8 @@ def purgeOldEvents(connection, publisherID):
             print("Failed to purge.")
     
 def main():
-    newsScrapers = [RileyScraper(),
-                    TocquevilleScraper()]
+    newsScrapers = [ChristoScraper(), PaladinScraper(), FUNCScraper(), FurmanNewsScraper(),
+                    KnightlyNewsScraper(), PresidentScraper(), RileyScraper(), TocquevilleScraper()]
     articles = []
     for scraper in newsScrapers:
         articles += scraper.tryPull()
