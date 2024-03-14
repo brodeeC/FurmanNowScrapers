@@ -142,7 +142,6 @@ def main():
     connection = WebConnectors.formConnections()
     
     for shuttle, route in shut:
-        print(route.distToStops(shuttle))
         shuttle.updateInto(SHUTTLE_LOCATION_TABLE, connection)
         
     clearOutdated = f"UPDATE `{SHUTTLE_LOCATION_TABLE}` SET latitude=%s, longitude=%s, direction=%s, speed=%s, updated=%s WHERE updated < (NOW() - INTERVAL 3 MINUTE)"

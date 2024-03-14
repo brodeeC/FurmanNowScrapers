@@ -48,9 +48,14 @@ PALADIN_FEED = "https://thepaladin.news/feed/"
 CHRISTO_FEED = "https://christoetdoctrinae.com/articles?format=rss"
 PRESIDENT_FEED = "https://www.furman.edu/about/president/communications/feed"
 FURMAN_NEWS_FEED = "https://www.furman.edu/news/feed"
+TOCQUEVILLE_BLOG_FEED = "https://www.furman.edu/academics/tocqueville-program/lectures/feed"
+RILEY_BLOG_FEED = "https://www.furman.edu/riley/posts/feed"
+RILEY_NEWS_FEED = "https://www.furman.edu/riley/news/feed"
 
 FUNC_YOUTUBE_CHANNEL_ID = "UC3UaWOCIldF5_qWnCYEt0RQ"
 KNIGHTLY_YOUTUBE_CHANNEL_ID = "UCiKdNbjss18h2LI1eesPRbA"
+TOCQUEVILLE_YOUTUBE_CHANNEL_ID = "UCGwVaOolYr8YhU8xP0reIQw"
+RILEY_YOUTUBE_CHANNEL_ID = "UCg_pCJrojA3kwdYGRl_OPEw"
 
 NEWS_TABLE = "newsContent"
 
@@ -64,6 +69,8 @@ NewsSources = {
     "News" :        {"id": 7, "name": "Furman in the News"},    ## Online
     "President" :   {"id": 8, "name": "President's Page"},      ## Online
     "Magazine" :    {"id": 9, "name": "Furman Magazine"},           ## TO-DO
+    "Tocqueville" : {"id": 10, "name": "The Tocqueville Center"},       ## TO-DO
+    "Riley" :       {"id": 11, "name": "The Riley Institute"},          ## TO-DO
 }
 
 
@@ -71,7 +78,24 @@ class NewsScraper(Scraper):
     @abstractmethod
     def getTableID(self) -> int:
         raise NotImplementedError("Must override 'getTableID'.")
+    
+    def youTubeFilterForVideos(req):
+        print(req)
+        entries = json.loads(req.content)["items"]
+        return filter(lambda entry: "upload" in entry["contentDetails"], entries)
 
+    def parseYouTubeToArticle(entry, authName, tableID):
+        return Article(
+            title = entry["snippet"]["title"].title(),
+            author = authName,
+            description = entry["snippet"]["description"],
+            mediatype = Article.VIDEO,
+            link = "https://youtu.be/" + entry["contentDetails"]["upload"]["videoId"],
+            publisherID = tableID,
+            section = None,
+            publishDate = parseTime(entry["snippet"]["publishedAt"]),
+            imagelink = None
+        )
 
 class ChristoScraper(Scraper):
     
@@ -245,35 +269,24 @@ class FUNCScraper(NewsScraper):
     def _pull(self):
         articles = []
         req = youTubePullLatest(FUNC_YOUTUBE_CHANNEL_ID)
-        feed = json.loads(req.content)["items"]
+        feed = FUNCScraper.youTubeFilterForVideos(req)
         
         for entry in feed:
-            if "upload" not in entry["contentDetails"]:
-                continue
             articles.append(
-                Article(
-                    title = entry["snippet"]["title"].title(),
-                    author = "FUNC Team",
-                    description = entry["snippet"]["description"],
-                    mediatype = Article.VIDEO,
-                    link = "https://youtu.be/" + entry["contentDetails"]["upload"]["videoId"],
-                    publisherID = self.getTableID(),
-                    section = None,
-                    publishDate = parseTime(entry["snippet"]["publishedAt"]),
-                    imagelink = None
+                FUNCScraper.parseYouTubeToArticle(
+                    entry, "FUNC Team", self.getTableID()
                     )
                 )
         return articles
             
-class KnightlyNewsScraper(Scraper):
+class KnightlyNewsScraper(NewsScraper):
     
     def getTableID(self):
         return NewsSources["Knightly"]["id"]
     
-    def getDescription(entry):
-        desc = entry["snippet"]["description"]
+    def cleanDescription(desc):
         trunDesc = desc.split("\n\n")
-        stories = trunDesc[0].split("\n");
+        stories = trunDesc[0].split("\n")
         for i, v in enumerate(stories):
             if len(v) > 0 and i < len(stories) - 1 and v[-1] not in ".;,!?:":
                 stories[i] = v.strip() + ";"
@@ -282,25 +295,134 @@ class KnightlyNewsScraper(Scraper):
     def _pull(self):
         articles = []
         req = youTubePullLatest(KNIGHTLY_YOUTUBE_CHANNEL_ID, 20)
-        feed = json.loads(req.content)["items"]
+        feed = KnightlyNewsScraper.youTubeFilterForVideos(req)
         
         for entry in feed:
-            if "upload" not in entry["contentDetails"]:
-                continue
+            curArt = KnightlyNewsScraper.parseYouTubeToArticle(
+                entry, "Knightly News Team", self.getTableID
+            )
+            curArt.description = KnightlyNewsScraper.cleanDescription(curArt.description)
+            articles.append(curArt)
+        return articles
+
+class TocquevilleScraper(NewsScraper):
+    def getTableID(self):
+        return NewsSources["Tocqueville"]["id"]
+    
+    def getSummary(blogEntry):
+        summarySoup = soup(blogEntry.summary, features="html.parser")
+        summary = summarySoup.findAll("p")[0].contents[0]
+        return summary
+    
+    def getLink(blogEntry):
+        for link in blogEntry.media_content:
+            if "image" in link.type:
+                return link.url
+
+    def _pullYoutube(self):
+        articles = []
+        req = youTubePullLatest(TOCQUEVILLE_YOUTUBE_CHANNEL_ID)
+        feed = TocquevilleScraper.youTubeFilterForVideos(req)
+
+        for entry in req:
             articles.append(
-                Article(
-                    title = entry["snippet"]["title"].title(),
-                    author = "Knightly News Team",
-                    description = KnightlyNewsScraper.getDescription(entry),
-                    mediatype = Article.VIDEO,
-                    link = "https://youtu.be/" + entry["contentDetails"]["upload"]["videoId"],
-                    publisherID = self.getTableID(),
-                    section = None,
-                    publishDate = parseTime(entry["snippet"]["publishedAt"]),
-                    imagelink = None
+                TocquevilleScraper.parseYouTubeToArticle(
+                    entry, "Tocqueville Center Staff", self.getTableID()
                     )
                 )
+        
         return articles
+            
+    def _pullBlog(self):
+        articles = []
+        site = Scraper.getSite(TOCQUEVILLE_BLOG_FEED)
+        feed = feedparser.parse(site.content)
+
+        for entry in feed:
+            articles.append(
+                Article(
+                    title = entry.title,
+                    author = entry.author,
+                    description = TocquevilleScraper.getSummary(entry),
+                    mediatype = Article.LINK,
+                    link = entry.link,
+                    publisherID = self.getTableID(),
+                    section = None,
+                    publishDate = parseTime(entry.published),
+                    imagelink =  TocquevilleScraper.getImage(entry)
+                )
+            )
+
+    def _pull(self):
+        articles = []
+        try:
+            articles += self._pullYoutube()
+        except Exception as e:
+            print(e)
+        
+        try:
+            articles += self._pullBlog()
+        except Exception as e:
+            print(e)
+        return articles
+
+
+class RileyScraper(NewsScraper): 
+    def getTableID(self) -> int:
+        return NewsScraper["Riley"]["id"]
+    
+    def getSummary(blogEntry):
+        summarySoup = soup(blogEntry.summary, features="html.parser")
+        summary = summarySoup.findAll("p")[0].contents[0]
+        return summary
+    
+    def _pullYoutube(self):
+        articles = []
+        req = youTubePullLatest(RILEY_YOUTUBE_CHANNEL_ID)
+        feed = RileyScraper.youTubeFilterForVideos(req)
+
+        for entry in req:
+            articles.append(
+                RileyScraper.parseYouTubeToArticle(
+                    entry, "Riley Institue Staff", self.getTableID()
+                    )
+                )
+        
+        return articles
+    
+    def _pullBlog(self):
+        articles = []
+        site = Scraper.getSite(RILEY_BLOG_FEED)
+        feed = feedparser.parse(site.content)
+
+        for entry in feed:
+            articles.append(
+                Article(
+                    title = entry.title,
+                    author = entry.author,
+                    description = RileyScraper.getSummary(entry),
+                    mediatype = Article.LINK,
+                    link = entry.link,
+                    publisherID = self.getTableID(),
+                    section = None,
+                    publishDate = parseTime(entry.published),
+                    imagelink =  RileyScraper.getImage(entry)
+                )
+            )
+    
+    def _pull(self):
+        articles = []
+        try:
+            articles += self._pullYoutube()
+        except Exception as e:
+            print(e)
+        
+        try:
+            articles += self._pullBlog()
+        except Exception as e:
+            print(e)
+        return articles
+       
     
 def purgeOldEvents(connection, publisherID):
     sql = f"DELETE FROM `{NEWS_TABLE}` WHERE `publisherID` = {publisherID}"
@@ -314,7 +436,8 @@ def purgeOldEvents(connection, publisherID):
     
 def main():
     newsScrapers = [PaladinScraper(), ChristoScraper(), PresidentScraper(),
-                    FurmanNewsScraper(), KnightlyNewsScraper(), FUNCScraper()]
+                    FurmanNewsScraper(), KnightlyNewsScraper(), FUNCScraper(),
+                    TocquevilleScraper()]
     articles = []
     for scraper in newsScrapers:
         articles += scraper.tryPull()
