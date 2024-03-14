@@ -368,7 +368,7 @@ class TocquevilleScraper(NewsScraper):
         except Exception as e:
             print(e)
             
-        articles.sort()
+        articles.sort(reverse=True)
         return articles[:10]
 
 
@@ -455,7 +455,7 @@ class RileyScraper(NewsScraper):
         except Exception as e:
             print(e)
             
-        articles.sort()
+        articles.sort(reverse=True)
         return articles[:10]
        
     
