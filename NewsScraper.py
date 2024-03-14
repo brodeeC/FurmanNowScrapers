@@ -314,7 +314,6 @@ class TocquevilleScraper(NewsScraper):
         return summary
     
     def getImage(blogEntry):
-        print(blogEntry)
         for link in blogEntry.links:
             if "image" in link.type:
                 return link.url
