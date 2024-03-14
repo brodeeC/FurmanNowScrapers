@@ -85,7 +85,7 @@ class NewsScraper(Scraper):
 
     def parseYouTubeToArticle(entry, authName, tableID):
         return Article(
-            title = entry["snippet"]["title"].title(),
+            title = entry["snippet"]["title"],
             author = authName,
             description = entry["snippet"]["description"],
             mediatype = Article.VIDEO,
@@ -298,7 +298,7 @@ class KnightlyNewsScraper(NewsScraper):
         
         for entry in feed:
             curArt = KnightlyNewsScraper.parseYouTubeToArticle(
-                entry, "Knightly News Team", self.getTableID
+                entry, "Knightly News Team", self.getTableID()
             )
             curArt.description = KnightlyNewsScraper.cleanDescription(curArt.description)
             articles.append(curArt)
@@ -417,6 +417,27 @@ class RileyScraper(NewsScraper):
             )
         return articles
     
+    def _pullNews(self):
+        articles = []
+        site = Scraper.getSite(RILEY_NEWS_FEED)
+        feed = feedparser.parse(site.content)
+
+        for entry in feed.entries:
+            articles.append(
+                Article(
+                    title = entry.title,
+                    author = entry.author,
+                    description = RileyScraper.getSummary(entry),
+                    mediatype = Article.LINK,
+                    link = entry.link,
+                    publisherID = self.getTableID(),
+                    section = None,
+                    publishDate = parseTime(entry.published),
+                    imagelink =  RileyScraper.getImage(entry)
+                )
+            )
+        return articles
+    
     def _pull(self):
         articles = []
         try:
@@ -428,6 +449,7 @@ class RileyScraper(NewsScraper):
             articles += self._pullBlog()
         except Exception as e:
             print(e)
+            
         return articles
        
     
