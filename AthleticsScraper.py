@@ -112,21 +112,29 @@ class AthleticsScraper(Scraper):
     
     def _pull(self):
         
-        recent = str(date.today()- timedelta(days=RECENT_DAYS_BACK))
-        athleticsURL = 'https://furmanpaladins.com/services/responsive-calendar.ashx?'\
-                      +'type=events&sport=0&location=all&date='\
-                      +recent\
-                      +'T00%3A00%3A00'
+        ## How many days from today you want the URL to have started; before is negative, after is positive.
+        def makeAthleticsURL(startDaysFromToday):
+            day = str(date.today() + timedelta(days=startDaysFromToday))
+            athleticsURL = 'https://furmanpaladins.com/services/responsive-calendar.ashx?'\
+                          +'type=events&sport=0&location=all&date='\
+                          + day\
+                          +'T00%3A00%3A00'
+            return athleticsURL
+        
+        firstURL = makeAthleticsURL(-RECENT_DAYS_BACK)
+        secondURL = makeAthleticsURL(7 - RECENT_DAYS_BACK)
+                     
                       
         # Making a get request - change User-agent to anything other than Python to allow
-        response = requests.get(athleticsURL, headers={'User-Agent': 'Custom'})
+        firstResponse = requests.get(firstURL, headers={'User-Agent': 'Custom'})
+        secondResponse = requests.get(secondURL, headers={'User-Agent': 'Custom'})
           
         # check for good request response
-        if response.status_code != 200:
-            print ("Athletics unable to access URL" + response.status_code)
+        if firstResponse.status_code != 200 or secondResponse.status_code != 200:
+            print ("Athletics unable to access URL" + firstResponse.status_code + secondResponse.status_code)
             return []
 
-        jsonResponse = response.json()
+        jsonResponse = firstResponse.json() + secondResponse.json()
 
         games = []
         #### add each event to database

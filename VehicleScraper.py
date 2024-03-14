@@ -39,8 +39,8 @@ SHUTTLE_LOCATION_TABLE = "shuttleLocations"
 class Vehicle(Clearable, Insertable, Directioned):
     name : str
     speed : int
-    eta : int = -1
-    capacity : str = None
+    nextStopDist : int = None
+    nextStopID : str = None
     
     def NoVehic():
         return Vehicle(0, 0, 0, "", 0)
@@ -60,7 +60,8 @@ class Vehicle(Clearable, Insertable, Directioned):
                  ["longitude", self.lon],
                  ["speed", self.speed],
                  ["direction", self.heading],
-                 ["estimatedTime", self.eta],
+                 ["nextStopDistance", self.nextStopDist],
+                 ["nextStopID", self.nextStopID],
                  ["updated", self.updated]]
         
         if self.capacity is not None:
@@ -142,6 +143,9 @@ def main():
     connection = WebConnectors.formConnections()
     
     for shuttle, route in shut:
+        stopDists = route.distToStops(shuttle)
+        shuttle.nextStopID = stopDists[0][0].stopOrderID
+        shuttle.nextStopDist = stopDists[0][1]
         shuttle.updateInto(SHUTTLE_LOCATION_TABLE, connection)
         
     clearOutdated = f"UPDATE `{SHUTTLE_LOCATION_TABLE}` SET latitude=%s, longitude=%s, direction=%s, speed=%s, updated=%s WHERE updated < (NOW() - INTERVAL 3 MINUTE)"
