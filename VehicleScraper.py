@@ -20,7 +20,7 @@ import datetime
 from dataclasses import dataclass
 import Utilities.WebConnectors as WebConnectors
 from Utilities.PositionClasses import Directioned
-from Utilities.SQLQueryClasses import Insertable, Clearable, Queriable
+from Utilities.SQLQueryClasses import Insertable, Queriable, Clearable
 from RouteScraper import RouteScraper
 
 
@@ -34,9 +34,10 @@ SHUTTLE_URL = "https://furmansaferide.ridesystems.net/Services/JSONPRelay.svc/Ge
 URL_GREENLINK_LOCATION = "https://greenlink.cadavl.com:4437/SWIV/GTA/proxy/restWS/topo/vehicules"
 
 SHUTTLE_LOCATION_TABLE = "shuttleLocations"
+STOPS_DIST_TABLE = "stopsDistanceTable"
 
 @dataclass
-class Vehicle(Clearable, Insertable, Directioned):
+class Vehicle(Insertable, Directioned):
     name : str
     speed : int
     nextStopDist : int = None
@@ -148,6 +149,12 @@ def main():
         shuttle.nextStopDist = stopDists[0][1]
         print(shuttle)
         shuttle.updateInto(SHUTTLE_LOCATION_TABLE, connection)
+        Clearable._clearHelper(STOPS_DIST_TABLE, connection, [["lineID", route.lineID]])
+        for stops in stopDists:
+            attrs = [["stopOrderID", stops[0].stopOrderID],
+                     ["lineID", stops[0].lineID],
+                     ["distFromVehicle", stops[1]]]
+            Insertable._insertIntoHelper(STOPS_DIST_TABLE, connection, attrs)
         
     clearOutdated = f"UPDATE `{SHUTTLE_LOCATION_TABLE}` SET latitude=%s, longitude=%s, direction=%s, speed=%s, updated=%s WHERE updated < (NOW() - INTERVAL 3 MINUTE)"
     var = (None, None, None, None, datetime.datetime.now())
