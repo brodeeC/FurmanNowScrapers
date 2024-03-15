@@ -149,10 +149,10 @@ def main():
         shuttle.nextStopDist = stopDists[0][1]
         print(shuttle)
         shuttle.updateInto(SHUTTLE_LOCATION_TABLE, connection)
-        Clearable._clearHelper(STOPS_DIST_TABLE, connection, [["lineID", route.lineID]])
+        Clearable._clearHelper(STOPS_DIST_TABLE, connection, [["lineID", route.idInTable]])
         for stops in stopDists:
             attrs = [["stopOrderID", stops[0].stopOrderID],
-                     ["lineID", stops[0].lineID],
+                     ["lineID", stops[0].lineTableID],
                      ["distFromVehicle", stops[1]]]
             Insertable._insertIntoHelper(STOPS_DIST_TABLE, connection, attrs)
         

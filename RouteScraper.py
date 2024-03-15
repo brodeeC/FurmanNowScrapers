@@ -10,7 +10,7 @@ import json
 from typing import List, Union, Tuple
 import polyline
 from Utilities.WebConnectors import Scraper, formConnections
-from Utilities.SQLQueryClasses import Insertable, Clearable
+from Utilities.SQLQueryClasses import Insertable, Clearable, Queriable
 from Utilities.PositionClasses import Positioned, Directioned
 
 GREENLINK_WEBSITE = "https://greenlink.cadavl.com:4437/SWIV/GTA"
@@ -24,10 +24,10 @@ SHUTTLE_TABLE = 'vehicleNames'
 STOPS_TABLE = 'stopsTable'
 
 class LinePoint(Directioned):
-    def __init__(self, orderID, lat, lon, lineID, isStop = False, heading = None, distance = None):
+    def __init__(self, orderID, lat, lon, lineTableID, isStop = False, heading = None, distance = None):
         super().__init__(lat, lon, heading)
         self.orderID = orderID
-        self.lineID = lineID
+        self.lineTableID = lineTableID
         self.isStop = isStop
         self.distance = distance
         
@@ -42,7 +42,7 @@ class LinePoint(Directioned):
                "lat" : self.lat,
                "lon" : self.lon,
                "heading" : self.heading,
-               "lineID" : self.lineID,
+               "lineTableID" : self.lineTableID,
                "isStop" : self.isStop,
                "distance" : self.distance}
     
@@ -52,7 +52,7 @@ class LinePoint(Directioned):
         return LinePoint(dct["orderID"],
                         dct["lat"],
                         dct["lon"],
-                        dct["lineID"],
+                        dct["lineTableID"],
                         isStop = dct["isStop"], 
                         heading = dct["heading"],
                         distance = dct["distance"])
@@ -62,8 +62,8 @@ class LinePoint(Directioned):
     
 
 class LineStop(LinePoint, Insertable, Clearable):
-    def __init__(self, orderID, lat, lon, lineID, stopName, stopOrderID, heading=None, distance=None):
-        super().__init__(orderID, lat, lon, lineID, isStop = True, heading=heading, distance=distance)
+    def __init__(self, orderID, lat, lon, lineTableID, stopName, stopOrderID, heading=None, distance=None):
+        super().__init__(orderID, lat, lon, lineTableID, isStop = True, heading=heading, distance=distance)
         self.stopName = stopName
         self.stopOrderID = stopOrderID
     
@@ -77,17 +77,17 @@ class LineStop(LinePoint, Insertable, Clearable):
         return LineStop(dct["orderID"],
                         dct["lat"],
                         dct["lon"],
-                        dct["lineID"],
+                        dct["lineTableID"],
                         dct["stopName"],
                         dct["stopOrderID"],
                         heading=dct["heading"],
                         distance=dct['distance'])
     
     def clearFrom(self, table, connection):
-        Clearable._clearHelper(table, connection, [['lineID', self.lineID]])
+        Clearable._clearHelper(table, connection, [['lineID', self.lineTableID]])
         
     def insertInto(self, table, connection, commit=True):
-        attrs = [["lineID", self.lineID],
+        attrs = [["lineID", self.lineTableID],
          ["stopOrderID", self.stopOrderID],
          ["latitude", self.lat],
          ["longitude", self.lon],
@@ -96,11 +96,11 @@ class LineStop(LinePoint, Insertable, Clearable):
         
         Insertable._insertIntoHelper(table, connection, attrs, commit)
         
-class RouteScraper(Scraper, Insertable):
+class RouteScraper(Scraper, Queriable):
     lineName : str
     lineIdentifier : Union[int, str]
     idInTable : int
-    lineID : int
+    lineIDExternal : int
     website: str
     routePolyline: str
     lineRoute: List[LinePoint]
@@ -110,7 +110,7 @@ class RouteScraper(Scraper, Insertable):
         self.lineName = lineName
         self.lineIdentifier = lineIdentifier
         self.idInTable = idInTable
-        self.lineID = None
+        self.lineIDExternal = None
         self.lineRoute = None
  
     def updateInto(self, table, connection, commit=True):
@@ -121,13 +121,14 @@ class RouteScraper(Scraper, Insertable):
         encodedPolyline = polyline.encode(pline)
         self.routePolyline = encodedPolyline
         
-        attrs = [["id", self.idInTable ],
-                  ["name", self.lineName],
-                  ["externalID", self.lineID],
-                  ["routePolyline", self.routePolyline],
-                  ["website", self.website]]
+        attrs = [["name", self.lineName],
+                  ["externalID", self.lineIDExternal],
+                  ["routePolyline", self.routePolyline]]
         
-        RouteScraper._query(table, connection, attrs, commit)
+        query = f"UPDATE {table} SET name = $s, externalID = %s, routePolyline = %s WHERE id = %s"
+        attrs = (self.lineName, self.lineIDExternal, self.routePolyline, self.idInTable)
+        
+        RouteScraper.query(table, connection, (query, attrs), commit)
         
         if self.stopsTable is not None:
             self.lineRoute[0].clearFrom(self.stopsTable, connection)
@@ -139,7 +140,7 @@ class RouteScraper(Scraper, Insertable):
         dct = {"lineName" : self.lineName,
                "lineIdentifier" : self.lineIdentifier,
                "idInTable" : self.idInTable,
-               "lineID" : self.lineID,
+               "lineID" : self.lineIDExternal,
                "website" : self.website,
                "lineRoute" : [a.toJSONdict() for a in self.lineRoute]}
         
@@ -151,7 +152,7 @@ class RouteScraper(Scraper, Insertable):
             json_object = json.load(infile)
             
         route = RouteScraper(json_object["lineName"], json_object["lineIdentifier"], json_object["idInTable"])
-        route.lineID = json_object["lineID"]
+        route.lineIDExternal = json_object["lineID"]
         route.website = json_object["website"]
         route.lineRoute = [LinePoint.fromJSONdict(r) for r in json_object["lineRoute"]]
         return route
@@ -242,7 +243,7 @@ class ShuttleRouteScraper(RouteScraper):
     def _pull(self):
         page_soup = ShuttleRouteScraper.getSoup(CAMPUS_SHUTTLE_STOPS_AND_ROUTE)
         page_json = json.loads(page_soup.text)
-        self.lineID = self._getRouteNumber()
+        self.lineIDExternal = self._getRouteNumber()
         self.lineRoute = self._getLineRoute(page_json)
         return self.lineRoute
         
@@ -461,7 +462,7 @@ class BusRouteScraper(RouteScraper):
     def _pull(self):
         page_soup = BusRouteScraper.getSoup(URL_GREENLINK_STOPS_AND_ROUTE_AND_ID)
         page_json = json.loads(page_soup.text)
-        self.lineID = self._getBusID(page_json)
+        self.lineIDExternal = self._getBusID(page_json)
         self.lineRoute = self._getBusRoute(page_json)
         return self.lineRoute
                    
@@ -479,7 +480,7 @@ def main():
     for shut in [a, b]:
         shut.setStopsTable(STOPS_TABLE)
         shut.clearFrom(SHUTTLE_TABLE, connection)
-        shut.insertInto(SHUTTLE_TABLE, connection)
+        shut.updateInto(SHUTTLE_TABLE, connection)
     
     
     
