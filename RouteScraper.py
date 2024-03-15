@@ -405,7 +405,7 @@ class BusRouteScraper(RouteScraper):
                         minInd,
                         stop.lat, 
                         stop.lon,
-                        stop.idInTable,
+                        self.idInTable,
                         stop.stopName,
                         -1
                     )
