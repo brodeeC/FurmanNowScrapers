@@ -112,8 +112,8 @@ class RouteScraper(Scraper, Insertable):
         self.idInTable = idInTable
         self.lineID = None
         self.lineRoute = None
-    
-    def insertInto(self, table, connection, commit=True):
+ 
+    def updateInto(self, table, connection, commit=True):
         pline = []
         for p in self.lineRoute:
             pline.append((p.lat, p.lon))
@@ -127,7 +127,7 @@ class RouteScraper(Scraper, Insertable):
                   ["routePolyline", self.routePolyline],
                   ["website", self.website]]
         
-        RouteScraper._insertIntoHelper(table, connection, attrs, commit)
+        RouteScraper._query(table, connection, attrs, commit)
         
         if self.stopsTable is not None:
             self.lineRoute[0].clearFrom(self.stopsTable, connection)
