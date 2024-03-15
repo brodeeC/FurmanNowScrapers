@@ -125,7 +125,7 @@ class RouteScraper(Scraper, Queriable):
                   ["externalID", self.lineIDExternal],
                   ["routePolyline", self.routePolyline]]
         
-        query = f"UPDATE {table} SET name = $s, externalID = %s, routePolyline = %s WHERE id = %s"
+        query = "UPDATE " + table + " SET name = $s, externalID = %s, routePolyline = %s WHERE id = %s"
         attrs = (self.lineName, self.lineIDExternal, self.routePolyline, self.idInTable)
         
         RouteScraper.query(connection, (query, attrs), commit)
