@@ -476,10 +476,10 @@ def main():
     b.saveRouteToJSONFile("/home/csdaemon/aux/503Route.json")
     
     connection = formConnections()
-    a.setStopsTable(STOPS_TABLE)
-    b.setStopsTable(STOPS_TABLE)
-    a.updateInto(SHUTTLE_TABLE, connection)
-    b.updateInto(SHUTTLE_TABLE, connection)
+    for shut in [a, b]:
+        shut.setStopsTable(STOPS_TABLE)
+        shut.clearFrom(SHUTTLE_TABLE, connection)
+        shut.insertInto(SHUTTLE_TABLE, connection)
     
     
     
