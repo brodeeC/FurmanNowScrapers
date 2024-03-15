@@ -40,7 +40,7 @@ class Vehicle(Clearable, Insertable, Directioned):
     name : str
     speed : int
     nextStopDist : int = None
-    nextStopID : str = None
+    nextStopID : int = None
     
     def NoVehic():
         return Vehicle(0, 0, 0, "", 0)
@@ -49,8 +49,8 @@ class Vehicle(Clearable, Insertable, Directioned):
         self.updated = datetime.datetime.now()
 
     def updateInto(self, table, connection):
-        query = f"UPDATE `{table}` SET latitude = %s, longitude = %s, direction = %s, speed = %s, updated = %s WHERE vehicle = %s"
-        fields = (self.lat, self.lon, self.heading, self.speed, self.updated, self.name)
+        query = f"UPDATE `{table}` SET latitude = %s, longitude = %s, direction = %s, speed = %s, updated = %s, nextStopDistance = %s, nextStopID = %s WHERE vehicle = %s"
+        fields = (self.lat, self.lon, self.heading, self.speed, self.updated, self.nextStopDist, self.nextStopID, self.name)
         Vehicle.query(connection, (query, fields))
         connection.commit()
         
@@ -63,7 +63,7 @@ class Vehicle(Clearable, Insertable, Directioned):
                  ["nextStopDistance", self.nextStopDist],
                  ["nextStopID", self.nextStopID],
                  ["updated", self.updated]]
-        
+        print(attrs)        
         if self.capacity is not None:
             attrs.append(["capacity", self.capacity])
             
@@ -74,7 +74,7 @@ class ShuttleScraper(WebConnectors.Scraper):
     
     def _parseVehicle(jsonDct) -> Vehicle:
         name = ShuttleScraper.maybeGetValue(jsonDct, "Name")
-        # Handle names
+        #Handle names
         if name == "Campus Shuttle":
             name = "Daily Shuttle"
         elif name == "Furman Trolley":
@@ -146,6 +146,7 @@ def main():
         stopDists = route.distToStops(shuttle)
         shuttle.nextStopID = stopDists[0][0].stopOrderID
         shuttle.nextStopDist = stopDists[0][1]
+        print(shuttle)
         shuttle.updateInto(SHUTTLE_LOCATION_TABLE, connection)
         
     clearOutdated = f"UPDATE `{SHUTTLE_LOCATION_TABLE}` SET latitude=%s, longitude=%s, direction=%s, speed=%s, updated=%s WHERE updated < (NOW() - INTERVAL 3 MINUTE)"
