@@ -29,7 +29,7 @@ class Positioned():
         a = sin(dlat / 2)**2 + cos(lat1) * cos(lat2) * sin(dlon / 2)**2
         c = 2 * arctan2(sqrt(a), sqrt(1 - a))
         
-        return R * c
+        return float(R * c)
     
     def headingBetween(first : "Positioned", second : "Positioned"):
         dltLonRad = radians(second.lon - first.lon)
