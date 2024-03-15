@@ -83,8 +83,8 @@ class LineStop(LinePoint, Insertable, Clearable):
                         heading=dct["heading"],
                         distance=dct['distance'])
     
-    def clearFrom(self, table, connection):
-        Clearable._clearHelper(table, connection, [['lineID', self.lineTableID]])
+    def clearFrom(self, table, connection, commit=True):
+        Clearable._clearHelper(table, connection, [['lineID', self.lineTableID]], commit)
         
     def insertInto(self, table, connection, commit=True):
         attrs = [["lineID", self.lineTableID],
@@ -128,7 +128,7 @@ class RouteScraper(Scraper, Queriable):
         query = f"UPDATE {table} SET name = $s, externalID = %s, routePolyline = %s WHERE id = %s"
         attrs = (self.lineName, self.lineIDExternal, self.routePolyline, self.idInTable)
         
-        RouteScraper.query(table, connection, (query, attrs), commit)
+        RouteScraper.query(connection, (query, attrs), commit)
         
         if self.stopsTable is not None:
             self.lineRoute[0].clearFrom(self.stopsTable, connection)
@@ -140,7 +140,7 @@ class RouteScraper(Scraper, Queriable):
         dct = {"lineName" : self.lineName,
                "lineIdentifier" : self.lineIdentifier,
                "idInTable" : self.idInTable,
-               "lineID" : self.lineIDExternal,
+               "lineIDExternal" : self.lineIDExternal,
                "website" : self.website,
                "lineRoute" : [a.toJSONdict() for a in self.lineRoute]}
         
@@ -152,7 +152,7 @@ class RouteScraper(Scraper, Queriable):
             json_object = json.load(infile)
             
         route = RouteScraper(json_object["lineName"], json_object["lineIdentifier"], json_object["idInTable"])
-        route.lineIDExternal = json_object["lineID"]
+        route.lineIDExternal = json_object["lineIDExternal"]
         route.website = json_object["website"]
         route.lineRoute = [LinePoint.fromJSONdict(r) for r in json_object["lineRoute"]]
         return route
@@ -202,7 +202,7 @@ class ShuttleRouteScraper(RouteScraper):
         points = []
         stopNumber = 0
         for stops in page_json:
-            if maybe(stops, "RouteID", default=-1) == self.lineID:
+            if maybe(stops, "RouteID", default=-1) == self.lineIDExternal:
                 points.append(
                     LineStop(len(points), 
                               maybe(stops, "Latitude"),
@@ -259,7 +259,7 @@ class BusRouteScraper(RouteScraper):
             if lines is None:
                 continue
             for line in lines:
-                if BusRouteScraper.maybeGetValue(line, "idLigne") == self.lineID:
+                if BusRouteScraper.maybeGetValue(line, "idLigne") == self.lineIDExternal:
                     for sect in BusRouteScraper.maybeGetValue(line, "itineraire"):
                         segs.append([])
                         for entry in BusRouteScraper.maybeGetValue(sect, "troncons", default=[]):
@@ -377,7 +377,7 @@ class BusRouteScraper(RouteScraper):
                 if lines is None:
                     continue
                 for line in lines:
-                    if maybe(line, "idLigne") == self.lineID:
+                    if maybe(line, "idLigne") == self.lineIDExternal:
                         stops.append(
                             LineStop(-1, 
                                       maybe(stop, "localisation", "lat"),
@@ -479,7 +479,6 @@ def main():
     connection = formConnections()
     for shut in [a, b]:
         shut.setStopsTable(STOPS_TABLE)
-        shut.clearFrom(SHUTTLE_TABLE, connection)
         shut.updateInto(SHUTTLE_TABLE, connection)
     
     
