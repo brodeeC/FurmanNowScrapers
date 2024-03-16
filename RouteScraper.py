@@ -120,13 +120,10 @@ class RouteScraper(Scraper, Queriable):
         
         encodedPolyline = polyline.encode(pline)
         self.routePolyline = encodedPolyline
-        
-        attrs = [["name", self.lineName],
-                  ["externalID", self.lineIDExternal],
-                  ["routePolyline", self.routePolyline]]
-        
-        query = "UPDATE " + table + " SET name = $s, externalID = %s, routePolyline = %s WHERE id = %s"
-        attrs = (self.lineName, self.lineIDExternal, self.routePolyline, self.idInTable)
+        # Have to go with the unsafe entries otherwise the polyline
+        # has issues
+        query = "UPDATE `" + table + "` SET name = %s, routePolyline = %s WHERE vehicleIndex = %s"
+        attrs = (self.lineName, self.routePolyline, self.idInTable)
         
         RouteScraper.query(connection, (query, attrs), commit)
         
@@ -472,7 +469,7 @@ def main():
     a.tryPull()
     a.saveRouteToJSONFile("/home/csdaemon/aux/ShuttleRoute.json")
     
-    b = BusRouteScraper("503 Bus", "503", 2)
+    b = BusRouteScraper("503 Bus", "503", 1)
     b.tryPull()
     b.saveRouteToJSONFile("/home/csdaemon/aux/503Route.json")
     

@@ -139,7 +139,7 @@ def main():
     
     shut = []
     shut += [(s, shutRoute) for s in ShuttleScraper().tryPull()]
-    shut += [(b, busRoute) for b in BusScraper(busRoute.lineID).tryPull()]
+    shut += [(b, busRoute) for b in BusScraper(busRoute.lineIDExternal).tryPull()]
             
     connection = WebConnectors.formConnections()
     
