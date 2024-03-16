@@ -124,7 +124,7 @@ class RouteScraper(Scraper, Queriable):
         # has issues
         query = "UPDATE `" + table + "` SET name = %s, routePolyline = %s WHERE vehicleIndex = %s"
         attrs = (self.lineName, self.routePolyline, self.idInTable)
-        
+    
         RouteScraper.query(connection, (query, attrs), commit)
         
         if self.stopsTable is not None:
