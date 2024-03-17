@@ -15,6 +15,10 @@ from abc import abstractmethod
 import json
 from dataclasses import dataclass
 from typing import ClassVar
+''' VVV pdf2image has a bad habit of being hard to get 
+working on Windows and Mac, let the server's Linux do this 
+and remove the export if you want to run locally.
+'''
 from pdf2image import convert_from_path
 import os
 
@@ -68,10 +72,10 @@ NEWS_TABLE = "newsContent"
 NewsSources = {
     "Paladin" :     {"id": 1, "name": "The Paladin"},           ## Online
     "FUNC" :        {"id": 2, "name": "FUNC"},                  ## Online
-    "Echo" :        {"id": 3, "name": "The Echo"},                  ## TO-DO
+    "Echo" :        {"id": 3, "name": "The Echo"},              ## Online
     "Knightly" :    {"id": 4, "name": "Knightly News"},         ## Online
     "Christo" :     {"id": 5, "name": "Christo et Doctrinae"},  ## Online
-    "FHR" :         {"id": 6, "name": "Furman Humanities Review"},  ## TO-DO
+    "FHR" :         {"id": 6, "name": "Furman Humanities Review"},## Online
     "News" :        {"id": 7, "name": "Furman in the News"},    ## Online
     "President" :   {"id": 8, "name": "President's Page"},      ## Online
     "Magazine" :    {"id": 9, "name": "Furman Magazine"},           ## TO-DO
@@ -104,6 +108,12 @@ class NewsScraper(Scraper):
             imagelink = None
         )
     
+    '''
+    THIS IS PAINFULLY SLOW TO USE! Do so sparingly and when you know you won't 
+    be regenerating images often. I primarily use it to grab the Echo's cover,
+    and have set up the Echo scraper to only do that when it can tell the page
+    has been updated in the past few hours.
+    '''    
     def getPDFintoPNG(source, fileName):
         pdfTempFile = f"/home/csdaemon/pdf_of_{fileName}.pdf"
         with open(pdfTempFile, 'wb') as pdf:
@@ -476,14 +486,7 @@ class RileyScraper(NewsScraper):
         articles.sort(reverse=True)
         return articles[:10]
        
-class EchoScraper(NewsScraper):
-    
-    def __init__(self, grabCover=False):
-        self.grabCover = grabCover
-        
-    def getTableID(self): 
-        return NewsSources["Echo"]["id"]
-    
+class FUSEScraper(NewsScraper):
     def cleanParseTime(date):
         date = date.lower()
         if "est" in date:
@@ -496,36 +499,85 @@ class EchoScraper(NewsScraper):
             date = date[:-3] + "UTC-0700"
         return parseTime(date)
     
+    def articleAssembler(self, rssEntry, defaultAuthor):
+        return Article(
+            title = rssEntry["title"],
+            author = rssEntry["author"] if "author" in rssEntry else defaultAuthor,
+            description = rssEntry["summary"],
+            mediatype = Article.LINK,
+            link = rssEntry["link"],
+            publisherID = self.getTableID(),
+            section = None,
+            publishDate = FUSEScraper.cleanParseTime(rssEntry["published"])
+        )
+        
+class EchoScraper(FUSEScraper):
+    
+    def __init__(self, grabCover=False):
+        self.grabCover = grabCover
+        
+    def getTableID(self): 
+        return NewsSources["Echo"]["id"]
+    
     def _pull(self):
         articles = []
         site = Scraper.getSite(ECHO_FEED)
         feed = feedparser.parse(site.content)
         date = EchoScraper.cleanParseTime(feed['feed']['updated'])
-        
-        if True:#datetime.now().astimezone() - date > timedelta(hours=4):
+        coverImageLink = None
+        if datetime.now().astimezone() - date > timedelta(hours=4):
             firstArticleTime = EchoScraper.cleanParseTime(feed.entries[0]["published"])
-            for article in filter(lambda a: firstArticleTime - EchoScraper.cleanParseTime(a["published"]) < timedelta(days=30),feed.entries):
-                page = Scraper.getSoup(article["link"])
-                section = page.find("div", {"id": "document_type"}).find("p").text
-                articles.append(
-                        Article(
-                            title = article["title"],
-                            author = article["author"] if "author" in article else "The Echo",
-                            description = article["summary"],
-                            mediatype = Article.LINK,
-                            link = article["link"],
-                            publisherID = self.getTableID(),
-                            section = section,
-                            publishDate = EchoScraper.cleanParseTime(article["published"])
-                            )
-                    )
+            for art in filter(lambda a: firstArticleTime - EchoScraper.cleanParseTime(a["published"]) < timedelta(days=30),feed.entries):
+                art = self.articleAssembler(art, "The Echo")
+                ''' 
+                    Pulling the page for every Echo piece takes a long time, which is why
+                    we do this as seldomly as possible. I think this is worth the server time
+                    it takes because the Echo content is sparse (no descriptions & no images 
+                    other than cover) so what is gettable should be gotten.
+                '''
+                page = Scraper.getSoup(art["link"])
+                art.section = page.find("div", {"id": "document_type"}).find("p").text
+                articles.append( art )
                 
-                if self.grabCover and article["title"] == "Cover":
+                if self.grabCover and art["title"] == "Cover":
                     pdf_link = page.find("a", {"id":"pdf"})["href"]
-                    imageLink = NewsScraper.getPDFintoPNG(pdf_link, f"echo-cover-{article['published_parsed'].tm_year}-{article['published_parsed'].tm_mon}-{article['published_parsed'].tm_mday}")
-                    articles[-1].imagelink = imageLink
+                    coverImageLink = NewsScraper.getPDFintoPNG(pdf_link, f"echo-cover-{art['published_parsed'].tm_year}-{art['published_parsed'].tm_mon}-{art['published_parsed'].tm_mday}")
+                    articles[-1].imagelink = coverImageLink
+        if coverImageLink is not None:
+            for a in articles:
+                if a.imagelink is None:
+                    a.imagelink = coverImageLink
         return articles
                 
+class FHRScraper(FUSEScraper):
+    
+    def __init__(self, grabCover=False):
+        self.grabCover = grabCover
+        
+    def getTableID(self): 
+        return NewsSources["FHR"]["id"]
+    
+    def _pull(self):
+        articles = []
+        site = Scraper.getSite(ECHO_FEED)
+        feed = feedparser.parse(site.content)
+        date = FHRScraper.cleanParseTime(feed['feed']['updated'])
+        if datetime.now().astimezone() - date > timedelta(hours=4):
+            firstArticleTime = FHRScraper.cleanParseTime(feed.entries[0]["published"])
+            for art in filter(lambda a: firstArticleTime - FHRScraper.cleanParseTime(a["published"]) < timedelta(days=30),feed.entries):
+                articles.append(
+                        self.articleAssembler(art, "Furman Humanities Review")
+                    )
+                if self.grabCover and "Furman Humanities Review" in art["title"]:
+                    page = Scraper.getSoup(art["link"])
+                    pdf_link = page.find("a", {"id":"pdf"})["href"]
+                    coverImageLink = NewsScraper.getPDFintoPNG(pdf_link, f"fhr-cover-{art['published_parsed'].tm_year}-{art['published_parsed'].tm_mon}-{art['published_parsed'].tm_mday}")
+                    articles[-1].imagelink = coverImageLink
+        if coverImageLink is not None:
+            for a in articles:
+                if a.imagelink is None:
+                    a.imagelink = coverImageLink
+        return articles
 
 def purgeOldEvents(connection, publisherID):
     sql = f"DELETE FROM `{NEWS_TABLE}` WHERE `publisherID` = {publisherID}"
@@ -540,7 +592,7 @@ def purgeOldEvents(connection, publisherID):
 def main():
     newsScrapers = [ChristoScraper(), PaladinScraper(), FUNCScraper(), FurmanNewsScraper(),
                     KnightlyNewsScraper(), PresidentScraper(), RileyScraper(), TocquevilleScraper(),
-                    EchoScraper(True)]
+                    EchoScraper(True), FHRScraper(True)]
     articles = []
     for scraper in newsScrapers:
         articles += scraper.tryPull()
