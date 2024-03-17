@@ -9,12 +9,14 @@ import feedparser
 from Utilities.WebConnectors import Scraper, formConnections, youTubePullLatest
 from Utilities.SQLQueryClasses import Insertable
 from dateutil.parser import parse as parseTime
+from datetime import datetime, timedelta
 from bs4 import BeautifulSoup as soup
 from abc import abstractmethod
 import json
 from dataclasses import dataclass
-from typing import List, ClassVar
-from datetime import datetime
+from typing import ClassVar
+from pdf2image import convert_from_path
+import os
 
 @dataclass
 class Article(Insertable):
@@ -54,6 +56,7 @@ FURMAN_NEWS_FEED = "https://www.furman.edu/news/feed"
 TOCQUEVILLE_BLOG_FEED = "https://www.furman.edu/academics/tocqueville-program/lectures/feed"
 RILEY_BLOG_FEED = "https://www.furman.edu/riley/posts/feed"
 RILEY_NEWS_FEED = "https://www.furman.edu/riley/news/feed"
+ECHO_FEED = "https://scholarexchange.furman.edu/echo/all.rss"
 
 FUNC_YOUTUBE_CHANNEL_ID = "UC3UaWOCIldF5_qWnCYEt0RQ"
 KNIGHTLY_YOUTUBE_CHANNEL_ID = "UCiKdNbjss18h2LI1eesPRbA"
@@ -74,6 +77,8 @@ NewsSources = {
     "Magazine" :    {"id": 9, "name": "Furman Magazine"},           ## TO-DO
     "Tocqueville" : {"id": 10, "name": "The Tocqueville Center"},# Online
     "Riley" :       {"id": 11, "name": "The Riley Institute"},  ## Online
+    "Hill" :        {"id": 12, "name": "The Hill Institute"},       ## TO-DO
+    "Shi" :         {"id": 13, "name": "The Shi Center"},           ## TO-DO
     }
 
 
@@ -98,6 +103,24 @@ class NewsScraper(Scraper):
             publishDate = parseTime(entry["snippet"]["publishedAt"]),
             imagelink = None
         )
+    
+    def getPDFintoPNG(source, fileName):
+        pdfTempFile = f"/home/csdaemon/pdf_of_{fileName}.pdf"
+        with open(pdfTempFile, 'wb') as pdf:
+            resp = Scraper.getSite(source)
+            pdf.write(resp.content)
+            a = "https://scholarexchange.furman.edu/cgi/viewcontent.cgi?article=1455&context=echo"
+        page = f"FUNow/articleImages/fileName"
+        convert_from_path(pdfTempFile, 
+                          output_folder="/home/csdaemon/www/FUNow/articleImages/", 
+                          output_file=page, 
+                          single_file=True, 
+                          dpi=300, 
+                          fmt='png')
+        os.remove(pdfTempFile)
+        articles[-1].imagelink = f"https://www.cs.furman.edu/~csdaemon/{page}.png"
+
+        return f"https://cs.furman.edu/~csdaemon/FUNow/articleImages/{fileName}.png"
 
 class ChristoScraper(Scraper):
     
@@ -261,7 +284,6 @@ class FurmanNewsScraper(NewsScraper):
                     )
                 )
         return articles
-    
 
 class FUNCScraper(NewsScraper):
     
@@ -371,8 +393,6 @@ class TocquevilleScraper(NewsScraper):
         articles.sort(reverse=True)
         return articles[:10]
 
-
-
 class RileyScraper(NewsScraper): 
     def getTableID(self) -> int:
         return NewsSources["Riley"]["id"]
@@ -458,7 +478,57 @@ class RileyScraper(NewsScraper):
         articles.sort(reverse=True)
         return articles[:10]
        
+class EchoScraper(NewsScraper):
     
+    def __init__(self, grabCover):
+        self.grabCover = grabCover
+        
+    def getTableID(self): 
+        return NewsSources["Echo"]
+    
+    def cleanParseTime(date):
+        date = date.lower()
+        if "est" in date:
+            date = date[:-3] + "UTC-0500"
+        if "edt" in date:
+            date = date[:-3] + "UTC-0400"
+        if "pst" in date:
+            date = date[:-3] + "UTC-0800"
+        if "pdt" in date:
+            date = date[:-3] + "UTC-0700"
+        return parseTime(date)
+    
+    def _pull(self):
+        articles = []
+        site = Scraper.getSite(ECHO_FEED)
+        feed = feedparser.parse(site.content)
+        date = EchoScraper.cleanParseTime(feed['feed']['updated'])
+        
+        if True:#datetime.now().astimezone() - date > timedelta(hours=4):
+            firstArticleTime = EchoScraper.cleanParseTime(feed.entries[0]["published"])
+            for article in filter(lambda a: firstArticleTime - EchoScraper.cleanParseTime(a["published"]) < timedelta(days=30),feed.entries):
+                page = Scraper.getSoup(article["link"])
+                section = page.find("div", {"id": "document_type"}).find("p").text
+                articles.append(
+                        Article(
+                            title = article["title"],
+                            author = article["author"],
+                            description = article["summary"],
+                            mediatype = Article.LINK,
+                            link = article["link"],
+                            publisherID = self.getTableID(),
+                            section = section,
+                            publishDate = EchoScraper.cleanParseTime(article["published"])
+                            )
+                    )
+                
+                if self.grabCover and article["title"] == "Cover":
+                    pdf_link = page.find("a", {"id":"pdf"})["href"]
+                    imageLink = NewsScraper.getPDFintoPNG(pdf_link, "echo-cover-{article['published_parsed'].tm_year}-{article['published_parsed'].tm_mon}-{article['published_parsed'].tm_mday}")
+                    articles[-1].imagelink = imageLink
+        return articles
+                
+
 def purgeOldEvents(connection, publisherID):
     sql = f"DELETE FROM `{NEWS_TABLE}` WHERE `publisherID` = {publisherID}"
     with connection.cursor() as cursor:

@@ -120,8 +120,7 @@ class RouteScraper(Scraper, Queriable):
         
         encodedPolyline = polyline.encode(pline)
         self.routePolyline = encodedPolyline
-        # Have to go with the unsafe entries otherwise the polyline
-        # has issues
+
         query = "UPDATE `" + table + "` SET name = %s, routePolyline = %s WHERE vehicleIndex = %s"
         attrs = (self.lineName, self.routePolyline, self.idInTable)
     
@@ -160,7 +159,7 @@ class RouteScraper(Scraper, Queriable):
         for i, pnt in enumerate(self.lineRoute):
             dist = LinePoint.distBetween(vehic, pnt)
             relativeHeading = (vehic.heading - pnt.heading) % 360
-            if dist < 0.05 and (relativeHeading > 270 or relativeHeading < 90) :
+            if dist < 0.05 and (relativeHeading > 225 or relativeHeading < 135) :
                 if dist < minDist:
                     minDist = dist
                     minInd = i
@@ -376,7 +375,7 @@ class BusRouteScraper(RouteScraper):
                 for line in lines:
                     if maybe(line, "idLigne") == self.lineIDExternal:
                         stops.append(
-                            LineStop(-1, 
+                            LineStop(-1,
                                       maybe(stop, "localisation", "lat"),
                                       maybe(stop, "localisation", "lng"),
                                       self.idInTable,
@@ -393,7 +392,8 @@ class BusRouteScraper(RouteScraper):
                 toStop = LinePoint.distBetween(stop, p)
                 if toStop < 0.05:
                     headToStop = LinePoint.headingBetween(p, stop)
-                    if toStop < minDist and (headToStop - p.heading) % 360 < 180:
+                    relativeHeading = (headToStop - p.heading) % 360
+                    if toStop < minDist and relativeHeading < 135 and relativeHeading > 45:
                         minDist = toStop
                         minInd = i
                 elif toStop > 0.05 and minDist < 1:
@@ -477,8 +477,6 @@ def main():
     for shut in [a, b]:
         shut.setStopsTable(STOPS_TABLE)
         shut.updateInto(SHUTTLE_TABLE, connection)
-    
-    
     
 if __name__ == "__main__":
     main()
