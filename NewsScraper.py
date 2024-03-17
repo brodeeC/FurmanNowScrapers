@@ -512,7 +512,7 @@ class EchoScraper(NewsScraper):
                 articles.append(
                         Article(
                             title = article["title"],
-                            author = article["author"],
+                            author = article["author"] if "author" in article else "The Echo",
                             description = article["summary"],
                             mediatype = Article.LINK,
                             link = article["link"],
