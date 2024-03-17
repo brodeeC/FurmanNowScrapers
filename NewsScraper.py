@@ -61,6 +61,7 @@ TOCQUEVILLE_BLOG_FEED = "https://www.furman.edu/academics/tocqueville-program/le
 RILEY_BLOG_FEED = "https://www.furman.edu/riley/posts/feed"
 RILEY_NEWS_FEED = "https://www.furman.edu/riley/news/feed"
 ECHO_FEED = "https://scholarexchange.furman.edu/echo/all.rss"
+FHR_FEED = "https://scholarexchange.furman.edu/fhr/all.rss"
 
 FUNC_YOUTUBE_CHANNEL_ID = "UC3UaWOCIldF5_qWnCYEt0RQ"
 KNIGHTLY_YOUTUBE_CHANNEL_ID = "UCiKdNbjss18h2LI1eesPRbA"
@@ -559,10 +560,11 @@ class FHRScraper(FUSEScraper):
     
     def _pull(self):
         articles = []
-        site = Scraper.getSite(ECHO_FEED)
+        site = Scraper.getSite(FHR_FEED)
         feed = feedparser.parse(site.content)
         date = FHRScraper.cleanParseTime(feed['feed']['updated'])
-        if datetime.now().astimezone() - date > timedelta(hours=4):
+        coverImageLink = None
+        if True or datetime.now().astimezone() - date > timedelta(hours=4):
             firstArticleTime = FHRScraper.cleanParseTime(feed.entries[0]["published"])
             for art in filter(lambda a: firstArticleTime - FHRScraper.cleanParseTime(a["published"]) < timedelta(days=30),feed.entries):
                 articles.append(
@@ -590,9 +592,10 @@ def purgeOldEvents(connection, publisherID):
             print("Failed to purge.")
     
 def main():
-    newsScrapers = [ChristoScraper(), PaladinScraper(), FUNCScraper(), FurmanNewsScraper(),
-                    KnightlyNewsScraper(), PresidentScraper(), RileyScraper(), TocquevilleScraper(),
-                    EchoScraper(True), FHRScraper(True)]
+    newsScrapers = [#ChristoScraper(), PaladinScraper(), FUNCScraper(), FurmanNewsScraper(),
+                    #KnightlyNewsScraper(), PresidentScraper(), RileyScraper(), TocquevilleScraper(),
+                   # EchoScraper(True),
+		 FHRScraper(True)]
     articles = []
     for scraper in newsScrapers:
         articles += scraper.tryPull()
