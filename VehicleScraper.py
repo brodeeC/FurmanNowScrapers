@@ -149,12 +149,13 @@ def main():
         shuttle.nextStopDist = stopDists[0][1]
         print(shuttle)
         shuttle.updateInto(SHUTTLE_LOCATION_TABLE, connection)
-        Clearable._clearHelper(STOPS_DIST_TABLE, connection, [["lineID", route.idInTable]])
-        for stops in stopDists:
+        Clearable._clearHelper(STOPS_DIST_TABLE, connection, [["lineID", route.idInTable]], True)
+        for i, stops in enumerate(stopDists):
             attrs = [["stopOrderID", stops[0].stopOrderID],
                      ["lineID", stops[0].lineTableID],
-                     ["distFromVehicle", stops[1]]]
-            Insertable._insertIntoHelper(STOPS_DIST_TABLE, connection, attrs)
+                     ["distFromVehicle", stops[1]],
+                     ["vehicleStopsUntil", i]]
+            Insertable._insertIntoHelper(STOPS_DIST_TABLE, connection, attrs, True)
         
     clearOutdated = f"UPDATE `{SHUTTLE_LOCATION_TABLE}` SET latitude=%s, longitude=%s, direction=%s, speed=%s, updated=%s WHERE updated < (NOW() - INTERVAL 3 MINUTE)"
     var = (None, None, None, None, datetime.datetime.now())

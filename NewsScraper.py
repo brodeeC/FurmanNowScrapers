@@ -109,18 +109,16 @@ class NewsScraper(Scraper):
         with open(pdfTempFile, 'wb') as pdf:
             resp = Scraper.getSite(source)
             pdf.write(resp.content)
-            a = "https://scholarexchange.furman.edu/cgi/viewcontent.cgi?article=1455&context=echo"
-        page = f"FUNow/articleImages/fileName"
+        page = f"FUNow/articleImages/{fileName}"
         convert_from_path(pdfTempFile, 
                           output_folder="/home/csdaemon/www/FUNow/articleImages/", 
-                          output_file=page, 
+                          output_file=fileName, 
                           single_file=True, 
                           dpi=300, 
                           fmt='png')
         os.remove(pdfTempFile)
-        articles[-1].imagelink = f"https://www.cs.furman.edu/~csdaemon/{page}.png"
-
-        return f"https://cs.furman.edu/~csdaemon/FUNow/articleImages/{fileName}.png"
+        imagelink = f"https://cs.furman.edu/~csdaemon/{page}.png"
+        return imagelink
 
 class ChristoScraper(Scraper):
     
@@ -484,7 +482,7 @@ class EchoScraper(NewsScraper):
         self.grabCover = grabCover
         
     def getTableID(self): 
-        return NewsSources["Echo"]
+        return NewsSources["Echo"]["id"]
     
     def cleanParseTime(date):
         date = date.lower()
@@ -524,7 +522,7 @@ class EchoScraper(NewsScraper):
                 
                 if self.grabCover and article["title"] == "Cover":
                     pdf_link = page.find("a", {"id":"pdf"})["href"]
-                    imageLink = NewsScraper.getPDFintoPNG(pdf_link, "echo-cover-{article['published_parsed'].tm_year}-{article['published_parsed'].tm_mon}-{article['published_parsed'].tm_mday}")
+                    imageLink = NewsScraper.getPDFintoPNG(pdf_link, f"echo-cover-{article['published_parsed'].tm_year}-{article['published_parsed'].tm_mon}-{article['published_parsed'].tm_mday}")
                     articles[-1].imagelink = imageLink
         return articles
                 
