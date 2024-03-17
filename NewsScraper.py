@@ -480,7 +480,7 @@ class RileyScraper(NewsScraper):
        
 class EchoScraper(NewsScraper):
     
-    def __init__(self, grabCover):
+    def __init__(self, grabCover=False):
         self.grabCover = grabCover
         
     def getTableID(self): 
@@ -541,7 +541,8 @@ def purgeOldEvents(connection, publisherID):
     
 def main():
     newsScrapers = [ChristoScraper(), PaladinScraper(), FUNCScraper(), FurmanNewsScraper(),
-                    KnightlyNewsScraper(), PresidentScraper(), RileyScraper(), TocquevilleScraper()]
+                    KnightlyNewsScraper(), PresidentScraper(), RileyScraper(), TocquevilleScraper(),
+                    EchoScraper(True)]
     articles = []
     for scraper in newsScrapers:
         articles += scraper.tryPull()
