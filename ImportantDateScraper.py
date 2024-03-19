@@ -17,6 +17,7 @@ START_STOP_TIME_STRING = " – "
 IMPORTANT_DATES_TABLE = "importantDates"
 WEBCALENDAR_LINK = "https://25livepub.collegenet.com/calendars/university-academic-calendar.rss"
 FAILED_DATE_PARSE = "FAILED || DATE || PARSE"
+END_TAG = "<br/>"
 
 
 # Takes as input the "description" field of the RSS feed and determines
@@ -24,16 +25,16 @@ FAILED_DATE_PARSE = "FAILED || DATE || PARSE"
 # "Graduate Studies".
 def parseCategory(description):
     
-    org = "Organization</b>:"
+    org = f"Organization{END_TAG}:"
     if org in description:
         trunc = sliceAfterSubstring(description, org) 
-        trunc = sliceBeforeSubstring(trunc, "<br/>")
+        trunc = sliceBeforeSubstring(trunc, END_TAG)
         if "pm" in trunc:
             print(description)
             print(trunc)
             print()
-        return trunc.strip()
-    return "Other"
+        return trunc.strip() if trunc.strip() != "Registrar" else "Holidays"
+    return "Academic Dates & Holidays"
 
 def sliceBeforeSubstring(full, sub, reverse=False):
     if reverse:
@@ -60,6 +61,11 @@ def parseStartEnd(temporal):
     time = sliceAfterSubstring(temporal, ", ", reverse=True).strip()
     times = time.split(START_STOP_TIME_STRING)
     for i, t in enumerate(times):
+        if "am" not in t and "pm" not in t and i < len(times) - 1:
+            if "am" in times[i + 1]: 
+                t += "am"
+            if "pm" in times[i + 1]:
+                t += "pm"
         try:
             times[i] = parseTime(t)
         except:
@@ -70,7 +76,7 @@ def parseStartEnd(temporal):
         return TimeRange(times[0], times[1])
 
 def parseDatetime(description):
-    endString = "<br/><br/>"
+    endString = f"{END_TAG}{END_TAG}"
     trunc = sliceBeforeSubstring(description, endString)
     trunc = unescape(trunc).strip()
     dt = parseDate(trunc)
@@ -87,8 +93,8 @@ def parseDescript(description):
         return ""
 
 def parseTerm(description):
-    term = sliceAfterSubstring(description, "<b>Event Name</b>:")
-    term = sliceBeforeSubstring(term, "<br/>")
+    term = sliceAfterSubstring(description, f"<b>Event Name{END_TAG}")
+    term = sliceBeforeSubstring(term, END_TAG)
     term.strip()
     return term
 
