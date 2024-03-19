@@ -23,10 +23,17 @@ FAILED_DATE_PARSE = "FAILED || DATE || PARSE"
 # which calendar the event belongs to; most fall under either "Registrar" or
 # "Graduate Studies".
 def parseCategory(description):
+    
     org = "Organization</b>:"
-    trunc = sliceAfterSubstring(description, org) 
-    trunc = sliceBeforeSubstring(trunc, "<br/>")
-    return trunc.strip()
+    if org in description:
+        trunc = sliceAfterSubstring(description, org) 
+        trunc = sliceBeforeSubstring(trunc, "<br/>")
+        if "pm" in trunc:
+            print(description)
+            print(trunc)
+            print()
+        return trunc.strip()
+    return "Other"
 
 def sliceBeforeSubstring(full, sub, reverse=False):
     if reverse:
@@ -91,7 +98,7 @@ def getFeed(link):
 
 def parseEvents(eventFeed):
     parsed = []
-    for i, entry in enumerate(eventFeed.entries):
+    for entry in eventFeed.entries:
         raw =           unescape(entry["description"])
         raw =           normalize("NFKD", raw)
         title =        entry.title

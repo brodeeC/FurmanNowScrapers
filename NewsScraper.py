@@ -83,7 +83,7 @@ NewsSources = {
     "Tocqueville" : {"id": 10, "name": "The Tocqueville Center"},# Online
     "Riley" :       {"id": 11, "name": "The Riley Institute"},  ## Online
     "Hill" :        {"id": 12, "name": "The Hill Institute"},       ## TO-DO
-    "Shi" :         {"id": 13, "name": "The Shi Center"},           ## TO-DO
+    "Shi" :         {"id": 13, "name": "The Shi Institue"},         ## TO-DO
     }
 
 
@@ -97,16 +97,17 @@ class NewsScraper(Scraper):
         return filter(lambda entry: "upload" in entry["contentDetails"], entries)
 
     def parseYouTubeToArticle(entry, authName, tableID):
+        videoID = entry["contentDetails"]["upload"]["videoId"]
         return Article(
             title = entry["snippet"]["title"],
             author = authName,
             description = entry["snippet"]["description"],
             mediatype = Article.VIDEO,
-            link = "https://youtu.be/" + entry["contentDetails"]["upload"]["videoId"],
+            link = "https://youtu.be/" + videoID,
             publisherID = tableID,
             section = None,
             publishDate = parseTime(entry["snippet"]["publishedAt"]),
-            imagelink = None
+            imagelink = f"https://img.youtube.com/vi/{videoID}/0.png"
         )
     
     '''
