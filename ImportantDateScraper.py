@@ -107,7 +107,10 @@ def parseEvents(eventFeed):
     for entry in eventFeed.entries:
         raw =           unescape(entry["description"])
         raw =           normalize("NFKD", raw)
-        title =        entry.title.replace("“", '"').replace('”', '"')
+        title =        entry.title.replace("“", '"') \
+            .replace('”', '"') \
+            .replace('’', "'") \
+            .replace("–", "-")
         dt, timeRange =  parseDatetime(raw)
         description =     parseDescript(raw)
         category =        parseCategory(raw)
