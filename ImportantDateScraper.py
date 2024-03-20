@@ -25,7 +25,7 @@ END_TAG = "<br/>"
 # "Graduate Studies".
 def parseCategory(description):
     
-    org = f"Organization{END_TAG}:"
+    org = "Organization</b>:"
     if org in description:
         trunc = sliceAfterSubstring(description, org) 
         trunc = sliceBeforeSubstring(trunc, END_TAG)
@@ -33,7 +33,7 @@ def parseCategory(description):
             print(description)
             print(trunc)
             print()
-        return trunc.strip() if trunc.strip() != "Registrar" else "Holidays"
+        return trunc.strip() if trunc.strip() != "Registrar" else "Academic Dates & Holidays"
     return "Academic Dates & Holidays"
 
 def sliceBeforeSubstring(full, sub, reverse=False):
@@ -93,8 +93,8 @@ def parseDescript(description):
         return ""
 
 def parseTerm(description):
-    term = sliceAfterSubstring(description, f"<b>Event Name{END_TAG}")
-    term = sliceBeforeSubstring(term, END_TAG)
+    term = sliceAfterSubstring(description, f"<b>Event Name</b>")
+    term = sliceBeforeSubstring(term, END_TAG).replace(":", " ")
     term.strip()
     return term
 
