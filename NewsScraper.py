@@ -537,7 +537,7 @@ class EchoScraper(FUSEScraper):
                     it takes because the Echo content is sparse (no descriptions & no images 
                     other than cover) so what is gettable should be gotten.
                 '''
-                page = Scraper.getSoup(art["link"])
+                page = Scraper.getSoup(art.link)
                 art.section = page.find("div", {"id": "document_type"}).find("p").text
                 articles.append( art )
                 
@@ -593,9 +593,9 @@ def purgeOldEvents(connection, publisherID):
             print("Failed to purge.")
     
 def main():
-    newsScrapers = [#ChristoScraper(), PaladinScraper(), FUNCScraper(), FurmanNewsScraper(),
-                    #KnightlyNewsScraper(), PresidentScraper(), RileyScraper(), TocquevilleScraper(),
-                   # EchoScraper(True),
+    newsScrapers = [ChristoScraper(), PaladinScraper(), FUNCScraper(), FurmanNewsScraper(),
+                    KnightlyNewsScraper(), PresidentScraper(), RileyScraper(), TocquevilleScraper(),
+                    EchoScraper(True),
 		 FHRScraper(True)]
     articles = []
     for scraper in newsScrapers:

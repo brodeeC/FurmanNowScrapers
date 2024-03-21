@@ -147,7 +147,7 @@ def main():
         stopDists = route.distToStops(shuttle)
         shuttle.nextStopID = stopDists[0][0].stopOrderID
         shuttle.nextStopDist = stopDists[0][1]
-        print(shuttle)
+        
         shuttle.updateInto(SHUTTLE_LOCATION_TABLE, connection)
         Clearable._clearHelper(STOPS_DIST_TABLE, connection, [["lineID", route.idInTable]], True)
         for i, stops in enumerate(stopDists):
