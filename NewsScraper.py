@@ -107,7 +107,7 @@ class NewsScraper(Scraper):
             publisherID = tableID,
             section = None,
             publishDate = parseTime(entry["snippet"]["publishedAt"]),
-            imagelink = f"https://img.youtube.com/vi/{videoID}/0.png"
+            imagelink = f"https://img.youtube.com/vi/{videoID}/hqdefault.jpg"
         )
     
     '''
@@ -527,7 +527,7 @@ class EchoScraper(FUSEScraper):
         feed = feedparser.parse(site.content)
         date = EchoScraper.cleanParseTime(feed['feed']['updated'])
         coverImageLink = None
-        if datetime.now().astimezone() - date > timedelta(hours=4):
+        if datetime.now().astimezone() - date < timedelta(hours=4):
             firstArticleTime = EchoScraper.cleanParseTime(feed.entries[0]["published"])
             for art in filter(lambda a: firstArticleTime - EchoScraper.cleanParseTime(a["published"]) < timedelta(days=30),feed.entries):
                 art = self.articleAssembler(art, "The Echo")
@@ -541,9 +541,9 @@ class EchoScraper(FUSEScraper):
                 art.section = page.find("div", {"id": "document_type"}).find("p").text
                 articles.append( art )
                 
-                if self.grabCover and art["title"] == "Cover":
+                if self.grabCover and art.title == "Cover":
                     pdf_link = page.find("a", {"id":"pdf"})["href"]
-                    coverImageLink = NewsScraper.getPDFintoPNG(pdf_link, f"echo-cover-{art['published_parsed'].tm_year}-{art['published_parsed'].tm_mon}-{art['published_parsed'].tm_mday}")
+                    coverImageLink = NewsScraper.getPDFintoPNG(pdf_link, f"echo-cover-{art.published_parsed.tm_year}-{art.published_parsed.tm_mon}-{art.published_parsed.tm_mday}")
                     articles[-1].imagelink = coverImageLink
         if coverImageLink is not None:
             for a in articles:

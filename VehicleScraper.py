@@ -145,8 +145,8 @@ def main():
     
     for shuttle, route in shut:
         stopDists = route.distToStops(shuttle)
-        shuttle.nextStopID = stopDists[0][0].stopOrderID
-        shuttle.nextStopDist = stopDists[0][1]
+        shuttle.nextStopID = stopDists[0][0].stopOrderID if not shuttle.lat is None else None
+        shuttle.nextStopDist = stopDists[0][1] if not shuttle.lat is None else None
         
         shuttle.updateInto(SHUTTLE_LOCATION_TABLE, connection)
         Clearable._clearHelper(STOPS_DIST_TABLE, connection, [["lineID", route.idInTable]], True)
