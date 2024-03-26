@@ -81,10 +81,12 @@ class Scraper(ABC):
 
 def formConnections():
     filename = '/home/csdaemon/aux/userCred.txt'
-    file = open(filename, 'r')
-    credentials = file.readlines()
-    username = credentials[0].strip()
-    password = credentials[1].strip()
+    username = ''
+    password = ''
+    with open(filename, 'r') as file:
+        credentials = file.readlines()
+        username = credentials[0].strip()
+        password = credentials[1].strip()
     
     connection = pymysql.connect(host='cs.furman.edu', \
                                  user=username, \
@@ -100,15 +102,15 @@ def formConnections():
 
 def youTubePullLatest(channelID, numRequested = 10):
     filename = "/home/csdaemon/aux/youtubeAPICred.txt"
-    file = open(filename, "r")
-    apiKey = file.readlines()[0].strip()
-    headers = {"Accept": "application/json", "Referer": "Mozilla"}
-    req = requests.get("https://youtube.googleapis.com/youtube/v3/" +
-                 "activities?part=contentDetails&part=id&part=snippet" + 
-                 "&channelId=" + channelID + "&maxResults=" + str(numRequested) + "&key=" + 
-                 apiKey,
-                 headers=headers)
-    return req
+    with open(filename, "r") as file:
+        apiKey = file.readlines()[0].strip()
+        headers = {"Accept": "application/json", "Referer": "Mozilla"}
+        req = requests.get("https://youtube.googleapis.com/youtube/v3/" +
+                     "activities?part=contentDetails&part=id&part=snippet" + 
+                     "&channelId=" + channelID + "&maxResults=" + str(numRequested) + "&key=" + 
+                     apiKey,
+                     headers=headers)
+        return req
 
 def getLibraryAPIToken():
     link = "https://libcal.furman.edu/1.1/oauth/token"

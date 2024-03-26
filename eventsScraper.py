@@ -41,11 +41,15 @@ def getSoup(link):
 
 def clean(inputString):
     """ This is our generic cleaner to remove junk & HTML tags that are not used """
-    junkTags = ['<h3 class="cta_blocks__title">','</h3>','<br/>', '<p>', '</p>','864.522.2000', '</strong>', '<strong>',
+    junkTags = ['<h3 class="cta_blocks__title">','</h3>', '<p>', '</p>','864.522.2000', '</strong>', '<strong>',
                 '<li>','</li>', '<span>', '</span>', '<span class="sr-only">', '<span aria-hidden="true">', 'Mon - Thu','\xa0']
+    whitespaceTags = ['<br/>']
     for i in junkTags:
         inputString = (inputString.replace(i,''))
+    for i in whitespaceTags:
+        inputString = inputString.replace(i, ' ')
     inputString = inputString.replace('&amp;','&')
+    inputString = inputString.replace('  ', ' ')
     return inputString
     
 def to24hourFormat(st):
