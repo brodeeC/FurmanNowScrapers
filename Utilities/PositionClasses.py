@@ -42,9 +42,28 @@ class Positioned():
         heading = degrees(hdRad) 
         return int(heading) % 360
     
-    
 @dataclass
 class Directioned(Positioned):
     heading: int
+    
+    def isRightOf(self, other: "Directioned", debug=False):
+        heading = Directioned.headingBetween(other, self)
+        relativeHeading = (heading - other.heading) % 360
+        if debug: 
+            print(heading, relativeHeading)
+        return relativeHeading > 45 and relativeHeading < 135
+    
+    def isBetweenAndRight(self, first, second, debug=False):
+        firstHeading = Directioned.headingBetween(first, self)
+        relativeFirst = (firstHeading - first.heading) % 360
+        secondHeading = Directioned.headingBetween(second, self)
+        relativeSecond = (secondHeading - second.heading) % 360
+        if debug:
+            print(firstHeading, relativeFirst, secondHeading, relativeSecond)
+        return (relativeFirst > 270 or relativeFirst < 90) and (relativeSecond > 90 and relativeSecond < 270)
+        
+
+        
+
 
     

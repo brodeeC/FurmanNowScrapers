@@ -83,6 +83,9 @@ class LineStop(LinePoint, Insertable, Clearable):
                         heading=dct["heading"],
                         distance=dct['distance'])
     
+    def __repr__(self):
+        return f"LineStop({self.stopName}, {self.lat}, {self.lon}, {self.heading}, {self.distance})"
+    
     def clearFrom(self, table, connection, commit=True):
         Clearable._clearHelper(table, connection, [['lineID', self.lineTableID]], commit)
         
@@ -385,35 +388,41 @@ class BusRouteScraper(RouteScraper):
         
     def _stopsIntoRoute(self, route, stops):
         ## Add stops to route
+        stopsGoAfter = []
         for stop in stops:
             minDist = 1
             minInd = -1
             for i, p in enumerate(route):
                 toStop = LinePoint.distBetween(stop, p)
                 if toStop < 0.05:
-                    headToStop = LinePoint.headingBetween(p, stop)
-                    relativeHeading = (headToStop - p.heading) % 360
-                    if toStop < minDist and relativeHeading < 135 and relativeHeading > 45:
+                    nextInd = (i + 1) % len(route)
+                    if toStop < minDist and (stop.isRightOf(p) or (stop.isBetweenAndRight(p, route[nextInd]))):
                         minDist = toStop
                         minInd = i
-                elif toStop > 0.05 and minDist < 1:
-                    break
             if minInd != -1:
-                route[minInd] = LineStop(
+                stopsGoAfter.append(
+                    [minInd, 
+                     LineStop(
                         minInd,
                         stop.lat, 
                         stop.lon,
                         self.idInTable,
                         stop.stopName,
                         -1
-                    )
-                route[minInd].correctHeading(route[(minInd + 1) % len(route)])
+                    )])
 
-        numStop = 0
-        for p in route:
-            if isinstance(p, LineStop):
-                p.stopOrderID = numStop
-                numStop += 1
+        stopsGoAfter.sort(key=lambda x: x[0])
+        ## Reverses the list so that all elements can be inserted
+        ## without damaging the index for other elements to be inserted at,
+        ## If porocessing in order, a may be inserted after 5, and then 
+        ## when b is inserted at 9, it is not the same 9 it was originally
+        ## supposed to be placed after (because 6, 7, and 8 have all moved up
+        ## after the insertion after 5).
+        for i, (routeIndex, stop) in enumerate(stopsGoAfter[::-1]):
+            stop.stopOrderID = len(stopsGoAfter) - i - 1
+            route.insert(routeIndex + 1, stop)
+            route[routeIndex].correctHeading(route[routeIndex + 1])
+            route[routeIndex + 1].correctHeading(route[(routeIndex + 2) % len(route)])
                 
         return route
  
@@ -470,13 +479,18 @@ def main():
     a.saveRouteToJSONFile("/home/csdaemon/aux/ShuttleRoute.json")
     
     b = BusRouteScraper("503 Bus", "503", 1)
-    b.tryPull()
+    bp = filter(lambda x: isinstance(x, LineStop), b.tryPull())
     b.saveRouteToJSONFile("/home/csdaemon/aux/503Route.json")
     
     connection = formConnections()
     for shut in [a, b]:
         shut.setStopsTable(STOPS_TABLE)
         shut.updateInto(SHUTTLE_TABLE, connection)
+        
+def test():
+    b = BusRouteScraper("503 Bus", "503", 1)
+    bp = [f for f in filter(lambda x: isinstance(x, LineStop), b.tryPull())]
+    len(bp)
     
 if __name__ == "__main__":
-    main()
+    test()
