@@ -527,10 +527,10 @@ class EchoScraper(FUSEScraper):
         feed = feedparser.parse(site.content)
         date = EchoScraper.cleanParseTime(feed['feed']['updated'])
         coverImageLink = None
-        if datetime.now().astimezone() - date < timedelta(hours=4):
+        if datetime.now().astimezone() - date < timedelta(days=300):
             firstArticleTime = EchoScraper.cleanParseTime(feed.entries[0]["published"])
             for art in filter(lambda a: firstArticleTime - EchoScraper.cleanParseTime(a["published"]) < timedelta(days=30),feed.entries):
-                art = self.articleAssembler(art, "The Echo")
+                newArt = self.articleAssembler(art, "The Echo")
                 ''' 
                     Pulling the page for every Echo piece takes a long time, which is why
                     we do this as seldomly as possible. I think this is worth the server time
@@ -539,9 +539,9 @@ class EchoScraper(FUSEScraper):
                 '''
                 page = Scraper.getSoup(art.link)
                 art.section = page.find("div", {"id": "document_type"}).find("p").text
-                articles.append( art )
+                articles.append( newArt )
                 
-                if self.grabCover and art.title == "Cover":
+                if self.grabCover and newArt.title == "Cover":
                     pdf_link = page.find("a", {"id":"pdf"})["href"]
                     coverImageLink = NewsScraper.getPDFintoPNG(pdf_link, f"echo-cover-{art.published_parsed.tm_year}-{art.published_parsed.tm_mon}-{art.published_parsed.tm_mday}")
                     articles[-1].imagelink = coverImageLink
@@ -603,7 +603,7 @@ def main():
         
     connection = formConnections()
     for scraper in newsScrapers:
-        if not scraper.gotContent():
+        if scraper.gotContent():
             purgeOldEvents(connection, scraper.getTableID())
     for artic in articles:
         artic.insertInto(NEWS_TABLE, connection)
