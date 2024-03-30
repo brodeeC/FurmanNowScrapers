@@ -141,16 +141,17 @@ def main():
     
     for shuttle, route in shut:
         stopDists = route.distToStops(shuttle)
-        shuttle.nextStopID = stopDists[0][0].stopOrderID if not (shuttle.lat is None) else None
-        shuttle.nextStopDist = stopDists[0][1] if (not shuttle.lat is None) else None
+        isRunning = not (shuttle.lat is None)
+        shuttle.nextStopID = stopDists[0][0].stopOrderID if isRunning else None
+        shuttle.nextStopDist = stopDists[0][1] if isRunning else None
         
         shuttle.updateInto(SHUTTLE_LOCATION_TABLE, connection)
         Clearable._clearHelper(STOPS_DIST_TABLE, connection, [["lineID", route.idInTable]], True)
         for i, stops in enumerate(stopDists):
             attrs = [["stopOrderID", stops[0].stopOrderID],
                      ["lineID", stops[0].lineTableID],
-                     ["distFromVehicle", stops[1]],
-                     ["vehicleStopsUntil", i]]
+                     ["distFromVehicle", stops[1] if isRunning else None],
+                     ["vehicleStopsUntil", i if isRunning else None]]
             Insertable._insertIntoHelper(STOPS_DIST_TABLE, connection, attrs, True)
         
     clearOutdated = f"UPDATE `{SHUTTLE_LOCATION_TABLE}` SET latitude=%s, longitude=%s, direction=%s, speed=%s, updated=%s WHERE updated < (NOW() - INTERVAL 3 MINUTE)"
