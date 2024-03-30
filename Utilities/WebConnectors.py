@@ -15,9 +15,13 @@ from typing import List
 class Scraper(ABC):
     
     failed : bool 
+    found : bool
     
     def didFail(self):
         return self.failed
+    
+    def gotContent(self):
+        return (not self.failed) and self.found
     
     def getSite(link):
         """ Given a link, instantiate the page_soup parser and return it """
@@ -47,6 +51,7 @@ class Scraper(ABC):
         try:
             pullResults = self._pull()
             self.failed = False
+            self.found = len(pullResults) > 0 or (hasattr(self, 'found') and self.found)
         except NotImplementedError as e:
             print(e)
             print(f"_pull has not been implemented in {type(self)}; implement to scrape.")

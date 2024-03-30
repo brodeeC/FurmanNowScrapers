@@ -60,7 +60,7 @@ class Directioned(Positioned):
         relativeSecond = (secondHeading - second.heading) % 360
         if debug:
             print(firstHeading, relativeFirst, secondHeading, relativeSecond)
-        return (relativeFirst > 270 or relativeFirst < 90) and (relativeSecond > 90 and relativeSecond < 270)
+        return (270 or relativeFirst < 90) and (relativeSecond > 90 and relativeSecond < 180)
         
 
         

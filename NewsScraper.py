@@ -545,10 +545,10 @@ class EchoScraper(FUSEScraper):
                     pdf_link = page.find("a", {"id":"pdf"})["href"]
                     coverImageLink = NewsScraper.getPDFintoPNG(pdf_link, f"echo-cover-{art.published_parsed.tm_year}-{art.published_parsed.tm_mon}-{art.published_parsed.tm_mday}")
                     articles[-1].imagelink = coverImageLink
-        if coverImageLink is not None:
-            for a in articles:
-                if a.imagelink is None:
-                    a.imagelink = coverImageLink
+            if coverImageLink is not None:
+                for a in articles:
+                    if a.imagelink is None:
+                        a.imagelink = coverImageLink
         return articles
                 
 class FHRScraper(FUSEScraper):
@@ -576,10 +576,10 @@ class FHRScraper(FUSEScraper):
                     pdf_link = page.find("a", {"id":"pdf"})["href"]
                     coverImageLink = NewsScraper.getPDFintoPNG(pdf_link, f"fhr-cover-{art['published_parsed'].tm_year}-{art['published_parsed'].tm_mon}-{art['published_parsed'].tm_mday}")
                     articles[-1].imagelink = coverImageLink
-        if coverImageLink is not None:
-            for a in articles:
-                if a.imagelink is None:
-                    a.imagelink = coverImageLink
+            if coverImageLink is not None:
+                for a in articles:
+                    if a.imagelink is None:
+                        a.imagelink = coverImageLink
         return articles
 
 def purgeOldEvents(connection, publisherID):
@@ -603,7 +603,7 @@ def main():
         
     connection = formConnections()
     for scraper in newsScrapers:
-        if not scraper.didFail():
+        if not scraper.gotContent():
             purgeOldEvents(connection, scraper.getTableID())
     for artic in articles:
         artic.insertInto(NEWS_TABLE, connection)

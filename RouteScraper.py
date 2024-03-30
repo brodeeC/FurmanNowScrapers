@@ -162,7 +162,7 @@ class RouteScraper(Scraper, Queriable):
         for i, pnt in enumerate(self.lineRoute):
             dist = LinePoint.distBetween(vehic, pnt)
             relativeHeading = (vehic.heading - pnt.heading) % 360
-            if dist < 0.05 and (relativeHeading > 225 or relativeHeading < 135) :
+            if dist < 0.05 and (relativeHeading > 270 or relativeHeading < 90) :
                 if dist < minDist:
                     minDist = dist
                     minInd = i
@@ -382,7 +382,7 @@ class BusRouteScraper(RouteScraper):
                                       maybe(stop, "localisation", "lat"),
                                       maybe(stop, "localisation", "lng"),
                                       self.idInTable,
-                                      maybe(stop, "nomCommercial"),
+                                      maybe(stop, "nomCommercial").split('-', 1)[-1],
                                       -1))
         return stops
         
@@ -479,18 +479,13 @@ def main():
     a.saveRouteToJSONFile("/home/csdaemon/aux/ShuttleRoute.json")
     
     b = BusRouteScraper("503 Bus", "503", 1)
-    bp = filter(lambda x: isinstance(x, LineStop), b.tryPull())
+    b.tryPull()
     b.saveRouteToJSONFile("/home/csdaemon/aux/503Route.json")
     
     connection = formConnections()
     for shut in [a, b]:
         shut.setStopsTable(STOPS_TABLE)
         shut.updateInto(SHUTTLE_TABLE, connection)
-        
-def test():
-    b = BusRouteScraper("503 Bus", "503", 1)
-    bp = [f for f in filter(lambda x: isinstance(x, LineStop), b.tryPull())]
-    len(bp)
-    
+          
 if __name__ == "__main__":
-    test()
+    main()
