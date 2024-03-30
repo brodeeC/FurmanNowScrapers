@@ -21,7 +21,9 @@ import feedparser
 from Utilities.WebConnectors import Scraper, FailedWebPullException, formConnections
 from Utilities.SQLQueryClasses import Clearable, Insertable
 from dataclasses import dataclass
+from math import floor
 import traceback
+from datetime import datetime
 
 #find details at www.weather.gov/documentation/services-web-api
 FORECAST_URL = "https://api.weather.gov/gridpoints/GSP/61,45/forecast?units=us"
@@ -99,22 +101,39 @@ class WeatherScraper(Scraper):
                           ["snow", "0x1F328"],          # Cloud with snow
                           ["DEFAULT", "0x1F31E"]]       # Sun, default
         
-        ## To-Do: Add more night emojis
         night_emojis =  [["DEFAULT", "0x1F311"]]        # Moon, default
         
-        forecast = forecast.lower() 
-        emojis = day_emojis if isDaytime else night_emojis
-    
-        for encode in emojis:
-            # Turns single-element encodings into a list
-            if type(encode[0]) is str:
-                encode[0] = [encode[0]]
-            # Emoji is used if the description includes all elements of the encoding
-            if all(strings in forecast for strings in encode[0]):
-                return encode[1]
-            
+        forecast = forecast.lower()
+        
+        if isDaytime:
+            for encode in day_emojis:
+                # Turns single-element encodings into a list
+                if type(encode[0]) is str:
+                    encode[0] = [encode[0]]
+                # Emoji is used if the description includes all elements of the encoding
+                if all(strings in forecast for strings in encode[0]):
+                    return encode[1]
+        else:
+            ## Displays phase of the moon at night.
+            now = datetime.datetime.now()
+            diff = now - datetime.datetime(2001, 1, 1)
+            days = diff.days + (diff.seconds / 86400)
+            lunations = (0.20439731 + (days * 0.03386319269)) % 1
+            index = (lunations * 8) + 0.5
+            index = floor(index)
+            moonPhaseEmojis = ['0x1F311', # New Moon
+                               '0x1F312', # Quarter Waxing
+                               '0x1F313', # Half Waxing
+                               '0x1F314', # Three-Quarters Waxing
+                               '0x1F315', # Full
+                               '0x1F316', # Three-Quarters Waning
+                               '0x1F317', # Half Waning
+                               '0x1F318'  # Quarter Waning
+                               ]
+            return moonPhaseEmojis[int(index) & 7]
+                        
         # Returns default
-        return emojis[-1][1]
+        return day_emojis[-1][1] if isDaytime else night_emojis[-1][1]
     
     def _pullCurrentTemperature(pageURL):
         try:

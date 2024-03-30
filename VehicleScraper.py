@@ -106,12 +106,8 @@ class BusScraper(WebConnectors.Scraper):
         
     def _pull(self):
         vehicles = []
-        try:
-            page_soup = BusScraper.getSoup(URL_GREENLINK_LOCATION)
-            buses = json.loads(page_soup.text)
-        except:
-            print("Json parsing failed; ensure webpage has not been moved.")  
-            return
+        page_soup = BusScraper.getSoup(URL_GREENLINK_LOCATION)
+        buses = json.loads(page_soup.text)
         
         buses = BusScraper.maybeGetValue(buses, "vehicule", default=None)
         if buses is None:
@@ -145,8 +141,8 @@ def main():
     
     for shuttle, route in shut:
         stopDists = route.distToStops(shuttle)
-        shuttle.nextStopID = stopDists[0][0].stopOrderID if not shuttle.lat is None else None
-        shuttle.nextStopDist = stopDists[0][1] if not shuttle.lat is None else None
+        shuttle.nextStopID = stopDists[0][0].stopOrderID if not (shuttle.lat is None) else None
+        shuttle.nextStopDist = stopDists[0][1] if (not shuttle.lat is None) else None
         
         shuttle.updateInto(SHUTTLE_LOCATION_TABLE, connection)
         Clearable._clearHelper(STOPS_DIST_TABLE, connection, [["lineID", route.idInTable]], True)
