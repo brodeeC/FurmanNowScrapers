@@ -53,14 +53,14 @@ class Directioned(Positioned):
             print(heading, relativeHeading)
         return relativeHeading > 45 and relativeHeading < 135
     
-    def isBetweenAndRight(self, first, second, debug=False):
+    def isBetweenAndRight(self, first: "Directioned", second: "Directioned", debug=False):
         firstHeading = Directioned.headingBetween(first, self)
         relativeFirst = (firstHeading - first.heading) % 360
         secondHeading = Directioned.headingBetween(second, self)
         relativeSecond = (secondHeading - second.heading) % 360
         if debug:
             print(firstHeading, relativeFirst, secondHeading, relativeSecond)
-        return (relativeFirst > 270 or relativeFirst < 90) and (relativeSecond > 90 and relativeSecond < 270)
+        return (relativeFirst < 90) and (relativeSecond > 90 and relativeSecond < 180)
 
 
         

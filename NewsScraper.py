@@ -15,6 +15,7 @@ from abc import abstractmethod
 import json
 from dataclasses import dataclass
 from typing import ClassVar
+from pytz import timezone
 ''' VVV pdf2image has a bad habit of being hard to get 
 working on Windows and Mac, let the server's Linux do this 
 and remove the export if you want to run locally.
@@ -180,7 +181,10 @@ class PaladinScraper(NewsScraper):
     def getImage(articleLink):
         page_soup = PaladinScraper.getSoup(articleLink)
         div = page_soup.find("div",attrs={"class": "sno-story-photo-image-area"})
-        return div.find("img")["src"]
+        if div is None:
+            div = page_soup.find("div",attrs={"class": "sno-story-photo-area"})
+        imgDiv = div.find("img") if div is not None else None
+        return imgDiv["src"] if imgDiv is not None else ''
         
     def _pull(self):
         articles = []
@@ -289,7 +293,7 @@ class FurmanNewsScraper(NewsScraper):
                     link = FurmanNewsScraper.getLink(entry),
                     publisherID = self.getTableID(),
                     section = None,
-                    publishDate = parseTime(entry.published),
+                    publishDate = parseTime(entry.published).astimezone(timezone('America/New_York')),
                     imagelink =  FurmanNewsScraper.getImage(entry)
                     )
                 )
@@ -382,7 +386,7 @@ class TocquevilleScraper(NewsScraper):
                     link = entry.link,
                     publisherID = self.getTableID(),
                     section = None,
-                    publishDate = parseTime(entry.published),
+                    publishDate = parseTime(entry.published).astimezone(timezone('America/New_York')),
                     imagelink =  TocquevilleScraper.getImage(entry)
                 )
             )
@@ -446,7 +450,7 @@ class RileyScraper(NewsScraper):
                     link = entry.link,
                     publisherID = self.getTableID(),
                     section = None,
-                    publishDate = parseTime(entry.published),
+                    publishDate = parseTime(entry.published).astimezone(timezone('America/New_York')),
                     imagelink =  RileyScraper.getImage(entry)
                 )
             )
@@ -527,7 +531,7 @@ class EchoScraper(FUSEScraper):
         feed = feedparser.parse(site.content)
         date = EchoScraper.cleanParseTime(feed['feed']['updated'])
         coverImageLink = None
-        if datetime.now().astimezone() - date < timedelta(days=300):
+        if datetime.now().astimezone() - date < timedelta(hours=4):
             firstArticleTime = EchoScraper.cleanParseTime(feed.entries[0]["published"])
             for art in filter(lambda a: firstArticleTime - EchoScraper.cleanParseTime(a["published"]) < timedelta(days=30),feed.entries):
                 newArt = self.articleAssembler(art, "The Echo")

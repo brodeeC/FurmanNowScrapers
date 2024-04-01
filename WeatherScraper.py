@@ -115,22 +115,27 @@ class WeatherScraper(Scraper):
                     return encode[1]
         else:
             ## Displays phase of the moon at night.
-            now = datetime.datetime.now()
-            diff = now - datetime.datetime(2001, 1, 1)
+            now = datetime.now()
+            diff = now - datetime(2001, 1, 1)
             days = diff.days + (diff.seconds / 86400)
             lunations = (0.20439731 + (days * 0.03386319269)) % 1
             index = (lunations * 8) + 0.5
             index = floor(index)
-            moonPhaseEmojis = ['0x1F311', # New Moon
-                               '0x1F312', # Quarter Waxing
-                               '0x1F313', # Half Waxing
-                               '0x1F314', # Three-Quarters Waxing
-                               '0x1F315', # Full
-                               '0x1F316', # Three-Quarters Waning
-                               '0x1F317', # Half Waning
-                               '0x1F318'  # Quarter Waning
+            moonPhaseEmojis = [['0x1F311',  # New Moon
+                                '0x1F31A'], # New Moon w/ Face
+                               ['0x1F312',  # Quarter Waxing
+                                '0x1f31B'], # Quarter Waxing w/ Face
+                               ['0x1F313'], # Half Waxing
+                               ['0x1F314'], # Three-Quarters Waxing
+                               ['0x1F315',  # Full 
+                                '0x1F31D'], # Full w/ Face
+                               ['0x1F316'], # Three-Quarters Waning
+                               ['0x1F317'], # Half Waning 
+                               ['0x1F318',  # Quarter Waning
+                                '0x1F31C']  # Quarter Waning w/ Face
                                ]
-            return moonPhaseEmojis[int(index) & 7]
+            curPhaseEmojis = moonPhaseEmojis[int(index) % 8]
+            return curPhaseEmojis[now.day % len(curPhaseEmojis)]
                         
         # Returns default
         return day_emojis[-1][1] if isDaytime else night_emojis[-1][1]
