@@ -92,8 +92,8 @@ class WeatherScraper(Scraper):
         day_emojis =     [["mostly sunny", "0x1F324"],  # Sun behind small cloud
                           ["partly sunny", "0x1F325"],  # Sun behind larger cloud
                           ["sunny", "0x1F31E"],         # Sun
-                          ["partly cloudy", "0xF1324"], # Sun behind larger cloud
-                          ["mostly cloudy", "0xF1325"], # Sun behind cloud
+                          ["partly cloudy", "0x1F324"], # Sun behind larger cloud
+                          ["mostly cloudy", "0x1F325"], # Sun behind cloud
                           ["cloudy", "0x2601"],         # Cloud
                           [ ["scattered", "showers"], "0x1F326"],       # Sun behind rain clouds
                           [ ["thunderstorms", "showers"], "0x26C8"],    # Rain and thunder clouds
@@ -102,19 +102,25 @@ class WeatherScraper(Scraper):
                           ["DEFAULT", "0x1F31E"]]       # Sun, default
         
         night_emojis =  [["DEFAULT", "0x1F311"]]        # Moon, default
-        
+        overridable = ["0x1F324", "0x1F325", "0x1F311", "0x1F31E", "0x1F324", "0x2601"]
         forecast = forecast.lower()
         
         if isDaytime:
+            emoji = day_emojis[-1][1]
             for encode in day_emojis:
                 # Turns single-element encodings into a list
                 if type(encode[0]) is str:
                     encode[0] = [encode[0]]
                 # Emoji is used if the description includes all elements of the encoding
                 if all(strings in forecast for strings in encode[0]):
-                    return encode[1]
+                    emoji = encode[1]
+            return emoji
         else:
             ## Displays phase of the moon at night.
+            dayEmoji = WeatherScraper._matchEmoji(forecast, True)
+            print(dayEmoji)
+            if dayEmoji not in overridable:
+                return dayEmoji
             now = datetime.now()
             diff = now - datetime(2001, 1, 1)
             days = diff.days + (diff.seconds / 86400)
@@ -163,12 +169,13 @@ class WeatherScraper(Scraper):
           first["tempLo"], second["tempLo"] = temp1, temp1            
         return first, second  
     
-    def _parsePrecipPct(detailedForecast):
-        if detailedForecast.count("%") > 0:
-            index = detailedForecast.index("%")
-            precip = detailedForecast[index-2:index+1]
-            return precip
-        return ""           
+    def _parsePrecipPct(probabilityOfPrecip):
+        precip = probabilityOfPrecip["value"] if probabilityOfPrecip is not None else None
+        return precip if precip is not None else ""
+    
+    def _parseHumidity(humidity):
+        humid = humidity["value"] if humidity is not None else None
+        return humid if humid is not None else "" 
 
     def _toForecast(pulled):
         keys = ["number", "name", "startTime", "endTime", "isDaytime",
@@ -203,7 +210,7 @@ class WeatherScraper(Scraper):
           """
           per = jsondata['properties']["periods"]
           current = WeatherScraper._pullCurrentTemperature(CURRENT_TEMP_URL)
-
+          print(per)
           first, second = WeatherScraper._pairForecastData(per[0], per[1])
           forecasts = []
           for pulled in [first, second]:
@@ -211,7 +218,7 @@ class WeatherScraper(Scraper):
               pulled["tempCurrent"] = current
               pulled["isDaytime"] = bool(pulled["isDaytime"])
               pulled["emoji"] =  WeatherScraper._matchEmoji(pulled["detailedForecast"], pulled["isDaytime"])
-              pulled["precipitationPercent"] = WeatherScraper._parsePrecipPct(pulled["detailedForecast"])
+              pulled["precipitationPercent"] = WeatherScraper._parsePrecipPct(pulled["probabilityOfPrecipitation"])
               pulled["alert"] = ""
               
               forecasts.append(WeatherScraper._toForecast(pulled))
