@@ -51,6 +51,17 @@ class Article(Insertable):
                  ["imagelink", self.imagelink]]
         Article._insertIntoHelper(table, connection, attrs, commit)
         
+    def structTimeToDatetime(st_tm):
+        return datetime(
+                st_tm.tm_year,
+                st_tm.tm_mon, 
+                st_tm.tm_mday, 
+                st_tm.tm_hour, 
+                st_tm.tm_min,
+                st_tm.tm_sec
+            )
+        
+        
     def __lt__(self, other): 
         return self.publishDate < other.publishDate
 
@@ -458,7 +469,7 @@ class RileyScraper(NewsScraper):
                     link = entry.link,
                     publisherID = self.getTableID(),
                     section = None,
-                    publishDate = parseTime(entry.published).astimezone(timezone('America/New_York')),
+                    publishDate = Article.structTimeToDatetime(entry.published).astimezone(timezone('UTC')),
                     imagelink =  RileyScraper.getImage(entry)
                 )
             )
@@ -479,7 +490,7 @@ class RileyScraper(NewsScraper):
                     link = entry.link,
                     publisherID = self.getTableID(),
                     section = None,
-                    publishDate = parseTime(entry.published),
+                    publishDate = parseTime(entry.published).astimezone(timezone('UTC')),
                     imagelink =  RileyScraper.getImage(entry)
                 )
             )
@@ -614,18 +625,14 @@ class HillScraper(NewsScraper):
                 Article(
                     title = entry.title,
                     author = entry.author,
-                    description = soup(entry.summary, features="html.parser").get_text(strip=True),
+                    description = soup(entry.summary, features="html.parser").get_text(strip=True)[:200],
                     mediatype = Article.LINK,
                     link = entry.link,
                     publisherID = self.getTableID(),
                     section = None,
-                    publishDate = datetime(
-                        entry.published_parsed.tm_year,
-                        entry.published_parsed.tm_mon, 
-                        entry.published_parsed.tm_mday, 
-                        entry.published_parsed.tm_hour, 
-                        entry.published_parsed.tm_min
-                        ),
+                    publishDate = Article.structTimeToDatetime(
+                            entry.published_parsed
+                        ).astimezone(timezone('America/New_York')),
                     imagelink =  entry.image["href"]
                     )
                 )
@@ -641,6 +648,36 @@ class HillScraper(NewsScraper):
         
         return articles
 
+class ShiScraper(NewsScraper):
+    def getTableID(self):
+        return NewsSources["Shi"]["id"]
+    
+    def _getImageLink(links):
+        for link in links:
+            if "image" in link.type:
+                return link["href"]
+    
+    def _pull(self):
+        articles = []
+        site = ShiScraper.getSite(SHI_INSTITUTE_BLOG)
+        feed = feedparser.parse(site.content)
+        for entry in feed.entries:
+            articles.append(
+                Article(
+                    title = entry.title,
+                    author = entry.author,
+                    description = soup(entry.description, features="html.parser").get_text(),
+                    mediatype=Article.LINK,
+                    link = entry.link,
+                    publisherID = self.getTableID(),
+                    section = None,
+                    publishDate = Article.structTimeToDatetime(
+                            entry.published_parsed
+                        ).astimezone(timezone('America/New_York')),
+                    imagelink = ShiScraper._getImageLink(entry.links)
+                    )
+                )
+        return articles
 
 def purgeOldEvents(connection, publisherID):
     sql = f"DELETE FROM `{NEWS_TABLE}` WHERE `publisherID` = {publisherID}"
