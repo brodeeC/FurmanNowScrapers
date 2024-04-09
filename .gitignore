@@ -6,3 +6,4 @@ __pycache__/RouteScraper.cpython-38.pyc
 Utilities/__pycache__/WebConnectors.cpython-38.pyc
 /Utilities/__pycache__
 /Utilities/__pycache__
+*.pyc

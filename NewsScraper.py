@@ -64,6 +64,9 @@ RILEY_NEWS_FEED = "https://www.furman.edu/riley/news/feed"
 ECHO_FEED = "https://scholarexchange.furman.edu/echo/all.rss"
 FHR_FEED = "https://scholarexchange.furman.edu/fhr/all.rss"
 
+HILL_INSTITUE_PODCAST = "https://feeds.libsyn.com/248285/rss"
+SHI_INSTITUTE_BLOG = "https://www.furman.edu/shi-institute/feed/"
+
 FUNC_YOUTUBE_CHANNEL_ID = "UC3UaWOCIldF5_qWnCYEt0RQ"
 KNIGHTLY_YOUTUBE_CHANNEL_ID = "UCiKdNbjss18h2LI1eesPRbA"
 TOCQUEVILLE_YOUTUBE_CHANNEL_ID = "UCGwVaOolYr8YhU8xP0reIQw"
@@ -97,7 +100,7 @@ class NewsScraper(Scraper):
         entries = json.loads(req.content)["items"]
         return filter(lambda entry: "upload" in entry["contentDetails"], entries)
 
-    def parseYouTubeToArticle(entry, authName, tableID):
+    def parseYouTubeToArticle(entry, authName, tableID, section=None):
         videoID = entry["contentDetails"]["upload"]["videoId"]
         return Article(
             title = entry["snippet"]["title"],
@@ -106,7 +109,7 @@ class NewsScraper(Scraper):
             mediatype = Article.VIDEO,
             link = "https://youtu.be/" + videoID,
             publisherID = tableID,
-            section = None,
+            section = section,
             publishDate = parseTime(entry["snippet"]["publishedAt"]),
             imagelink = f"https://img.youtube.com/vi/{videoID}/hqdefault.jpg"
         )
@@ -133,7 +136,7 @@ class NewsScraper(Scraper):
         imagelink = f"https://cs.furman.edu/~csdaemon/{page}.png"
         return imagelink
 
-class ChristoScraper(Scraper):
+class ChristoScraper(NewsScraper):
     
     def getTableID(self):
         return NewsSources["Christo"]["id"]
@@ -365,7 +368,10 @@ class TocquevilleScraper(NewsScraper):
         for entry in feed:
             articles.append(
                 TocquevilleScraper.parseYouTubeToArticle(
-                    entry, "Tocqueville Center Staff", self.getTableID()
+                    entry, 
+                    "Tocqueville Center Staff", 
+                    self.getTableID(),
+                    section="Lectures"
                     )
                 )
         
@@ -385,7 +391,7 @@ class TocquevilleScraper(NewsScraper):
                     mediatype = Article.LINK,
                     link = entry.link,
                     publisherID = self.getTableID(),
-                    section = None,
+                    section = "Blog Posts",
                     publishDate = parseTime(entry.published).astimezone(timezone('America/New_York')),
                     imagelink =  TocquevilleScraper.getImage(entry)
                 )
@@ -429,7 +435,9 @@ class RileyScraper(NewsScraper):
         for entry in feed:
             articles.append(
                 RileyScraper.parseYouTubeToArticle(
-                    entry, "Riley Institue Staff", self.getTableID()
+                    entry,
+                    "Riley Institue Staff",
+                    self.getTableID()
                     )
                 )
         
@@ -574,7 +582,7 @@ class FHRScraper(FUSEScraper):
         feed = feedparser.parse(site.content)
         date = FHRScraper.cleanParseTime(feed['feed']['updated'])
         coverImageLink = None
-        if True or datetime.now().astimezone() - date > timedelta(hours=4):
+        if datetime.now().astimezone() - date > timedelta(hours=4):
             firstArticleTime = FHRScraper.cleanParseTime(feed.entries[0]["published"])
             for art in filter(lambda a: firstArticleTime - FHRScraper.cleanParseTime(a["published"]) < timedelta(days=30),feed.entries):
                 articles.append(
@@ -591,6 +599,49 @@ class FHRScraper(FUSEScraper):
                         a.imagelink = coverImageLink
         return articles
 
+class HillScraper(NewsScraper):
+    
+    def getTableID(self):
+        return NewsSources["FHR"]["id"]
+    
+    def _pullPodcasts(self):
+        articles = []
+        site = HillScraper.getSite(HILL_INSTITUE_PODCAST)
+        feed = feedparser.parse(site.content)
+        for entry in feed.entries[:10]:
+            print(entry.published_parsed)
+            articles.append(
+                Article(
+                    title = entry.title,
+                    author = entry.author,
+                    description = soup(entry.summary, features="html.parser").get_text(strip=True),
+                    mediatype = Article.LINK,
+                    link = entry.link,
+                    publisherID = self.getTableID(),
+                    section = None,
+                    publishDate = datetime(
+                        entry.published_parsed.tm_year,
+                        entry.published_parsed.tm_mon, 
+                        entry.published_parsed.tm_mday, 
+                        entry.published_parsed.tm_hour, 
+                        entry.published_parsed.tm_min
+                        ),
+                    imagelink =  entry.image["href"]
+                    )
+                )
+        return articles
+        
+    
+    def _pull(self):
+        articles = []
+        try:
+            articles += self._pullPodcasts()
+        except Exception as e:
+            print(e)
+        
+        return articles
+
+
 def purgeOldEvents(connection, publisherID):
     sql = f"DELETE FROM `{NEWS_TABLE}` WHERE `publisherID` = {publisherID}"
     with connection.cursor() as cursor:
@@ -604,8 +655,7 @@ def purgeOldEvents(connection, publisherID):
 def main():
     newsScrapers = [ChristoScraper(), PaladinScraper(), FUNCScraper(), FurmanNewsScraper(),
                     KnightlyNewsScraper(), PresidentScraper(), RileyScraper(), TocquevilleScraper(),
-                    EchoScraper(True),
-		 FHRScraper(True)]
+                    EchoScraper(True), FHRScraper(True), HillScraper()]
     articles = []
     for scraper in newsScrapers:
         articles += scraper.tryPull()

@@ -10,6 +10,7 @@ from bs4 import BeautifulSoup as soup
 import pymysql
 import feedparser
 import re
+from Utilities.WebConnectors import Scraper
 from datetime import datetime
 import datetime
 import pytz
@@ -130,7 +131,8 @@ def convertDate2(date):
 def getSyncDin():
     listDict = {}
     eventDict = {}
-    feed = feedparser.parse(syncDin)
+    site = Scraper.getSite(syncDin)
+    feed = feedparser.parse(site.content)
     for entry in feed.entries:
         eventDict = {}
         cleanr = re.compile('<.*?>|&([a-z0-9]+|#[0-9]{1,6}|#x[0-9a-f]{1,6});')
@@ -175,7 +177,9 @@ def getSyncDin():
 def getCLPLinks():
     listDict = {}
     eventDict = {}
-    feed = feedparser.parse(clp)
+    site = Scraper.getSoup(clp)
+    print(site.prettify())
+    feed = feedparser.parse(site.prettify(formatter='html'))
     for entry in feed.entries:
         # print(entry.keys())
         eventDict = {}
