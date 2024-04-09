@@ -582,7 +582,7 @@ class FHRScraper(FUSEScraper):
         feed = feedparser.parse(site.content)
         date = FHRScraper.cleanParseTime(feed['feed']['updated'])
         coverImageLink = None
-        if datetime.now().astimezone() - date > timedelta(hours=4):
+        if datetime.now().astimezone() - date < timedelta(hours=4):
             firstArticleTime = FHRScraper.cleanParseTime(feed.entries[0]["published"])
             for art in filter(lambda a: firstArticleTime - FHRScraper.cleanParseTime(a["published"]) < timedelta(days=30),feed.entries):
                 articles.append(
@@ -602,14 +602,13 @@ class FHRScraper(FUSEScraper):
 class HillScraper(NewsScraper):
     
     def getTableID(self):
-        return NewsSources["FHR"]["id"]
+        return NewsSources["Hill"]["id"]
     
     def _pullPodcasts(self):
         articles = []
         site = HillScraper.getSite(HILL_INSTITUE_PODCAST)
         feed = feedparser.parse(site.content)
         for entry in feed.entries[:10]:
-            print(entry.published_parsed)
             articles.append(
                 Article(
                     title = entry.title,
