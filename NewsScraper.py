@@ -10,6 +10,7 @@ from Utilities.WebConnectors import Scraper, formConnections, youTubePullLatest
 from Utilities.SQLQueryClasses import Insertable
 from dateutil.parser import parse as parseTime
 from datetime import datetime, timedelta
+from datetime import timezone as dt_timezone
 from bs4 import BeautifulSoup as soup
 from abc import abstractmethod
 import json
@@ -469,7 +470,7 @@ class RileyScraper(NewsScraper):
                     link = entry.link,
                     publisherID = self.getTableID(),
                     section = None,
-                    publishDate = Article.structTimeToDatetime(entry.published).astimezone(timezone('UTC')),
+                    publishDate = Article.structTimeToDatetime(entry.published_parsed).replace(tzinfo=dt_timezone.utc).astimezone(timezone('America/New_York')),
                     imagelink =  RileyScraper.getImage(entry)
                 )
             )
@@ -490,7 +491,7 @@ class RileyScraper(NewsScraper):
                     link = entry.link,
                     publisherID = self.getTableID(),
                     section = None,
-                    publishDate = parseTime(entry.published).astimezone(timezone('UTC')),
+                    publishDate = parseTime(entry.published).replace(tzinfo=dt_timezone.utc).astimezone(timezone('America/New_York')),
                     imagelink =  RileyScraper.getImage(entry)
                 )
             )
