@@ -488,6 +488,11 @@ class RileyScraper(NewsScraper):
             articles += self._pullBlog()
         except Exception as e:
             print(e)
+
+        try:
+            articles += self._pullNews()
+        except Exception as e:
+            print(e)
             
         articles.sort(reverse=True)
         return articles[:10]
