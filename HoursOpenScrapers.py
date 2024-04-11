@@ -209,7 +209,7 @@ class PACScraper(TimesScraper):
                     .get_text() \
                     .strip()
         if name == "Fitness Center Hours":
-            name = "PAC"
+            name = "The PAC"
         if name == "Aquatic Hours":
             name = "Aquatic Center"
         sched = Schedule(name)

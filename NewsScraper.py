@@ -43,7 +43,7 @@ class Article(Insertable):
     def insertInto(self, table, connection, commit = True):
         attrs = [["title", self.title],
                  ["author", self.author],
-                 ["description", self.description],
+                 ["description", soup(self.description, features="html.parser").text],
                  ["media", self.mediatype],
                  ["linktocontent", self.link],
                  ["publisherID", self.publisherID],
@@ -216,7 +216,7 @@ class PaladinScraper(NewsScraper):
                     link = entry.link,
                     publisherID = self.getTableID(),
                     section = PaladinScraper.getSection(entry),
-                    publishDate = parseTime(entry.published),
+                    publishDate = Article.structTimeToDatetime(entry.published_parsed).replace(tzinfo=dt_timezone.utc).astimezone(timezone("America/New_York")),
                     imagelink =  PaladinScraper.getImage(entry.link)
                     )
                 )
@@ -692,7 +692,7 @@ def purgeOldEvents(connection, publisherID):
 def main():
     newsScrapers = [ChristoScraper(), PaladinScraper(), FUNCScraper(), FurmanNewsScraper(),
                     KnightlyNewsScraper(), PresidentScraper(), RileyScraper(), TocquevilleScraper(),
-                    EchoScraper(True), FHRScraper(True), HillScraper()]
+                    EchoScraper(True), FHRScraper(True), HillScraper(), ShiScraper()]
     articles = []
     for scraper in newsScrapers:
         articles += scraper.tryPull()
