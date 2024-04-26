@@ -78,7 +78,7 @@ class LibrariesScraper(TimesScraper):
         # Followed by query string and then "from" and "to" in 'YYYY-MM-DD'. 
         # Query automatically uses today's date if one isn't specified.
 
-        lastSunday = LibrariesScraper._getLastMonday()
+        lastSunday = LibrariesScraper._getLastSunday()
         nextSaturday = lastSunday + datetime.timedelta(6)
         lmString = lastSunday.strftime("%Y-%m-%d")
         nsString = nextSaturday.strftime("%Y-%m-%d")
