@@ -53,8 +53,8 @@ class Insertable(ABC, Queriable):
         
 class Selector(Queriable):
     '''
-    Table is the name of the table that will be inserted with
-    attrs is which attributes will be inserted
+    Table is the name of the table that will be selected
+    attrs is which attributes will be selected
     conds is a list of conditionals. Each contititonal can be in
         one of three formats:
             1. [a, b] where the statement will be "a = b OR"

@@ -21,7 +21,8 @@ class TimeRange():
                 at, i.e. opening time
             close: datetime indicating the time the range ends
                 at, i.e. closing time
-            checkClosed: boolean indicating if 
+            checkClosed: boolean indicating if a range is 12am
+                12am and, if so, indicate that it is closed. 
 
         An input of 12 am to 12am,
         unless "checkClosed" is set to false. Recommended behavior
@@ -208,7 +209,7 @@ class Schedule():
                 attrs = [["buildingID", buildingID],
                          ["day", day],
                          ["dayorder", Schedule._daysOfWeek.index(day)]]
-                if not ranges.isClosed() or ranges.isFailed():
+                if not (ranges.isClosed() or ranges.isFailed()):
                     attrs += [["start", ranges.openingStr()],
                               ["end", ranges.closingStr()]]
                 Queriable.cursorQuery(cursor, 

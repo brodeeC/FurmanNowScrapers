@@ -98,8 +98,8 @@ NewsSources = {
     "Magazine" :    {"id": 9, "name": "Furman Magazine"},           ## TO-DO
     "Tocqueville" : {"id": 10, "name": "The Tocqueville Center"},# Online
     "Riley" :       {"id": 11, "name": "The Riley Institute"},  ## Online
-    "Hill" :        {"id": 12, "name": "The Hill Institute"},       ## TO-DO
-    "Shi" :         {"id": 13, "name": "The Shi Institue"},         ## TO-DO
+    "Hill" :        {"id": 12, "name": "The Hill Institute"},   ## Online
+    "Shi" :         {"id": 13, "name": "The Shi Institue"},     ## Online
     }
 
 
