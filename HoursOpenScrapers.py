@@ -276,24 +276,6 @@ class CounselingScraper(TimesScraper):
             sched.addDayRangeTime(days, ranges)
         return [sched]
 
-class LibraryScraper(TimesScraper):
-    """ Pulls opening hours from the James B. Duke Library. """
-    def _pull(self) -> List[Schedule]:
-        sched = Schedule("James B. Duke Library")
-        page_soup = LibraryScraper.getSoup(links["library"])
-        container = page_soup.find("ul",{"class","fu-regular-hours"})
-        lines = container.findAll("li")
-        for ln in lines:
-            ln = ln.findAll("span")
-            ln = [cel.get_text().replace("through", "-") \
-                  for cel in ln \
-                      if not cel.has_attr("aria-hidden")]
-            days = LibraryScraper.parseDaysFromRange(ln[0])
-            ranges = LibraryScraper.parseTimeOpened(",".join(ln[1:]))
-            for r in ranges:
-                sched.addDayRangeTime(days, r)
-        return [sched]
-
 class BonAppetitScraper(TimesScraper):
     """ Parses the hours for the restraunts listed on the Bon Appetit website. """
     def _parseHours(scheds, soup, dayOfWeek):
@@ -334,7 +316,7 @@ def main():
     
     scrapers = [TroneScraper(), PACScraper(), EarleScraper(),
                 EnrollmentScraper(), CounselingScraper(), 
-                BonAppetitScraper(), LibraryScraper()]
+                BonAppetitScraper()]
     """ Here, we read all pages, and deal with the database """
     # each page is read w/ separate functions because of their formatting
 

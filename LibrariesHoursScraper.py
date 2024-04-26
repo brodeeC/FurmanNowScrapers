@@ -20,11 +20,11 @@ SCHEDULE_TABLE = "buildingHours"
 BUILDING_INFO_TABLE = "buildingLocations"
 
 class LibrariesScraper(TimesScraper):
-    def _getLastMonday() -> datetime.date:
+    def _getLastSunday() -> datetime.date:
         today = datetime.date.today()
-        index = today.weekday()
-        lastMon = today - datetime.timedelta(index)
-        return lastMon
+        index = (today.weekday() + 1) % 7
+        lastSun = today - datetime.timedelta(index)
+        return lastSun
     
     def _buildTimeRangeFromJSON(jsonDct) -> List[TimeRange]:
         ranges = []
@@ -78,10 +78,10 @@ class LibrariesScraper(TimesScraper):
         # Followed by query string and then "from" and "to" in 'YYYY-MM-DD'. 
         # Query automatically uses today's date if one isn't specified.
 
-        lastMonday = LibrariesScraper._getLastMonday()
-        nextSunday = lastMonday + datetime.timedelta(6)
-        lmString = lastMonday.strftime("%Y-%m-%d")
-        nsString = nextSunday.strftime("%Y-%m-%d")
+        lastSunday = LibrariesScraper._getLastMonday()
+        nextSaturday = lastSunday + datetime.timedelta(6)
+        lmString = lastSunday.strftime("%Y-%m-%d")
+        nsString = nextSaturday.strftime("%Y-%m-%d")
 
         hoursRequest = f"https://libcal.furman.edu/1.1/hours/10143,10144,10146,10147?from={lmString}&to={nsString}"
         hoursReqResp = requests.get(hoursRequest,headers=oauthHeader, timeout=2)
