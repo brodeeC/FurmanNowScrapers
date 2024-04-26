@@ -200,17 +200,17 @@ class ShuttleRouteScraper(RouteScraper):
         
         points = []
         stopNumber = 0
-        for stops in page_json:
-            if maybe(stops, "RouteID", default=-1) == self.lineIDExternal:
+        for pnt in page_json:
+            if maybe(pnt, "RouteID", default=-1) == self.lineIDExternal:
                 points.append(
                     LineStop(len(points), 
-                              maybe(stops, "Latitude"),
-                              maybe(stops, "Longitude"),
+                              maybe(pnt, "Latitude"),
+                              maybe(pnt, "Longitude"),
                               self.idInTable,
-                              maybe(stops, "Description"),
+                              maybe(pnt, "Description"),
                               stopNumber))
                 stopNumber += 1
-                for p in maybe(stops, "MapPoints", []):
+                for p in maybe(pnt, "MapPoints", []):
                     points.append(
                         LinePoint(
                             len(points),

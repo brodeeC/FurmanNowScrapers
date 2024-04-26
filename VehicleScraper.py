@@ -43,9 +43,6 @@ class Vehicle(Insertable, Directioned):
     nextStopDist : int = None
     nextStopID : int = None
     
-    def NoVehic():
-        return Vehicle(0, 0, 0, "", 0)
-    
     def __post_init__(self):
         self.updated = datetime.datetime.now()
 

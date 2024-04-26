@@ -679,7 +679,7 @@ class ShiScraper(NewsScraper):
                 )
         return articles
 
-def purgeOldEvents(connection, publisherID):
+def purgeOldArticles(connection, publisherID):
     sql = f"DELETE FROM `{NEWS_TABLE}` WHERE `publisherID` = {publisherID}"
     with connection.cursor() as cursor:
         try:
@@ -700,7 +700,7 @@ def main():
     connection = formConnections()
     for scraper in newsScrapers:
         if scraper.gotContent():
-            purgeOldEvents(connection, scraper.getTableID())
+            purgeOldArticles(connection, scraper.getTableID())
     for artic in articles:
         artic.insertInto(NEWS_TABLE, connection)
         
