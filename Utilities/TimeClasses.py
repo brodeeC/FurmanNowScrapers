@@ -218,24 +218,91 @@ class Schedule():
                 
     def selectBuildingIDFrom(self, namesIDTable, cursor):
         try:
-            Queriable.cursorQuery(cursor, 
-                                  Selector._formulateSelect(
-                                      namesIDTable,
-                                      attrs = ["buildingID"],
-                                      conds = [["name", self.name],
-                                               ["nickname", self.name]]
-                                      )
-                                  )
-            fetch = cursor.fetchone()
-            if fetch is None or "buildingID" not in fetch:
-                print(f"No entry in {namesIDTable} for {self.name}.")
-                return None
-            else:
-                return fetch["buildingID"]
-        except:
-            traceback.print_exc()
-            print(f"Crash selecting buildingID from {namesIDTable}")
+            # First try exact matches
+            query = """
+                SELECT buildingID FROM {}
+                WHERE name = ? OR nickname = ?
+                LIMIT 1
+            """.format(namesIDTable)
+            cursor.execute(query, (self.name, self.name))
+            result = cursor.fetchone()
+            
+            if result:
+                return result['buildingID']
+            
+            # If no exact match, try fuzzy matching
+            query = """
+                SELECT buildingID FROM {}
+                WHERE name LIKE ? OR nickname LIKE ?
+                ORDER BY 
+                    CASE 
+                        WHEN name = ? THEN 1
+                        WHEN nickname = ? THEN 2
+                        WHEN name LIKE ? THEN 3
+                        WHEN nickname LIKE ? THEN 4
+                        ELSE 5
+                    END
+                LIMIT 1
+            """.format(namesIDTable)
+            
+            search_term = f"%{self.name}%"
+            cursor.execute(query, (
+                self.name, self.name,  # exact matches
+                self.name, self.name,  # exact matches
+                search_term, search_term  # partial matches
+            ))
+            
+            result = cursor.fetchone()
+            if result:
+                print(f"Fuzzy matched '{self.name}' to buildingID {result['buildingID']}")
+                return result['buildingID']
+            
+            # Special case handling
+            special_cases = {
+                "Trone": "Trone Student Center",
+                "The PAC": "Physical Activities Complex",
+                "Earle Health Center": "Earle Student Health Center",
+                # Add more mappings as needed
+            }
+            
+            for scraper_name, db_name in special_cases.items():
+                if scraper_name.lower() in self.name.lower():
+                    cursor.execute("""
+                        SELECT buildingID FROM {}
+                        WHERE name = ? OR nickname = ?
+                        LIMIT 1
+                    """.format(namesIDTable), (db_name, db_name))
+                    result = cursor.fetchone()
+                    if result:
+                        print(f"Special case matched '{self.name}' to '{db_name}'")
+                        return result['buildingID']
+            
+            print(f"No buildingID found for: {self.name}")
             return None
+            
+        except Exception as e:
+            print(f"Error finding buildingID for {self.name}: {str(e)}")
+            traceback.print_exc()
+            return None
+        # try:
+        #     Queriable.cursorQuery(cursor, 
+        #                           Selector._formulateSelect(
+        #                               namesIDTable,
+        #                               attrs = ["buildingID"],
+        #                               conds = [["name", self.name],
+        #                                        ["nickname", self.name]]
+        #                               )
+        #                           )
+        #     fetch = cursor.fetchone()
+        #     if fetch is None or "buildingID" not in fetch:
+        #         print(f"No entry in {namesIDTable} for {self.name}.")
+        #         return None
+        #     else:
+        #         return fetch["buildingID"]
+        # except:
+        #     traceback.print_exc()
+        #     print(f"Crash selecting buildingID from {namesIDTable}")
+        #     return None
         
     """ Updates the primary table with the contents from this schedule, including deleting
         old times for the location if they exist.         

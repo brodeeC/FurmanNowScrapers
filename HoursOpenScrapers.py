@@ -133,7 +133,7 @@ class TroneScraper(TimesScraper):
     """ Pulls opening times from Trone's website for Trone, Bookstore, and P2X """
     def _pull(self) -> List[Schedule]:
          page_soup = TroneScraper.getSoup(links["trone"])
-         containers = page_soup.findAll("div",{"class","module-content-block-cta"})
+         containers = page_soup.find_all("div",{"class","module-content-block-cta"})
          schedules = []
          for c in containers:
              title = TroneScraper.parseTroneTitle(c)
@@ -164,7 +164,7 @@ class EarleScraper(TimesScraper):
          sched = Schedule("Earle Health Center")
          page_soup = EarleScraper.getSoup(links["earle"])
          container = page_soup.find("div",{"class","module-content-block-wysiwyg"})
-         pTags = container.findAll("p")
+         pTags = container.find_all("p")
          ## Only gets first two tags
          for tag in pTags[0:2]:
              ## Removes unnecessary elements, no clue how
@@ -193,7 +193,7 @@ class PACScraper(TimesScraper):
     def _parseRow(row, sched):
         dayrange = row.find("th").get_text()
         days = PACScraper.parseDaysFromRange(dayrange)
-        cells = row.findAll("td")
+        cells = row.find_all("td")
         for cel in cells:
             period = cel('div')[0].extract().get_text()
             timerange = cel.get_text().strip()
@@ -215,7 +215,7 @@ class PACScraper(TimesScraper):
         sched = Schedule(name)
         
         rows = tab.find("tbody") \
-                  .findAll("tr")
+                  .find_all("tr")
         for r in rows:
             PACScraper._parseRow(r, sched)
         return sched
@@ -224,7 +224,7 @@ class PACScraper(TimesScraper):
     def _pull(self) -> List[Schedule]:
         scheds = []
         page_soup = PACScraper.getSoup(links["PAC"])
-        containers = page_soup.findAll("div",attrs={"aria-label": "table"})
+        containers = page_soup.find_all("div",attrs={"aria-label": "table"})
         for c in containers:
             scheds.append(PACScraper._parseTable(c))
         return scheds
@@ -235,7 +235,7 @@ class EnrollmentScraper(TimesScraper):
         sched = Schedule("Enrollment Services")
         page_soup = EnrollmentScraper.getSoup(links["Enrollment"])
         container = page_soup.find("div",attrs={"class":"module-content-block-wysiwyg"})
-        pTags = container.findAll("p")
+        pTags = container.find_all("p")
         text = pTags[1]
         [s.extract() for s in text(['strong','p'])]
         text = text.get_text() \
@@ -257,7 +257,7 @@ class CounselingScraper(TimesScraper):
         sched = Schedule("Counseling Center")
         page_soup = CounselingScraper.getSoup(links["Counseling"])
         container = page_soup.find("div",attrs={"class":"module-content-block-wysiwyg"})
-        lines = container.findAll(["p", "h2"])
+        lines = container.find_all(["p", "h2"])
         ln = -1
         for i, line in enumerate(lines):
             if line.name == 'h2' and "hours" in line.get_text().lower():
@@ -281,7 +281,7 @@ class BonAppetitScraper(TimesScraper):
     def _parseHours(scheds, soup, dayOfWeek):
         
         hours = soup.find("div",attrs={"class":"site-panel__cafeinfo-inner"})
-        locations = hours.findAll("div", attrs={"class":"c-accordion__row site-panel__cafeinfo-row"})
+        locations = hours.find_all("div", attrs={"class":"c-accordion__row site-panel__cafeinfo-row"})
         for loc in locations:
             title = loc.find("span", attrs={"data-name":"title"}) \
                         .getText() \
@@ -291,7 +291,7 @@ class BonAppetitScraper(TimesScraper):
             if title not in scheds:
                 scheds[title] = Schedule(title)
                 
-            dayParts = loc.findAll("li", attrs={"class":"site-panel__cafeinfo-dayparts-item"})
+            dayParts = loc.find_all("li", attrs={"class":"site-panel__cafeinfo-dayparts-item"})
             for dp in dayParts:
                 time = dp.find("div", attrs={"class":"site-panel__cafeinfo-daypart-status"}) \
                             .getText() \

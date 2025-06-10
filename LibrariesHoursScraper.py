@@ -117,8 +117,8 @@ def main():
         updatesuccess = sched.updateInto(SCHEDULE_TABLE, BUILDING_INFO_TABLE, connection, onlyMainSchedule=True)
         print("Successful updated." if updatesuccess else "Failed to update.")
             
-    if connection != None:
-        connection.close()
+        if connection != None:
+            connection.close()
     
 if __name__ == "__main__":
     main()
