@@ -122,7 +122,8 @@ class TimesScraper(WebConnectors.Scraper):
     def _pull() -> List[Schedule]:
         raise NotImplementedError()
         
-
+## TODO: Change Bell Tower Bookstore
+## -> Bell Tower Bookstore & Bistro in buildingLocations table
 class TroneScraper(TimesScraper):    
     
     def parseTroneTitle(container):
@@ -229,6 +230,10 @@ class PACScraper(TimesScraper):
             scheds.append(PACScraper._parseTable(c))
         return scheds
 
+## ERROR: list index out of range
+# ['']
+# Failed to parse open-close times; placing failed time.
+## TODO: Figure out what this affects and how.
 class EnrollmentScraper(TimesScraper):
     """ Pulls opening hours for Enrollment Services. """ 
     def _pull(self) -> List[Schedule]:
@@ -276,6 +281,7 @@ class CounselingScraper(TimesScraper):
             sched.addDayRangeTime(days, ranges)
         return [sched]
 
+## TODO: Change Bread and Bowl -> Blend and Bowl in buildingLocations
 class BonAppetitScraper(TimesScraper):
     """ Parses the hours for the restraunts listed on the Bon Appetit website. """
     def _parseHours(scheds, soup, dayOfWeek):

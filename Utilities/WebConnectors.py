@@ -104,7 +104,8 @@ def formConnections():
     #                              cursorclass=pymysql.cursors.DictCursor,
     #                              read_timeout = 2,
     #                              write_timeout = 2)
-    return SQLiteConnectionWrapper("local_test.db")
+
+    return SQLiteConnectionWrapper("local_test.db") # Use local db to test scrapers and find bug.
 
 def youTubePullLatest(channelID, numRequested = 10):
     filename = "/home/csdaemon/aux/youtubeAPICred.txt"

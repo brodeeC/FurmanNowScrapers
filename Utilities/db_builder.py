@@ -1,21 +1,16 @@
 import sqlite3
 import requests
 
+# URLs for buildingLocations and buildingHours data
 url = "https://cs.furman.edu/~csdaemon/FUNow/buildingGet.php"
 url_hours = 'https://cs.furman.edu/~csdaemon/FUNow/hoursGet.php'
 
-def sql_escape(value):
-    if value is None:
-        return "NULL"
-    if isinstance(value, str):
-        # Escape single quotes for SQL
-        return "'" + value.replace("'", "''") + "'"
-    return str(value)
 
 def connect_to_local_db(db_path="local_test.db"):
     connection = sqlite3.connect(db_path)
     return connection
 
+# Creates buildingHours and buildingLocations tables in database
 def create_tables(db_path="local_test.db"):
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
@@ -57,6 +52,7 @@ def create_tables(db_path="local_test.db"):
     conn.commit()
     conn.close()
 
+# Inserts data found from urls in db
 def main():
     create_tables()
     conn = sqlite3.connect('local_test.db')

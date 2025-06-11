@@ -1,6 +1,7 @@
 import sqlite3
 import re
 
+# Wrapper class to emulate pymysql on sqlite database
 class SQLiteCursorWrapper:
     def __init__(self, cursor):
         self.cursor = cursor

@@ -5,6 +5,7 @@ def connect_to_local_db(db_path="local_test.db"):
     connection = sqlite3.connect(db_path)
     return connection
 
+# Currently contains 49,978 lines in buildingHours.
 def main():
     conn = sqlite3.connect('local_test.db')
     cursor = conn.cursor()
