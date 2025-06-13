@@ -29,7 +29,7 @@ class SQLiteCursorWrapper:
 
 
 class SQLiteConnectionWrapper:
-    def __init__(self, path="local_test.db"):
+    def __init__(self, path="backend/database/FUNow.db"):
         self.conn = sqlite3.connect(path)
         self.conn.row_factory = sqlite3.Row
 

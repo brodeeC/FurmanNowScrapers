@@ -1,13 +1,8 @@
 import sqlite3
 
-
-def connect_to_local_db(db_path="local_test.db"):
-    connection = sqlite3.connect(db_path)
-    return connection
-
 # Currently contains 49,980 lines in buildingHours.
 def main():
-    conn = sqlite3.connect('local_test.db')
+    conn = sqlite3.connect('backend/database/FUNow.db')
     cursor = conn.cursor()
 
     cursor.execute("SELECT buildingID, day, Start, End FROM buildingHours")
