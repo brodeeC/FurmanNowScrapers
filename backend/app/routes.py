@@ -1,6 +1,23 @@
 from flask import Flask, jsonify, requests, Blueprint
 from app import db
-from app.models import BuildingHours, BuildingLocations
+from app.models import (
+    BuildingHours,
+    BuildingLocation,
+    Athletics,
+    CLP,
+    Contact,
+    DHMenu,
+    HealthSafety,
+    ImportantDate,
+    ImportantLink,
+    NewsContent,
+    NewsPublisher,
+    Shuttle,
+    VehicleName,
+    ShuttleStop,
+    Weather,
+    Image
+)
 
 bp = Blueprint('api', __name__, url_prefix='/FUNow/api')
 

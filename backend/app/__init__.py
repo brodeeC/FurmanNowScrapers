@@ -15,7 +15,7 @@ def create_app():
     app = Flask(__name__)
 
     BASE_DIR = Path(__file__).parent.parent
-    DATABASE_PATH = BASE_DIR / 'database' / 'FUNow.db'
+    DATABASE_PATH = BASE_DIR / 'backend' / 'database' / 'FUNow.db'
     
     # Configuration
     app.config.from_mapping(

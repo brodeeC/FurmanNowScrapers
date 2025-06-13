@@ -21,7 +21,25 @@ def verify_db_connection():
             print(f"Found tables: {tables}")
             
             # Verify your key tables exist
-            required_tables = {'buildingHours', 'buildingLocations'}
+            required_tables = {
+                'buildingHours',
+                'buildingLocations',
+                'shuttles',
+                'vehicleNames',
+                'weather',
+                'images',
+                'vehicleLocations',
+                'athletics',
+                'clp',
+                'contacts',
+                'dhMenu',
+                'healthSafety',
+                'importantDate',
+                'importantLinks',
+                'newsContent',
+                'newsPublishers',
+                'shuttleStops'
+            }
             missing_tables = required_tables - set(tables)
             if missing_tables:
                 print(f"Missing tables: {missing_tables}")
