@@ -262,7 +262,6 @@ class Schedule():
                 "Trone": "Trone Student Center",
                 "The PAC": "Physical Activities Complex",
                 "Earle Health Center": "Earle Student Health Center",
-                # Add more mappings as needed
             }
             
             for scraper_name, db_name in special_cases.items():
@@ -322,11 +321,11 @@ class Schedule():
                 if self.buildingID is None:
                     print("Invalid buildingID provided.")
                     return False
-                    
+                                    
                 Queriable.cursorQuery(cursor, 
                                       Clearable._formulateClear(
                                           insertTable,
-                                          conds = [["buildingID", self.buildingID]],
+                                          #conds = [["buildingID", self.buildingID]]
                                           )
                                       )
                 

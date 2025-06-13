@@ -282,6 +282,9 @@ class CounselingScraper(TimesScraper):
         return [sched]
 
 ## TODO: Change Bread and Bowl -> Blend and Bowl in buildingLocations
+## TODO: Also, HTTPSConnectionPool(host='furman.cafebonappetit.com', port=443): Read timed out. (read timeout=10)
+## Failed in pulling with <class '__main__.BonAppetitScraper'>; website seems to have moved.
+### This works some times.
 class BonAppetitScraper(TimesScraper):
     """ Parses the hours for the restraunts listed on the Bon Appetit website. """
     def _parseHours(scheds, soup, dayOfWeek):
@@ -342,7 +345,7 @@ def main():
             if connection is None:
                 continue
             updatesuccess = n.updateInto(SCHEDULE_TABLE, BUILDING_INFO_TABLE, connection, onlyMainSchedule=True)
-            print("Successful updated." if updatesuccess else "Failed to update.")
+            print("Successful update." if updatesuccess else "Failed to update.")
             
     if connection != None:
         connection.close()

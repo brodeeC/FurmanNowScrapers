@@ -121,7 +121,7 @@ def youTubePullLatest(channelID, numRequested = 10):
 
 def getLibraryAPIToken():
     link = "https://libcal.furman.edu/1.1/oauth/token"
-    filename = "/home/csdaemon/aux/libraryAPICred.txt"
+    filename = "/home/csdaemon/aux/libraryAPICred.txt" # This file doesn't exist, BUG
     file = open(filename, 'r')
     credentials = file.readlines()
     clientID = credentials[0].strip()

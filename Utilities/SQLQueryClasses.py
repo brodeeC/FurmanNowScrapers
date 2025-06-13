@@ -90,14 +90,23 @@ class Clearable(ABC, Queriable):
     
     def _formulateClear(table, conds=None) -> Tuple[str, Tuple[str]]:
         delete = f"DELETE FROM `{table}`"
-        if conds is None or len(conds) == 0:
-            return delete
-        delete += " WHERE"
-        for cond in conds:
-            delete += f" {cond[0]} {'=' if len(cond) <= 2 else cond[2]} %s {'OR' if len(cond) <= 3 else cond[3]}"
-        atr = (e[1] for e in conds)
+        if not conds:
+            return delete, ()
         
-        return delete[:-2], tuple(atr)
+        clauses = []
+        values = []
+
+        for cond in conds:
+            col = cond[0]
+            val = cond[1]
+            op = '=' if len(cond) < 3 else cond[2]
+            clauses.append(f"{col} {op} %s")
+            values.append(val)
+
+        where_clause = " AND ".join(clauses)
+        delete += f" WHERE {where_clause}"
+        
+        return delete, tuple(values)
             
         
     def _clearHelper(table, connection, conditions, commit):
