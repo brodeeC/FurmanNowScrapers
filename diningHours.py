@@ -21,7 +21,7 @@ r = requests.get(url)
 html = r.text
 soup = BeautifulSoup(html, features="html.parser")
 
-filename = '/home/csdaemon/aux/userCred.txt'
+filename = '/home/csdaemon/aux/userCred.txt' ## BUG: File not found.
 file = open(filename, 'r')
 credentials = file.readlines()
 username = credentials[0].strip()

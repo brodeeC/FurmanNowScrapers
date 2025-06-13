@@ -325,7 +325,7 @@ class Schedule():
                 Queriable.cursorQuery(cursor, 
                                       Clearable._formulateClear(
                                           insertTable,
-                                          #conds = [["buildingID", self.buildingID]]
+                                          conds = [["buildingID", self.buildingID]]
                                           )
                                       )
                 
