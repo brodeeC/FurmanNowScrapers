@@ -15,13 +15,13 @@ def create_app():
     app = Flask(__name__)
 
     BASE_DIR = Path(__file__).parent.parent
-    DATABASE_PATH = BASE_DIR / 'backend' / 'database' / 'FUNow.db'
+    DATABASE_PATH = BASE_DIR / 'database' / 'FUNow.db'
     
     # Configuration
     app.config.from_mapping(
         SQLALCHEMY_DATABASE_URI=f'sqlite:///{DATABASE_PATH}',
         SQLALCHEMY_TRACK_MODIFICATIONS=False,
-        CORS_ORIGINS=["https://127.0.0.1"] ## TODO: Once you have server then add url to that.
+        CORS_ORIGINS=["https://127.0.0.1:5000"] ## TODO: Once you have server then add url to that.
     )
 
     # Initialize extensions
@@ -36,7 +36,7 @@ def create_app():
     })
 
     # Register blueprints
-    from backend.app.routes import routes
+    from app import routes
     app.register_blueprint(routes.bp)
 
     return app

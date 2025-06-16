@@ -1,5 +1,7 @@
-from flask import Flask, jsonify, requests, Blueprint
+from flask import Flask, jsonify, request, Blueprint
 from app import db
+from sqlalchemy.orm import Session
+from sqlalchemy import select
 from app.models import (
     BuildingHours,
     BuildingLocation,
@@ -20,70 +22,87 @@ from app.models import (
 )
 
 bp = Blueprint('api', __name__, url_prefix='/FUNow/api')
+SESSION: Session = db.session
 
 ## TODO: Go through PHP files and see how they're set up. Also set up database for these routes.
 ## TODO: Implement API Key for security and to hide API 
 
 @bp.route("/athleticsGet", methods=["Get"])
 def athleticsGet():
-    print('Athletics')
+    results = SESSION.execute(select(Athletics)).scalars().all()
+    return jsonify([entry.to_dict() for entry in results])
 
 @bp.route("/hoursGet", methods=["Get"])
 def hoursGet():
-    print('Hours')
+    results = SESSION.execute(select(BuildingHours)).scalars().all()
+    return jsonify([entry.to_dict() for entry in results])
 
 @bp.route("/buildingGet", methods=["Get"])
 def buildingGet():
-    print('Buildings')
+    results = SESSION.execute(select(BuildingLocation)).scalars().all()
+    return jsonify([entry.to_dict() for entry in results])
 
 @bp.route("/clpGet", methods=["Get"])
 def clpGet():
-    print('CLPs')
+    results = SESSION.execute(select(CLP)).scalars().all()
+    return jsonify([entry.to_dict() for entry in results])
 
 @bp.route("/contactsGet", methods=["Get"])
 def contactsGet():
-    print('Contacts')
+    results = SESSION.execute(select(Contact)).scalars().all()
+    return jsonify([entry.to_dict() for entry in results])
 
 @bp.route("/dhMenuGet", methods=["Get"])
 def dhMenuGet():
-    print('DHMenu')
+    results = SESSION.execute(select(DHMenu)).scalars().all()
+    return jsonify([entry.to_dict() for entry in results])
 
 @bp.route("/healthSafetyGet", methods=["Get"])
 def healthSafetyGet():
-    print('healthSafety')
+    results = SESSION.execute(select(HealthSafety)).scalars().all()
+    return jsonify([entry.to_dict() for entry in results])
 
 @bp.route("/importantDateGet", methods=["Get"])
 def importantDateGet():
-    print('importantDateGet')
+    results = SESSION.execute(select(ImportantDate)).scalars().all()
+    return jsonify([entry.to_dict() for entry in results])
 
 @bp.route("/importantLinksGet", methods=["Get"])
 def importantLinksGet():
-    print('importantLinksGet')
+    results = SESSION.execute(select(ImportantLink)).scalars().all()
+    return jsonify([entry.to_dict() for entry in results])
 
 @bp.route("/newsContentGet", methods=["Get"])
 def newsContentGet():
-    print('newsContentGet')
+    results = SESSION.execute(select(NewsContent)).scalars().all()
+    return jsonify([entry.to_dict() for entry in results])
 
 @bp.route("/newsPublishersGet", methods=["Get"])
 def newsPublishersGet():
-    print('newsPublishersGet')
+    results = SESSION.execute(select(NewsPublisher)).scalars().all()
+    return jsonify([entry.to_dict() for entry in results])
 
 @bp.route("/shuttleGet", methods=["Get"]) # TODO: Check php, has a variable in it.
 def shuttleGet():
-    print('shuttleGet')
+    results = SESSION.execute(select(Shuttle)).scalars().all()
+    return jsonify([entry.to_dict() for entry in results])
 
 @bp.route("/vehicleNamesGet", methods=["Get"])
 def vehicleNamesGet():
-    print('vehicleNamesGet')
+    results = SESSION.execute(select(VehicleName)).scalars().all()
+    return jsonify([entry.to_dict() for entry in results])
 
 @bp.route("/stopsGet", methods=["Get"])
 def stopsGet():
-    print('stopsGet')
+    results = SESSION.execute(select(ShuttleStop)).scalars().all()
+    return jsonify([entry.to_dict() for entry in results])
 
 @bp.route("/weatherGet", methods=["Get"])
 def weatherGet():
-    print('weatherGet')
+    results = SESSION.execute(select(Weather)).scalars().all()
+    return jsonify([entry.to_dict() for entry in results])
 
 @bp.route("/weatherImagesCurrent", methods=["Get"])
 def weatherImagesCurrent():
-    print('weatherImagesCurrent')
+    results = SESSION.execute(select(Image)).scalars().all()
+    return jsonify([entry.to_dict() for entry in results])

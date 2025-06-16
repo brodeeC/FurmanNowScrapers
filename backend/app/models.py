@@ -25,6 +25,24 @@ class BuildingLocation(db.Model):
 
     hours = db.relationship("BuildingHours", backref="location", cascade="all, delete-orphan")
 
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "buildingID": self.buildingID,
+            "name": self.name,
+            "nickname": self.nickname,
+            "category": self.category,
+            "hasHours": self.hasHours,
+            "website": self.website,
+            "location": self.location,
+            "latitude": self.latitude,
+            "longitude": self.longitude,
+            "polyline": self.polyline,
+            "description": self.description,
+            "frequency": self.frequency,
+            "last_updated": self.last_updated.isoformat() if self.last_updated else None,
+        }
+
 
 class BuildingHours(db.Model):
     __tablename__ = 'buildingHours'
@@ -36,6 +54,17 @@ class BuildingHours(db.Model):
     Start = db.Column(db.Time)
     End = db.Column(db.Time)
     lastUpdated = db.Column(db.DateTime, default=datetime.now)
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "buildingID": self.buildingID,
+            "day": self.day,
+            "dayorder": self.dayorder,
+            "Start": self.Start.isoformat() if self.Start else None,
+            "End": self.End.isoformat() if self.End else None,
+            "lastUpdated": self.lastUpdated.isoformat() if self.lastUpdated else None,
+        }
 
 
 class Athletics(db.Model):
@@ -59,6 +88,27 @@ class Athletics(db.Model):
     url = db.Column(db.Text)
     lastUpdated = db.Column(db.DateTime, default=datetime.now)
 
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "eventdate": self.eventdate,
+            "time": self.time,
+            "conference": self.conference,
+            "location_indicator": self.location_indicator,
+            "location": self.location,
+            "sportTitle": self.sportTitle,
+            "sportShort": self.sportShort,
+            "opponent": self.opponent,
+            "noplayText": self.noplayText,
+            "resultStatus": self.resultStatus,
+            "resultUs": self.resultUs,
+            "resultThem": self.resultThem,
+            "prescore_info": self.prescore_info,
+            "postscore_info": self.postscore_info,
+            "url": self.url,
+            "lastUpdated": self.lastUpdated.isoformat() if self.lastUpdated else None,
+        }
+
 
 class CLP(db.Model):
     __tablename__ = 'clp'
@@ -74,6 +124,20 @@ class CLP(db.Model):
     eventType = db.Column(db.Text)
     lastUpdated = db.Column(db.DateTime, default=datetime.now)
 
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "title": self.title,
+            "description": self.description,
+            "location": self.location,
+            "date": self.date,
+            "start": self.start.isoformat() if self.start else None,
+            "end": self.end.isoformat() if self.end else None,
+            "organization": self.organization,
+            "eventType": self.eventType,
+            "lastUpdated": self.lastUpdated.isoformat() if self.lastUpdated else None
+        }
+
 
 class Contact(db.Model):
     __tablename__ = 'contacts'
@@ -86,6 +150,17 @@ class Contact(db.Model):
     lastUpdated = db.Column(db.DateTime, default=datetime.now)
     priorityLevel = db.Column(db.Integer)
 
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "buildingID": self.buildingID,
+            "room": self.room,
+            "name": self.name,
+            "number": self.number,
+            "lastUpdated": self.lastUpdated.isoformat() if self.lastUpdated else None,
+            "priorityLevel": self.priorityLevel
+        }
+
 
 class DHMenu(db.Model):
     __tablename__ = 'dhMenu'
@@ -94,6 +169,14 @@ class DHMenu(db.Model):
     meal = db.Column(db.Text, nullable=False)
     station = db.Column(db.Text, nullable=False)
     itemName = db.Column(db.Text, nullable=False)
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "meal": self.meal,
+            "station": self.station,
+            "itemName": self.itemName
+        }
 
 
 class HealthSafety(db.Model):
@@ -106,6 +189,17 @@ class HealthSafety(db.Model):
     type = db.Column(db.Text, nullable=False)
     icon = db.Column(db.Text)
     priority = db.Column(db.Integer)
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "shortName": self.shortName,
+            "content": self.content,
+            "type": self.type,
+            "icon": self.icon,
+            "priority": self.priority
+        }
 
 
 class ImportantDate(db.Model):
@@ -121,6 +215,19 @@ class ImportantDate(db.Model):
     term = db.Column(db.Text)
     lastUpdated = db.Column(db.DateTime, default=datetime.now)
 
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "title": self.title,
+            "date": self.date,
+            "startTime": self.startTime.isoformat() if self.startTime else None,
+            "endTime": self.endTime.isoformat() if self.endTime else None,
+            "category": self.category,
+            "description": self.description,
+            "term": self.term,
+            "lastUpdated": self.lastUpdated.isoformat() if self.lastUpdated else None
+        }
+
 
 class ImportantLink(db.Model):
     __tablename__ = 'importantLinks'
@@ -130,6 +237,15 @@ class ImportantLink(db.Model):
     name = db.Column(db.Text, nullable=False)
     content = db.Column(db.Text, nullable=False)
     type = db.Column(db.Text, nullable=False)
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "priority": self.priority,
+            "name": self.name,
+            "content": self.content,
+            "type": self.type
+        }
 
 
 class NewsContent(db.Model):
@@ -146,6 +262,20 @@ class NewsContent(db.Model):
     publishdate = db.Column(db.DateTime)
     imagelink = db.Column(db.Text)
 
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "title": self.title,
+            "author": self.author,
+            "description": self.description,
+            "media": self.media,
+            "linktocontent": self.linktocontent,
+            "publisherID": self.publisherID,
+            "section": self.section,
+            "publishdate": self.publishdate.isoformat() if self.publishdate else None,
+            "imagelink": self.imagelink
+        }
+
 
 class NewsPublisher(db.Model):
     __tablename__ = 'newsPublishers'
@@ -155,6 +285,15 @@ class NewsPublisher(db.Model):
     link = db.Column(db.Text, nullable=False)
     image = db.Column(db.Text)
     studentRun = db.Column(db.Integer, nullable=False)
+
+    def to_dict(self):
+        return {
+            "publisherID": self.publisherID,
+            "name": self.name,
+            "link": self.link,
+            "image": self.image,
+            "studentRun": self.studentRun
+        }
 
 
 class Shuttle(db.Model):
@@ -169,6 +308,19 @@ class Shuttle(db.Model):
     nextStopDistance = db.Column(db.Float)
     updated = db.Column(db.DateTime, nullable=False)
     nextStopID = db.Column(db.Integer)
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "vehicle": self.vehicle,
+            "latitude": self.latitude,
+            "longitude": self.longitude,
+            "speed": self.speed,
+            "direction": self.direction,
+            "nextStopDistance": self.nextStopDistance,
+            "updated": self.updated.isoformat() if self.updated else None,
+            "nextStopID": self.nextStopID
+        }
 
 
 class VehicleName(db.Model):
@@ -190,6 +342,25 @@ class VehicleName(db.Model):
     averageStopSeconds = db.Column(db.Integer)
     message = db.Column(db.Text)
 
+    def to_dict(self):
+        return {
+            "vehicleIndex": self.vehicleIndex,
+            "name": self.name,
+            "shortName": self.shortName,
+            "serviceTimes": self.serviceTimes,
+            "locations": self.locations,
+            "colorRed": self.colorRed,
+            "colorGreen": self.colorGreen,
+            "colorBlue": self.colorBlue,
+            "iconName": self.iconName,
+            "routePolyline": self.routePolyline,
+            "website": self.website,
+            "color": self.color,
+            "averageSpeed": self.averageSpeed,
+            "averageStopSeconds": self.averageStopSeconds,
+            "message": self.message
+        }
+
 
 class ShuttleStop(db.Model):
     __tablename__ = 'shuttleStops'
@@ -203,6 +374,19 @@ class ShuttleStop(db.Model):
     distFromVehicle = db.Column(db.Float)
     updated = db.Column(db.Text, nullable=False)
     vehicleStopsUntil = db.Column(db.Text)
+
+    def to_dict(self):
+        return {
+            "lineID": self.lineID,
+            "stopOrderID": self.stopOrderID,
+            "distFromStart": self.distFromStart,
+            "latitude": self.latitude,
+            "longitude": self.longitude,
+            "stopName": self.stopName,
+            "distFromVehicle": self.distFromVehicle,
+            "updated": self.updated,
+            "vehicleStopsUntil": self.vehicleStopsUntil
+        }
 
 
 class Weather(db.Model):
@@ -225,9 +409,35 @@ class Weather(db.Model):
     alert = db.Column(db.Text)
     emoji = db.Column(db.Text)
 
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "day": self.day,
+            "start": self.start,
+            "end": self.end,
+            "isDayTime": self.isDayTime,
+            "tempCurrent": self.tempCurrent,
+            "tempHi": self.tempHi,
+            "tempLo": self.tempLo,
+            "unit": self.unit,
+            "precipitationPercent": self.precipitationPercent,
+            "windSpeed": self.windSpeed,
+            "windDirection": self.windDirection,
+            "shortForecast": self.shortForecast,
+            "detailedForecast": self.detailedForecast,
+            "alert": self.alert,
+            "emoji": self.emoji
+        }
+
 
 class Image(db.Model):
     __tablename__ = 'images'
 
     generated = db.Column(db.Text, nullable=False)
     link = db.Column(db.Text, primary_key=True)
+
+    def to_dict(self):
+        return {
+            "generated": self.generated,
+            "link": self.link
+        }
