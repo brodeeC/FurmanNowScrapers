@@ -1,3 +1,7 @@
+"""
+Initializes sqlalchemy 'session'
+"""
+
 from backend.app.routes import create_app, db
 from sqlalchemy import text  # Required for raw SQL
 from sqlalchemy import inspect

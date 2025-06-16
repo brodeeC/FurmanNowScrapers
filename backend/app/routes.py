@@ -1,4 +1,10 @@
-from flask import Flask, jsonify, request, Blueprint
+"""
+Flask routes to support a backend for Furman Now app.
+Each route returns data necessary for hooks in the React-Native app.
+
+"""
+
+from flask import jsonify, Blueprint
 from app import db
 from sqlalchemy.orm import Session
 from sqlalchemy import select
@@ -30,17 +36,17 @@ SESSION: Session = db.session
 @bp.route("/athleticsGet", methods=["Get"])
 def athleticsGet():
     results = SESSION.execute(select(Athletics)).scalars().all()
-    return jsonify([entry.to_dict() for entry in results])
+    return jsonify({'format':'athletics', 'results':[entry.to_dict() for entry in results]})
 
 @bp.route("/hoursGet", methods=["Get"])
 def hoursGet():
     results = SESSION.execute(select(BuildingHours)).scalars().all()
-    return jsonify([entry.to_dict() for entry in results])
+    return jsonify({"format":"hours","results":[entry.to_dict() for entry in results]})
 
 @bp.route("/buildingGet", methods=["Get"])
 def buildingGet():
     results = SESSION.execute(select(BuildingLocation)).scalars().all()
-    return jsonify([entry.to_dict() for entry in results])
+    return jsonify({"format":"buildings","results": [entry.to_dict() for entry in results]})
 
 @bp.route("/clpGet", methods=["Get"])
 def clpGet():

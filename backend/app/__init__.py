@@ -1,3 +1,8 @@
+"""
+Flask initilization file.
+Initializes sqlalchemy db, and Flask app.
+"""
+
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 #from flask_limiter import Limiter
@@ -13,6 +18,7 @@ cors = CORS()
 
 def create_app():
     app = Flask(__name__)
+    CORS(app)
 
     BASE_DIR = Path(__file__).parent.parent
     DATABASE_PATH = BASE_DIR / 'database' / 'FUNow.db'
