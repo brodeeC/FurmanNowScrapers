@@ -6,6 +6,8 @@ from datetime import datetime
 import calendar
 from pytz import timezone
 
+from Utilities.WebConnectors import formConnections
+
 tz = timezone('EST')
 dt = datetime.now(tz)
 
@@ -21,14 +23,15 @@ r = requests.get(url)
 html = r.text
 soup = BeautifulSoup(html, features="html.parser")
 
-filename = '/home/csdaemon/aux/userCred.txt' ## BUG: File not found.
-file = open(filename, 'r')
-credentials = file.readlines()
-username = credentials[0].strip()
-password = credentials[1].strip()
+# filename = '/home/csdaemon/aux/userCred.txt' ## BUG: File not found.
+# file = open(filename, 'r')
+# credentials = file.readlines()
+# username = credentials[0].strip()
+# password = credentials[1].strip()
 
-connection = pymysql.connect(host='localhost', user=username, password=password, db='FUNOW',
-charset='utf8mb4', cursorclass=pymysql.cursors.DictCursor)
+# connection = pymysql.connect(host='localhost', user=username, password=password, db='FUNOW',
+# charset='utf8mb4', cursorclass=pymysql.cursors.DictCursor)
+connection = formConnections()
 
 fullnames = []
 meals = []

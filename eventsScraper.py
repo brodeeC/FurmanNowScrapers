@@ -10,7 +10,7 @@ from bs4 import BeautifulSoup as soup
 import pymysql
 import feedparser
 import re
-from Utilities.WebConnectors import Scraper
+from Utilities.WebConnectors import Scraper, formConnections
 from datetime import datetime
 import datetime
 import pytz
@@ -239,18 +239,19 @@ def main():
     clpDict = getCLPLinks()
     
     #code to add to DB
-    filename = '/home/csdaemon/aux/userCred.txt'
-    file = open(filename, 'r')
-    credentials = file.readlines()
-    username = credentials[0].strip()
-    password = credentials[1].strip()
+    # filename = '/home/csdaemon/aux/userCred.txt'
+    # file = open(filename, 'r')
+    # credentials = file.readlines()
+    # username = credentials[0].strip()
+    # password = credentials[1].strip()
 
-    connection = pymysql.connect(host='cs.furman.edu',
-                user=username,
-                password=password,
-                db='FUNOW',
-                charset='utf8mb4',
-                cursorclass=pymysql.cursors.DictCursor)
+    # connection = pymysql.connect(host='cs.furman.edu',
+    #             user=username,
+    #             password=password,
+    #             db='FUNOW',
+    #             charset='utf8mb4',
+    #             cursorclass=pymysql.cursors.DictCursor)
+    connection = formConnections()
     
     try:
             with connection.cursor() as cursor:

@@ -476,11 +476,11 @@ class BusRouteScraper(RouteScraper):
 def main():
     a = ShuttleRouteScraper("Campus Shuttle", "Furman University Shuttle", 2)
     a.tryPull()
-    a.saveRouteToJSONFile("/home/csdaemon/aux/ShuttleRoute.json")
+    a.saveRouteToJSONFile("/backend/database/ShuttleRoute.json") # changed route from /home/csdaemon/aux
     
     b = BusRouteScraper("503 Bus", "503", 1)
     b.tryPull()
-    b.saveRouteToJSONFile("/home/csdaemon/aux/503Route.json")
+    b.saveRouteToJSONFile("/backend/database/503Route.json") # changed route
     
     connection = formConnections()
     for shut in [a, b]:

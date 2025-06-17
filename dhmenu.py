@@ -4,6 +4,8 @@ import pymysql.cursors
 import re
 import datetime
 
+from Utilities.WebConnectors import formConnections
+
 TODAY = datetime.datetime.now().strftime("%Y-%m-%d")
 url = 'https://furman.cafebonappetit.com/cafe/' + TODAY
 
@@ -43,16 +45,17 @@ for mealBlock in soup.find_all('section', attrs={'class':re.compile("^panel s-wr
 #print(menu)
 
 #UPDATE THE DATABASE
-filename = '/home/csdaemon/aux/userCred.txt'
-file = open(filename, 'r')
-credentials = file.readlines()
-username = credentials[0].strip()
-password = credentials[1].strip()
-connection = pymysql.connect(host='localhost',
-         user=username, password=password,
-         db='FUNOW',
-         charset='utf8mb4',
-         cursorclass=pymysql.cursors.DictCursor)
+# filename = '/home/csdaemon/aux/userCred.txt'
+# file = open(filename, 'r')
+# credentials = file.readlines()
+# username = credentials[0].strip()
+# password = credentials[1].strip()
+# connection = pymysql.connect(host='localhost',
+#          user=username, password=password,
+#          db='FUNOW',
+#          charset='utf8mb4',
+#          cursorclass=pymysql.cursors.DictCursor)
+connection = formConnections()
 
 try:
     with connection.cursor() as cursor:
@@ -62,7 +65,7 @@ try:
             for item in menu[meal]:
                 name = item[0]
                 station = item[1]
-                sql = "insert `DHmenu` (`meal`, `itemName`, `station`) values (%s, %s, %s)"
+                sql = "insert DHmenu (`meal`, `itemName`, `station`) values (%s, %s, %s)"
                 cursor.execute(sql, (meal, name, station))
     connection.commit()
 except:

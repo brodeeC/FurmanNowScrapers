@@ -96,11 +96,11 @@ def create_clp_table(db_path="FUNow.db"):
     cursor = conn.cursor()
 
     # Drop the table if it exists
-    cursor.execute("DROP TABLE IF EXISTS clp;")
+    cursor.execute("DROP TABLE IF EXISTS clps;")
 
     # Create the clp table
     cursor.execute("""
-    CREATE TABLE clp (
+    CREATE TABLE clps (
         id INTEGER PRIMARY KEY,
         title TEXT NOT NULL,
         description TEXT,
@@ -145,15 +145,16 @@ def create_dhmenu_table(db_path="FUNow.db"):
     cursor = conn.cursor()
 
     # Drop the table if it exists
-    cursor.execute("DROP TABLE IF EXISTS dhMenu;")
+    cursor.execute("DROP TABLE IF EXISTS DHmenu;")
 
     # Create the dhMenu table
     cursor.execute("""
-    CREATE TABLE dhMenu (
-        id INTEGER,
+    CREATE TABLE IF NOT EXISTS DHmenu (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
         meal TEXT NOT NULL,
+        itemName TEXT NOT NULL,
         station TEXT NOT NULL,
-        itemName TEXT NOT NULL
+        lastUpdated TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
     """)
 
