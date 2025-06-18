@@ -22,7 +22,8 @@ from app.models import (
     NewsPublisher,
     Shuttle,
     VehicleName,
-    ShuttleStop,
+    Stop,
+    StopsDistance,
     Weather,
     Image
 )
@@ -34,82 +35,102 @@ SESSION: Session = db.session
 ## TODO: Implement API Key for security and to hide API 
 ## Link if needed to look back: https://cs.furman.edu/~csdaemon/FUNow/stopsGet.php
 
-@bp.route("/athleticsGet", methods=["Get"])
+@bp.route("/athleticsGet", methods=["GET"])
 def athleticsGet():
     results = SESSION.execute(select(Athletics)).scalars().all()
     return jsonify({'format':'athletics', 'results':[entry.to_dict() for entry in results]})
 
-@bp.route("/hoursGet", methods=["Get"])
+@bp.route("/hoursGet", methods=["GET"])
 def hoursGet():
     results = SESSION.execute(select(BuildingHours)).scalars().all()
     return jsonify({"format":"hours","results":[entry.to_dict() for entry in results]})
 
-@bp.route("/buildingGet", methods=["Get"])
+@bp.route("/buildingGet", methods=["GET"])
 def buildingGet():
     results = SESSION.execute(select(BuildingLocation)).scalars().all()
     return jsonify({"format":"buildings","results": [entry.to_dict() for entry in results]})
 
-@bp.route("/clpGet", methods=["Get"])
+@bp.route("/clpGet", methods=["GET"])
 def clpGet():
     results = SESSION.execute(select(CLP)).scalars().all()
     return jsonify({"format":"clp","results": [entry.to_dict() for entry in results]})
 
-@bp.route("/contactsGet", methods=["Get"])
+@bp.route("/contactsGet", methods=["GET"])
 def contactsGet():
     results = SESSION.execute(select(Contact)).scalars().all()
     return jsonify({"format":"contacts","results": [entry.to_dict() for entry in results]})
 
-@bp.route("/dhMenuGet", methods=["Get"])
+@bp.route("/dhMenuGet", methods=["GET"])
 def dhMenuGet():
     results = SESSION.execute(select(DHMenu)).scalars().all()
     return jsonify({"format":"dhMenu","results": [entry.to_dict() for entry in results]})
 
-@bp.route("/healthSafetyGet", methods=["Get"])
+@bp.route("/healthSafetyGet", methods=["GET"])
 def healthSafetyGet():
     results = SESSION.execute(select(HealthSafety)).scalars().all()
     return jsonify({"format":"healthSafety","results": [entry.to_dict() for entry in results]})
 
-@bp.route("/importantDateGet", methods=["Get"])
+@bp.route("/importantDateGet", methods=["GET"])
 def importantDateGet():
     results = SESSION.execute(select(ImportantDate)).scalars().all()
     return jsonify({"format":"importantDate","results": [entry.to_dict() for entry in results]})
 
-@bp.route("/importantLinksGet", methods=["Get"])
+@bp.route("/importantLinksGet", methods=["GET"])
 def importantLinksGet():
     results = SESSION.execute(select(ImportantLink)).scalars().all()
     return jsonify({"format":"importantLinks","results": [entry.to_dict() for entry in results]})
 
-@bp.route("/newsContentGet", methods=["Get"])
+@bp.route("/newsContentGet", methods=["GET"])
 def newsContentGet():
     results = SESSION.execute(select(NewsContent)).scalars().all()
     return jsonify({"format":"newsContent","results": [entry.to_dict() for entry in results]})
 
-@bp.route("/newsPublishersGet", methods=["Get"])
+@bp.route("/newsPublishersGet", methods=["GET"])
 def newsPublishersGet():
     results = SESSION.execute(select(NewsPublisher)).scalars().all()
     return jsonify({"format":"newsPublishers","results": [entry.to_dict() for entry in results]})
 
-@bp.route("/shuttleGet", methods=["Get"]) # TODO: Check php, has a variable in it.
+@bp.route("/shuttleGet", methods=["GET"]) # TODO: Check php, has a variable in it.
 def shuttleGet():
     results = SESSION.execute(select(Shuttle)).scalars().all()
     return jsonify({"format":"shuttles","results": [entry.to_dict() for entry in results]})
 
-@bp.route("/vehicleNamesGet", methods=["Get"])
+@bp.route("/vehicleNamesGet", methods=["GET"])
 def vehicleNamesGet():
     results = SESSION.execute(select(VehicleName)).scalars().all()
     return jsonify({"format":"VehicleNames","results": [entry.to_dict() for entry in results]})
 
-@bp.route("/stopsGet", methods=["Get"])
+@bp.route("/stopsGet", methods=["GET"])
 def stopsGet():
-    results = SESSION.execute(select(ShuttleStop)).scalars().all()
-    return jsonify({"format":"stops","results": [entry.to_dict() for entry in results]}) # php has 'format':'hours', 'results':[...]
+    stmt = select(
+        Stop.lineID,
+        Stop.stopOrderID,
+        Stop.distFromStart,
+        Stop.latitude,
+        Stop.longitude,
+        Stop.stopName,
+        StopsDistance.distFromVehicle,
+        Stop.updated,
+        StopsDistance.vehicleStopsUntil
+    ).join(
+        StopsDistance,
+        (Stop.lineID == StopsDistance.lineID) & 
+        (Stop.stopOrderID == StopsDistance.stopOrderID)
+    )
+    
+    results = db.session.execute(stmt).all()
+    formatted_results = [dict(row._mapping) for row in results]
+    
+    return jsonify({"format": "stops", "results": formatted_results})
 
-@bp.route("/weatherGet", methods=["Get"])
+@bp.route("/weatherGet", methods=["GET"])
 def weatherGet():
     results = SESSION.execute(select(Weather)).scalars().all()
     return jsonify({"format":"weather","results": [entry.to_dict() for entry in results]})
 
-@bp.route("/weatherImagesCurrent", methods=["Get"])
+# TODO: will need to change image links
+# TODO: Use php to make SQL query
+@bp.route("/weatherImagesCurrent", methods=["GET"]) 
 def weatherImagesCurrent():
     results = SESSION.execute(select(Image)).scalars().all()
     return jsonify({"format":"images","results": [entry.to_dict() for entry in results]})

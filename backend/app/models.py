@@ -111,7 +111,7 @@ class Athletics(db.Model):
 
 
 class CLP(db.Model):
-    __tablename__ = 'clp'
+    __tablename__ = 'clps'
 
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.Text, nullable=False)
@@ -203,7 +203,7 @@ class HealthSafety(db.Model):
 
 
 class ImportantDate(db.Model):
-    __tablename__ = 'importantDate'
+    __tablename__ = 'importantDates'
 
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.Text, nullable=False)
@@ -297,7 +297,7 @@ class NewsPublisher(db.Model):
 
 
 class Shuttle(db.Model):
-    __tablename__ = 'shuttles'
+    __tablename__ = 'shuttleLocations'
 
     id = db.Column(db.Integer, primary_key=True)
     vehicle = db.Column(db.Text, nullable=False)
@@ -362,30 +362,47 @@ class VehicleName(db.Model):
         }
 
 
-class ShuttleStop(db.Model):
-    __tablename__ = 'shuttleStops'
+class StopsDistance(db.Model):
+    __tablename__ = 'stopsDistanceTable'
 
-    lineID = db.Column(db.Integer, primary_key=True)
-    stopOrderID = db.Column(db.Integer, primary_key=True)
-    distFromStart = db.Column(db.Float, nullable=False)
-    latitude = db.Column(db.Float, nullable=False)
-    longitude = db.Column(db.Float, nullable=False)
-    stopName = db.Column(db.Text, nullable=False)
-    distFromVehicle = db.Column(db.Float)
-    updated = db.Column(db.Text, nullable=False)
-    vehicleStopsUntil = db.Column(db.Text)
+    lineID = db.Column(db.Integer, primary_key=True, nullable=False)
+    stopOrderID = db.Column(db.Integer, primary_key=True, nullable=False)
+    distFromVehicle = db.Column(db.Float, default=None)
+    updated = db.Column(db.Text, nullable=False, server_default=db.text('CURRENT_TIMESTAMP'))
+    vehicleStopsUntil = db.Column(db.Integer, default=None)
 
     def to_dict(self):
         return {
             "lineID": self.lineID,
             "stopOrderID": self.stopOrderID,
-            "distFromStart": self.distFromStart,
-            "latitude": self.latitude,
-            "longitude": self.longitude,
-            "stopName": self.stopName,
             "distFromVehicle": self.distFromVehicle,
             "updated": self.updated,
             "vehicleStopsUntil": self.vehicleStopsUntil
+        }
+
+
+class Stop(db.Model):
+    __tablename__ = 'stopsTable'
+
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    lineID = db.Column(db.Integer, nullable=False)
+    stopOrderID = db.Column(db.Integer, nullable=False)
+    stopName = db.Column(db.Text, nullable=False)
+    latitude = db.Column(db.Float, nullable=False)
+    longitude = db.Column(db.Float, nullable=False)
+    distFromStart = db.Column(db.Float, nullable=False)
+    updated = db.Column(db.Text, nullable=False, server_default=db.text('CURRENT_TIMESTAMP'))
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "lineID": self.lineID,
+            "stopOrderID": self.stopOrderID,
+            "stopName": self.stopName,
+            "latitude": self.latitude,
+            "longitude": self.longitude,
+            "distFromStart": self.distFromStart,
+            "updated": self.updated
         }
 
 
