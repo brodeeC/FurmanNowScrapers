@@ -127,8 +127,8 @@ class BusScraper(WebConnectors.Scraper):
 
 
 def main():
-    shutRoute = RouteScraper.loadRouteFromJSONFile("/home/csdaemon/aux/ShuttleRoute.json")
-    busRoute = RouteScraper.loadRouteFromJSONFile("/home/csdaemon/aux/503Route.json")
+    shutRoute = RouteScraper.loadRouteFromJSONFile("backend/aux/ShuttleRoute.json")
+    busRoute = RouteScraper.loadRouteFromJSONFile("backend/aux/503Route.json")
     
     shut = []
     shut += [(s, shutRoute) for s in ShuttleScraper().tryPull()]
@@ -151,6 +151,7 @@ def main():
                      ["vehicleStopsUntil", i if isRunning else None]]
             Insertable._insertIntoHelper(STOPS_DIST_TABLE, connection, attrs, True)
             
+    ## TODO: Fix SQL errors
     clearOutdated = f"UPDATE `{SHUTTLE_LOCATION_TABLE}` SET latitude=%s, longitude=%s, direction=%s, speed=%s, updated=%s WHERE updated < (NOW() - INTERVAL 3 MINUTE)"
     var = (None, None, None, None, datetime.datetime.now())
     Queriable.query(connection, (clearOutdated, var))

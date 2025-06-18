@@ -13,6 +13,7 @@ from Utilities.WebConnectors import Scraper, formConnections
 from Utilities.SQLQueryClasses import Insertable, Clearable, Queriable
 from Utilities.PositionClasses import Positioned, Directioned
 
+## TODO: GREENLINK links don't work anymore.
 GREENLINK_WEBSITE = "https://greenlink.cadavl.com:4437/SWIV/GTA"
 URL_GREENLINK_STOPS_AND_ROUTE_AND_ID = "https://greenlink.cadavl.com:4437/SWIV/GTA/proxy/restWS/topo"
 
@@ -476,14 +477,14 @@ class BusRouteScraper(RouteScraper):
 def main():
     a = ShuttleRouteScraper("Campus Shuttle", "Furman University Shuttle", 2)
     a.tryPull()
-    a.saveRouteToJSONFile("/backend/database/ShuttleRoute.json") # changed route from /home/csdaemon/aux
+    a.saveRouteToJSONFile("backend/aux/ShuttleRoute.json") # changed route from /home/csdaemon/aux
     
-    b = BusRouteScraper("503 Bus", "503", 1)
-    b.tryPull()
-    b.saveRouteToJSONFile("/backend/database/503Route.json") # changed route
+    # b = BusRouteScraper("503 Bus", "503", 1)
+    # b.tryPull()
+    # b.saveRouteToJSONFile("backend/aux/503Route.json") # changed route
     
     connection = formConnections()
-    for shut in [a, b]:
+    for shut in [a]:#, b]:
         shut.setStopsTable(STOPS_TABLE)
         shut.updateInto(SHUTTLE_TABLE, connection)
           

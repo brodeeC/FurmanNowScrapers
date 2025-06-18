@@ -108,7 +108,7 @@ def formConnections():
     return SQLiteConnectionWrapper("backend/database/FUNow.db") # Use local db to test scrapers and find bug.
 
 def youTubePullLatest(channelID, numRequested = 10):
-    filename = "/home/csdaemon/aux/youtubeAPICred.txt"
+    filename = "backend/aux/youtubeAPICred.txt"
     with open(filename, "r") as file:
         apiKey = file.readlines()[0].strip()
         headers = {"Accept": "application/json", "Referer": "Mozilla"}

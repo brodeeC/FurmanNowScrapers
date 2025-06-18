@@ -360,7 +360,7 @@ INSERT INTO buildingLocations (buildingID, name, nickname, category, hasHours, w
 (76, 'Daniel Dining Hall', 'DH', 'dining', 1, 'https://furman.cafebonappetit.com/', 'Alongside the lake.', 34.9257, -82.4395, '{ndtEpldvNNa@xAdACJRPO@IFI@M@MAMAIGGECGCIAKAI?O@GDIMO', NULL, 10, '2024-02-01 19:03:56'),
 (77, 'The Paddock', NULL, 'dining', 1, 'https://www.furman.edu/campus-life/housing-dining/', 'Located alongside the lake on the first floor of Trone.', 34.9248, -82.4402, NULL, NULL, 10, '2024-02-01 19:06:20'),
 (78, 'Traditions Grille', 'Golf Club', 'dining', 1, 'https://www.furmangolfclub.com/golf-course/traditions-grille', 'Located inside the Golf Club at the Furman Golf Course.', 34.9318, -82.4498, 'ksetEhofvNBSEABOB@BQTDGr@UC', NULL, 10, '2024-02-01 19:09:29'),
-(79, 'Blend & Bowl', NULL, 'dining', 1, 'https://www.furman.edu/campus-life/housing-dining/', 'Located upstairs in the Dining Hall.', 34.9256, -82.4395, NULL, NULL, 10, '2024-02-01 19:11:05'),
+(79, 'Blend and Bowl', NULL, 'dining', 1, 'https://www.furman.edu/campus-life/housing-dining/', 'Located upstairs in the Dining Hall.', 34.9256, -82.4395, NULL, NULL, 10, '2024-02-01 19:11:05'),
 (80, 'The Library Café', 'LibCaf', 'dining', 1, 'https://libguides.furman.edu/library/floor-plans/24-hours', 'Located off of the Duke Library porch.', 34.9244, -82.4389, '', NULL, 10, '2024-02-01 19:12:13'),
 (81, 'Maxwell Music Library', 'Music Library', 'academic', 1, 'https://www.furman.edu/academics/music/facilities/maxwell-music-library/', 'Within the Daniel Music Building next to the campus'' main gate.', 34.9267, -82.4341, NULL, NULL, 10, '2024-02-22 19:12:32'),
 (82, 'Sanders Science Library', 'Science Library', 'academic', 1, 'https://libguides.furman.edu/science/home', 'Within Plyler Hall', 34.9229, -82.4386, 'k{ctEngdvNKPTXLQGG?AF@DA@A@A@C@EAIEEECC@EBABAB?D?B?B', NULL, 10, '2024-02-22 19:20:46'),
@@ -378,7 +378,7 @@ INSERT INTO buildingLocations (buildingID, name, nickname, category, hasHours, w
 (94, 'Football Practice Fields', NULL, 'athletics', 0, 'https://www.furman.edu/news/furman-spring-athletic-festival-set-for-saturday/', NULL, 34.9204, -82.4407, 'ioctEhudvNrC{CpB~C_DfDiBiD', NULL, 10, '2024-03-16 00:23:29'),
 (95, 'North Village Housing & Residence Life Office', 'Housing OFfices', 'housing', 0, 'https://www.furman.edu/campus-life/housing-residence-life/', 'Inside North Village J', 34.9324, -82.4351, NULL, NULL, 10, '2024-03-16 00:41:05'),
 (96, 'Writing and Media Lab', 'WML', 'auxiliary', 0, 'https://www.furman.edu/academics/center-academic-success/writing-resources/', 'Basement floor of the library', 34.9244, -82.4389, NULL, 'The Writing and Media Lab''s trained student Consultants provide one-on-one or small group assistance with student writing and multimedia projects.. Located in the basement.', 10, '2024-04-04 18:12:40'),
-(97, 'The Bell Tower Bistro', NULL, 'auxiliary', 0, 'https://furman.cafebonappetit.com/cafe/bookstore-cafe/', NULL, 34.9245, -82.4409, NULL, 'The Bookstore Café is a bistro-style café. Grab a coffee and pastry while you read your new textbooks!', 10, '2024-04-11 17:29:51');
+(97, 'Bookstore Café', NULL, 'auxiliary', 0, 'https://furman.cafebonappetit.com/cafe/bookstore-cafe/', NULL, 34.9245, -82.4409, NULL, 'The Bookstore Café is a bistro-style café. Grab a coffee and pastry while you read your new textbooks!', 10, '2024-04-11 17:29:51');
 
 --
 -- Triggers buildingLocations

@@ -88,36 +88,43 @@ for i in range (0, len(fullnames)):
 print(D)
 
 try:
-	#for name in fullnames:
-	#	with connection.cursor() as cursor:
-	#		sql = "insert `foodService` (`fullname`) values (%s)"
-	##		cursor.execute(sql, (name))
-	#	connection.commit()
-	i = 0
-	for name in D:
-		with connection.cursor() as cursor:
-			sql = "SELECT id from foodService where fullname = (%s)"
-			cursor.execute(sql, name)
-			id = cursor.fetchone()
-			id = id['id']
-			sql = "delete from `times` where `id` = (%s)"
-			cursor.execute(sql, (id))
-		for j in range(0, len(D[name][0])):
-			print(j)
-			with connection.cursor() as cursor:
-				if  starts[i][j] == "":
-					sql = "insert `times` (`id`, `dayOfWeek`, `dayOrder`) values (%s, %s, %s)"
-					cursor.execute(sql, (id, "Mon-Sun", 0))
-				else:
-					sql = "insert `times` (`id`, `meal`, `start`, `end`, `dayOfWeek`, `dayOrder`) values (%s, %s, %s, %s, %s, %s)"
-					cursor.execute(sql, (id, meals[i][j], starts[i][j], ends[i][j], "Mon-Sun", 0))
-					print(meals[i][j])
-				connection.commit()
-				print('committed')
-		i += 1
+    i = 0
+    for name in D:
+        with connection.cursor() as cursor:
+            # Get the ID
+            sql = "SELECT id FROM foodService WHERE fullname = %s"
+            cursor.execute(sql, (name,))
+            result = cursor.fetchone()
+            if result:
+                id = result['id']
+                
+                # Delete old times
+                sql = "DELETE FROM `times` WHERE `id` = %s"
+                cursor.execute(sql, (id,))
+                
+                # Insert new times
+                for j in range(len(D[name][0])):
+                    if D[name][1][j] == "":  # Empty start time
+                        sql = """INSERT INTO `times` 
+                                (`id`, `dayOfWeek`, `dayOrder`) 
+                                VALUES (%s, %s, %s)"""
+                        cursor.execute(sql, (id, "Mon-Sun", 0))
+                    else:
+                        sql = """INSERT INTO `times` 
+                                (`id`, `meal`, `start`, `end`, `dayOfWeek`, `dayOrder`) 
+                                VALUES (%s, %s, %s, %s, %s, %s)"""
+                        cursor.execute(sql, (
+                            id, 
+                            D[name][0][j], 
+                            D[name][1][j], 
+                            D[name][2][j], 
+                            "Mon-Sun", 
+                            0
+                        ))
+                connection.commit()
+        i += 1
 except Exception as e:
-	connection.rollback()
-	print(e)
+    connection.rollback()
+    print(f"Error: {e}")
 finally:
-	connection.close()
-
+    connection.close()

@@ -265,7 +265,7 @@ class FurmanNewsScraper(NewsScraper):
             
     def getSummary(entry):
         summarySoup = soup(entry.summary, features="html.parser")
-        summary = summarySoup.findAll("p")[0].contents[0]
+        summary = summarySoup.find_all("p")[0].contents[0]
         return summary
     
     def getLink(entry):
@@ -364,7 +364,7 @@ class TocquevilleScraper(NewsScraper):
     
     def getSummary(blogEntry):
         summarySoup = soup(blogEntry.summary, features="html.parser")
-        summary = summarySoup.findAll("p")[0].contents[0]
+        summary = summarySoup.find_all("p")[0].contents[0]
         return summary
     
     def getImage(blogEntry):
@@ -431,7 +431,7 @@ class RileyScraper(NewsScraper):
     
     def getSummary(blogEntry):
         summarySoup = soup(blogEntry.summary, features="html.parser")
-        summary = summarySoup.findAll("p")[0].contents[0]
+        summary = summarySoup.find_all("p")[0].contents[0]
         return summary
     
     def getImage(entry):
