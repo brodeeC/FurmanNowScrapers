@@ -8,8 +8,7 @@ from datetime import datetime
 class BuildingLocation(db.Model):
     __tablename__ = 'buildingLocations'
 
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    buildingID = db.Column(db.Integer, unique=True, nullable=False)
+    buildingID = db.Column(db.Integer, unique=True, nullable=False, primary_key=True)
     name = db.Column(db.Text, nullable=False)
     nickname = db.Column(db.Text)
     category = db.Column(db.Text)
@@ -27,7 +26,6 @@ class BuildingLocation(db.Model):
 
     def to_dict(self):
         return {
-            "id": self.id,
             "buildingID": self.buildingID,
             "name": self.name,
             "nickname": self.nickname,
@@ -48,7 +46,7 @@ class BuildingHours(db.Model):
     __tablename__ = 'buildingHours'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    buildingID = db.Column(db.Integer, db.ForeignKey('buildingLocations.id'), nullable=False)
+    buildingID = db.Column(db.Integer, db.ForeignKey('buildingLocations.buildingID'), nullable=False)
     day = db.Column(db.Text, nullable=False)
     dayorder = db.Column(db.Integer, nullable=False)
     Start = db.Column(db.Time)
