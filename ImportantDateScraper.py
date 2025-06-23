@@ -20,7 +20,6 @@ FAILED_DATE_PARSE = "FAILED || DATE || PARSE"
 END_TAG = "<br/>"
 
 ## TODO: Time scraping fails 100% of the time.
-## Seems to have failed on January 05 as that's the only entry in database on fu server.
 
 # Takes as input the "description" field of the RSS feed and determines
 # which calendar the event belongs to; most fall under either "Registrar" or
