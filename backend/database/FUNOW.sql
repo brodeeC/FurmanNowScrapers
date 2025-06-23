@@ -1814,7 +1814,6 @@ INSERT INTO stopsTable (id, lineID, stopOrderID, stopName, latitude, longitude, 
 (13960, 1, 16, 'Pleasantburg  & Worley Rd (IB)', 34.88594725162704, -82.39109227894875, 10.972572973031264, '2025-01-28 14:05:03'),
 (13961, 1, 17, 'GTA O&M (IB)', 34.8804417908157, -82.39258914956126, 11.511503039601598, '2025-01-28 14:05:03'),
 (13962, 1, 18, 'Rutherford Rd  & Morristown Dr', 34.87856299628045, -82.39150500144495, 11.780545916819408, '2025-01-28 14:05:03'),
-(13963, 1, 19, '600 Block Rutherford Rd', 34.877074994903815, -82.3934079974856, 11.932613612568618, '2025-01-28 14:05:03'),
 (13964, 1, 20, 'Rutherford Rd  & Old Paris Mtn', 34.87219617598143, -82.40120530338149, 12.631866480200665, '2025-01-28 14:05:03'),
 (13965, 1, 21, 'Rutherford Rd  & Cathey St', 34.86920200337805, -82.40324399643508, 12.884252195283821, '2025-01-28 14:05:03'),
 (13966, 1, 22, 'Rutherford St  & Stall St', 34.865236268917286, -82.40465692660742, 13.192736825784232, '2025-01-28 14:05:03'),
@@ -2324,6 +2323,22 @@ CREATE INDEX IF NOT EXISTS idx_TESTtimes_id ON TESTtimes(id);
 CREATE INDEX IF NOT EXISTS idx_times_id ON times(id);
 
 CREATE UNIQUE INDEX IF NOT EXISTS idx_stopsTable_id ON stopsTable(id);
+
+CREATE VIEW stop_with_distance AS
+SELECT 
+    s.lineID,
+    s.stopOrderID,
+    s.distFromStart,
+    s.latitude,
+    s.longitude,
+    s.stopName,
+    s.updated,
+    d.distFromVehicle,
+    d.vehicleStopsUntil
+FROM stopsTable s
+JOIN stopsDistanceTable d
+  ON s.lineID = d.lineID AND s.stopOrderID = d.stopOrderID;
+
 
 --
 -- Indexes for dumped tables

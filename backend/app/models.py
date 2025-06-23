@@ -456,3 +456,29 @@ class Image(db.Model):
             "generated": self.generated,
             "link": self.link
         }
+    
+class StopWithDistance(db.Model):
+    __tablename__ = 'stop_with_distance'
+
+    lineID = db.Column(db.Text, primary_key=True)
+    stopOrderID = db.Column(db.Integer, primary_key=True)
+    distFromStart = db.Column(db.Float)
+    latitude = db.Column(db.Float)
+    longitude = db.Column(db.Float)
+    stopName = db.Column(db.Text)
+    updated = db.Column(db.DateTime)
+    distFromVehicle = db.Column(db.Float)
+    vehicleStopsUntil = db.Column(db.Integer)
+
+    def to_dict(self):
+        return {
+            "lineID": self.lineID,
+            "stopOrderID": self.stopOrderID,
+            "distFromVehicle": self.distFromVehicle,
+            "updated": self.updated,
+            "vehicleStopsUntil": self.vehicleStopsUntil,
+            "distFromStart": self.distFromStart,
+            "latitude": self.latitude,
+            "longitude": self.longitude,
+            "stopName": self.stopName
+        }

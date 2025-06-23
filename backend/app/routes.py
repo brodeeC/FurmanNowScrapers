@@ -25,7 +25,8 @@ from app.models import (
     Stop,
     StopsDistance,
     Weather,
-    Image
+    Image,
+    StopWithDistance
 )
 
 bp = Blueprint('api', __name__, url_prefix='/FUNow/api')
@@ -102,26 +103,8 @@ def vehicleNamesGet():
 
 @bp.route("/stopsGet", methods=["GET"])
 def stopsGet():
-    stmt = select(
-        Stop.lineID,
-        Stop.stopOrderID,
-        Stop.distFromStart,
-        Stop.latitude,
-        Stop.longitude,
-        Stop.stopName,
-        StopsDistance.distFromVehicle,
-        Stop.updated,
-        StopsDistance.vehicleStopsUntil
-    ).join(
-        StopsDistance,
-        (Stop.lineID == StopsDistance.lineID) & 
-        (Stop.stopOrderID == StopsDistance.stopOrderID)
-    )
-    
-    results = db.session.execute(stmt).all()
-    formatted_results = [dict(row._mapping) for row in results]
-    
-    return jsonify({"format": "stops", "results": formatted_results})
+    results = SESSION.execute(select(StopWithDistance)).scalars().all()
+    return jsonify({"format":"weather","results": [entry.to_dict() for entry in results]})
 
 @bp.route("/weatherGet", methods=["GET"])
 def weatherGet():
