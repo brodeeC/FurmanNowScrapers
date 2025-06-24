@@ -139,7 +139,7 @@ class NewsScraper(Scraper):
         with open(pdfTempFile, 'wb') as pdf:
             resp = Scraper.getSite(source)
             pdf.write(resp.content)
-        page = f"FUNow/articleImages/{fileName}"
+        page = f"../assets/articleImages/{fileName}"
         convert_from_path(pdfTempFile, 
                           output_folder="/home/csdaemon/www/FUNow/articleImages/", 
                           output_file=fileName, 
@@ -147,7 +147,7 @@ class NewsScraper(Scraper):
                           dpi=300, 
                           fmt='png')
         os.remove(pdfTempFile)
-        imagelink = f"https://cs.furman.edu/~csdaemon/{page}.png"
+        imagelink = f"{page}.png"
         return imagelink
 
 class ChristoScraper(NewsScraper):
