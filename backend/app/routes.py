@@ -4,10 +4,14 @@ Each route returns data necessary for hooks in the React-Native app.
 
 """
 
-from flask import jsonify, Blueprint
+from flask import jsonify, Blueprint, request
 from app import db
 from sqlalchemy.orm import Session
 from sqlalchemy import select
+from datetime import datetime
+import pytz
+import os
+import random
 from app.models import (
     BuildingHours,
     BuildingLocation,
@@ -25,7 +29,6 @@ from app.models import (
     Stop,
     StopsDistance,
     Weather,
-    Image,
     StopWithDistance
 )
 
@@ -111,9 +114,52 @@ def weatherGet():
     results = SESSION.execute(select(Weather)).scalars().all()
     return jsonify({"format":"weather","results": [entry.to_dict() for entry in results]})
 
-# TODO: will need to change image links
-# TODO: Use php to make SQL query
+# Sends up an image folder and name to build image link on the frontend
 @bp.route("/weatherImagesCurrent", methods=["GET"]) 
 def weatherImagesCurrent():
-    results = SESSION.execute(select(Image)).scalars().all()
-    return jsonify({"format":"images","results": [entry.to_dict() for entry in results]})
+    IMAGE_MAP = {
+        'rain': ['RainyFountain.jpg'],
+        'snow': ['AdmissionsSnow.jpg', 'BellTowerCircleSnow.jpeg', 'ClarkMurphySnow.webp'],
+        '01': ['BellTowerCircleSnow.jpeg', 'GatesInSnow.jpg'],
+        '02': ['ClarkMurphySnow.webp'],
+        '03': ['Ampatheater Aerial.jpg', 'DHInBloom.jpeg', 'FootballStadium.jpg'],
+        '04': ['Dining Hall Entrence.jpg', 'SpringRoseGarden.jpg'],
+        '05': ['Farm Aerial.jpg', 'RoseGarden.jpg'],
+        '06': ['FurmanBloomsLibrary.jpg', 'FurmanSunset.jpg', 'PlaceOfPeace.jpg'],
+        '07': ['FurmanBelltowerLowAngle.jpg', 'PlaceOfPeaceSummer.jpg'],
+        '08': ['FurmanBelltowerLowAngle.jpg', 'FurmanMallAerial.jpg'],
+        '09': ['BellTowerSeptember.jpg', 'Fall Heron At Lake.jpg', 'FurmanLibraryDay.jpg'],
+        '10': ['BellTowerFall.jpg', 'GateHouse.jpg'],
+        '11': ['FoggyFurman.webp', 'FurmanFallBellTower.jpg', 'FurmanLibraryReflective.jpg'],
+        '12': ['AdmissionsSnow.jpg', 'FurmanMallSnow.jpg'],
+    }
+    now = datetime.now(pytz.timezone('America/New_York'))
+    month = now.strftime('%m')
+
+    weather = Weather.query.order_by(Weather.id).first()
+    if not weather:
+        return jsonify({"error": "No weather data"}), 500
+
+    # Determine folder
+    emoji = weather.emoji
+    if emoji in ['0x1F326', '0x26C8', '0x1F327']:
+        folder = 'rain'
+    elif emoji == '0x1F328':
+        folder = 'snow'
+    else:
+        folder = month  
+
+    # Use the image map to build full URLs
+    filenames = IMAGE_MAP.get(folder, [])
+    links = [
+        f"{folder}/{filename}"
+        for filename in filenames
+    ]
+    
+    return jsonify({
+        "format": "images",
+        "results": {
+            "generated": now.strftime('%Y-%m-%d %H:%M:%S'),
+            "links": links
+        }
+    })

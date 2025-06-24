@@ -443,19 +443,6 @@ class Weather(db.Model):
             "alert": self.alert,
             "emoji": self.emoji
         }
-
-
-class Image(db.Model):
-    __tablename__ = 'images'
-
-    generated = db.Column(db.Text, nullable=False)
-    link = db.Column(db.Text, primary_key=True)
-
-    def to_dict(self):
-        return {
-            "generated": self.generated,
-            "link": self.link
-        }
     
 class StopWithDistance(db.Model):
     __tablename__ = 'stop_with_distance'
