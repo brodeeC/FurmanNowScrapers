@@ -151,12 +151,12 @@ def main():
                      ["vehicleStopsUntil", i if isRunning else None]]
             Insertable._insertIntoHelper(STOPS_DIST_TABLE, connection, attrs, True)
             
-    ## TODO: Fix SQL errors
-    clearOutdated = f"UPDATE `{SHUTTLE_LOCATION_TABLE}` SET latitude=%s, longitude=%s, direction=%s, speed=%s, updated=%s WHERE updated < (NOW() - INTERVAL 3 MINUTE)"
-    var = (None, None, None, None, datetime.datetime.now())
+    clearOutdated = f"UPDATE {SHUTTLE_LOCATION_TABLE} SET latitude=?, longitude=?, direction=?, speed=?, updated=? WHERE updated < datetime('now', '-3 minutes')"
+    var = (None, None, None, None, datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
     Queriable.query(connection, (clearOutdated, var))
-    clearStopsOutdated = f"UPDATE `{STOPS_DIST_TABLE}` SET distFromVehicle = %s, vehicleStopsUntil = %s, updated = %s WHERE updated < (NOW() - INTERVAL 3 MINUTE)"
-    stopVars = (None, None, datetime.datetime.now())
+
+    clearStopsOutdated = f"UPDATE {STOPS_DIST_TABLE} SET distFromVehicle = ?, vehicleStopsUntil = ?, updated = ? WHERE updated < datetime('now', '-3 minutes')"
+    stopVars = (None, None, datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
     Queriable.query(connection, (clearStopsOutdated, stopVars))
     connection.close()
 

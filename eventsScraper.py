@@ -204,6 +204,8 @@ def getCLPLinks():
         else: # Location given
             eventDict["location"] = desc[:desc.find("<br/>")-1]
             desc = desc[desc.find(">")+1:]
+            eventDict["location"] = re.sub(r'<[^>]+>', '', eventDict["location"])
+            eventDict["location"] = eventDict["location"].replace('&nbsp;', ' ').replace('&ndash;', '-')
             
         date = desc[desc.find(",")+2:]
         date = date[:date.find(" ",date.find(",")+2)-1]
@@ -226,6 +228,8 @@ def getCLPLinks():
         eventDict["description"] = description 
         
         organ = desc[desc.find("Organization"):]
+        organ = re.sub(r'<[^>]+>', '', organ)
+        organ = organ.replace('&nbsp;', ' ').replace('&ndash;', '-')
         eventDict["organization"] = organ[organ.find(";")+1:organ.find("<br/>")]
         eventDict["organization"] = eventDict["organization"].replace("&amp;","&")
         
