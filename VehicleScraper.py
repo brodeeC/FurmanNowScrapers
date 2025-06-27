@@ -125,14 +125,14 @@ class BusScraper(WebConnectors.Scraper):
                 )
         return vehicles
 
-
+# TODO: Figure out what to do about BusScraper
 def main():
     shutRoute = RouteScraper.loadRouteFromJSONFile("backend/aux/ShuttleRoute.json")
-    busRoute = RouteScraper.loadRouteFromJSONFile("backend/aux/503Route.json")
+    # busRoute = RouteScraper.loadRouteFromJSONFile("backend/aux/503Route.json")
     
     shut = []
     shut += [(s, shutRoute) for s in ShuttleScraper().tryPull()]
-    shut += [(b, busRoute) for b in BusScraper(busRoute.lineIDExternal).tryPull()]
+    # shut += [(b, busRoute) for b in BusScraper(busRoute.lineIDExternal).tryPull()]
             
     connection = WebConnectors.formConnections()
     
