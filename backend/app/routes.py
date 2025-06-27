@@ -7,7 +7,7 @@ Each route returns data necessary for hooks in the React-Native app.
 from flask import jsonify, Blueprint, request
 from app import db
 from sqlalchemy.orm import Session
-from sqlalchemy import select
+from sqlalchemy import select, desc
 from datetime import datetime
 import pytz
 import os
@@ -86,7 +86,7 @@ def importantLinksGet():
 
 @bp.route("/newsContentGet", methods=["GET"])
 def newsContentGet():
-    results = SESSION.execute(select(NewsContent)).scalars().all()
+    results = SESSION.execute(select(NewsContent).order_by(desc(NewsContent.publishdate))).scalars().all()
     return jsonify({"format":"newsContent","results": [entry.to_dict() for entry in results]})
 
 @bp.route("/newsPublishersGet", methods=["GET"])
@@ -94,7 +94,7 @@ def newsPublishersGet():
     results = SESSION.execute(select(NewsPublisher)).scalars().all()
     return jsonify({"format":"newsPublishers","results": [entry.to_dict() for entry in results]})
 
-@bp.route("/shuttleGet", methods=["GET"]) # TODO: Check php, has a variable in it.
+@bp.route("/shuttleGet", methods=["GET"]) 
 def shuttleGet():
     results = SESSION.execute(select(Shuttle)).scalars().all()
     return jsonify({"format":"shuttles","results": [entry.to_dict() for entry in results]})
