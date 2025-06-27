@@ -14,7 +14,7 @@ from Utilities.SQLQueryClasses import Insertable, Clearable, Queriable
 from Utilities.PositionClasses import Positioned, Directioned
 
 ## TODO: GREENLINK links don't work anymore.
-GREENLINK_WEBSITE = "https://greenlink.cadavl.com:4437/SWIV/GTA"
+GREENLINK_WEBSITE = "https://swiv.greenlink.cadavl.com/SWIV/GTA"
 URL_GREENLINK_STOPS_AND_ROUTE_AND_ID = "https://greenlink.cadavl.com:4437/SWIV/GTA/proxy/restWS/topo"
 
 SHUTTLE_WEBSITE = "https://furmansaferide.ridesystems.net/routes"
@@ -479,9 +479,9 @@ def main():
     a.tryPull()
     a.saveRouteToJSONFile("backend/aux/ShuttleRoute.json") # changed route from /home/csdaemon/aux
     
-    # b = BusRouteScraper("503 Bus", "503", 1)
-    # b.tryPull()
-    # b.saveRouteToJSONFile("backend/aux/503Route.json") # changed route
+    b = BusRouteScraper("503 Bus", "503", 1)
+    b.tryPull()
+    b.saveRouteToJSONFile("backend/aux/503Route.json") # changed route
     
     connection = formConnections()
     for shut in [a]:#, b]:

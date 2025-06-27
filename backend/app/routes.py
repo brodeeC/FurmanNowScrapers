@@ -4,14 +4,12 @@ Each route returns data necessary for hooks in the React-Native app.
 
 """
 
-from flask import jsonify, Blueprint, request
+from flask import jsonify, Blueprint
 from app import db
 from sqlalchemy.orm import Session
 from sqlalchemy import select, desc
 from datetime import datetime
 import pytz
-import os
-import random
 from app.models import (
     BuildingHours,
     BuildingLocation,
@@ -42,7 +40,7 @@ SESSION: Session = db.session
 @bp.route("/athleticsGet", methods=["GET"])
 def athleticsGet():
     results = SESSION.execute(select(Athletics)).scalars().all()
-    return jsonify({'format':'athletics', 'results':[entry.to_dict() for entry in results]})
+    return jsonify({'format':'athletics', 'results': [entry.to_dict() for entry in results] if results else None})
 
 @bp.route("/hoursGet", methods=["GET"])
 def hoursGet():
