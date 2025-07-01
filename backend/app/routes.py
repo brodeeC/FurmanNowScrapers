@@ -27,7 +27,8 @@ from app.models import (
     Stop,
     StopsDistance,
     Weather,
-    StopWithDistance
+    StopWithDistance,
+    parkingZones
 )
 
 bp = Blueprint('api', __name__, url_prefix='/FUNow/api')
@@ -111,6 +112,11 @@ def stopsGet():
 def weatherGet():
     results = SESSION.execute(select(Weather)).scalars().all()
     return jsonify({"format":"weather","results": [entry.to_dict() for entry in results]})
+
+@bp.route("/parkingZonesGet", methods=["GET"])
+def parkingZonesGet():
+    results = SESSION.execute(select(parkingZones)).scalars().all()
+    return jsonify({"format":"zones", "results": [entry.to_dict() for entry in results]})
 
 # Sends up an image folder and name to build image link on the frontend
 @bp.route("/weatherImagesCurrent", methods=["GET"]) 

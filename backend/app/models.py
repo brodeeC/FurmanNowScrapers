@@ -469,3 +469,33 @@ class StopWithDistance(db.Model):
             "longitude": self.longitude,
             "stopName": self.stopName
         }
+    
+class parkingZones(db.Model):
+    __tablename__ = 'parkingZones'
+
+    id = db.Column(db.Integer, primary_key=True)
+    zoneName = db.Column(db.Text)
+    boundry = db.Column(db.Text)
+    yellow = db.Column(db.Integer)
+    green = db.Column(db.Integer)
+    blue = db.Column(db.Integer)
+    silver = db.Column(db.Integer)
+    orange = db.Column(db.Integer)
+    purple = db.Column(db.Integer)
+    lightPurple = db.Column(db.Integer)
+    public_col = db.Column(db.Integer)
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            'zoneName': self.zoneName,
+            'boundry': self.boundry,
+            'yellow': self.yellow,
+            'green': self.green,
+            'blue': self.blue,
+            'silver': self.silver,
+            'orange': self.orange,
+            'purple': self.purple,
+            'lightPurple': self.lightPurple,
+            'public_col': self.public_col
+        }
