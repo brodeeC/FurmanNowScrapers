@@ -13,9 +13,8 @@ from Utilities.WebConnectors import Scraper, formConnections
 from Utilities.SQLQueryClasses import Insertable, Clearable, Queriable
 from Utilities.PositionClasses import Positioned, Directioned
 
-## TODO: GREENLINK links don't work anymore.
 GREENLINK_WEBSITE = "https://swiv.greenlink.cadavl.com/SWIV/GTA"
-URL_GREENLINK_STOPS_AND_ROUTE_AND_ID = "https://swiv.greenlink.cadavl.com/SWIV/GTA" #"https://swiv.greenlink.cadavl.com:4437/SWIV/GTA/proxy/restWS/topo"
+URL_GREENLINK_STOPS_AND_ROUTE_AND_ID = "https://swiv.greenlink.cadavl.com/SWIV/GTA/proxy/restWS/topo" 
 
 SHUTTLE_WEBSITE = "https://furmansaferide.ridesystems.net/routes"
 CAMPUS_SHUTTLE_STOPS_AND_ROUTE = "https://furmansaferide.ridesystems.net/Services/JSONPRelay.svc/GetStops?apiKey=8882812681"
@@ -468,8 +467,6 @@ class BusRouteScraper(RouteScraper):
             
     def _pull(self):
         page_soup = BusRouteScraper.getSoup(URL_GREENLINK_STOPS_AND_ROUTE_AND_ID)
-        ## TODO: Bug here, page_soup is gotten, but page_json is not.
-        print(page_soup) # Need to make a function for page_soup.findAll and find all 'lignes'
         page_json = json.loads(page_soup.text)
         self.lineIDExternal = self._getBusID(page_json)
         self.lineRoute = self._getBusRoute(page_json)
@@ -486,7 +483,7 @@ def main():
     b.saveRouteToJSONFile("backend/aux/503Route.json") # changed route
     
     connection = formConnections()
-    for shut in [a]:#, b]:
+    for shut in [a, b]:
         shut.setStopsTable(STOPS_TABLE)
         shut.updateInto(SHUTTLE_TABLE, connection)
           

@@ -31,7 +31,7 @@ from RouteScraper import RouteScraper
 ##URL_GREENLINK_503_TIMES = ##"https://trackgreenlink.com/simple/regions/89/routes/4417/direction/12705"
 ##URL_GREENLINK_MAIN = "https://trackgreenlink.com"
 SHUTTLE_URL = "https://furmansaferide.ridesystems.net/Services/JSONPRelay.svc/GetMapVehiclePoints?apiKey=8882812681"
-URL_GREENLINK_LOCATION = "https://greenlink.cadavl.com:4437/SWIV/GTA/proxy/restWS/topo/vehicules"
+URL_GREENLINK_LOCATION = "https://swiv.greenlink.cadavl.com/SWIV/GTA/proxy/restWS/topo/vehicules"
 
 SHUTTLE_LOCATION_TABLE = "shuttleLocations"
 STOPS_DIST_TABLE = "stopsDistanceTable"
@@ -125,14 +125,13 @@ class BusScraper(WebConnectors.Scraper):
                 )
         return vehicles
 
-# TODO: Figure out what to do about BusScraper
 def main():
     shutRoute = RouteScraper.loadRouteFromJSONFile("backend/aux/ShuttleRoute.json")
-    # busRoute = RouteScraper.loadRouteFromJSONFile("backend/aux/503Route.json")
+    busRoute = RouteScraper.loadRouteFromJSONFile("backend/aux/503Route.json")
     
     shut = []
     shut += [(s, shutRoute) for s in ShuttleScraper().tryPull()]
-    # shut += [(b, busRoute) for b in BusScraper(busRoute.lineIDExternal).tryPull()]
+    shut += [(b, busRoute) for b in BusScraper(busRoute.lineIDExternal).tryPull()]
             
     connection = WebConnectors.formConnections()
     

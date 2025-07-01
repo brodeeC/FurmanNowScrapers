@@ -41,7 +41,6 @@ def update_image_links(db_path):
     finally:
         conn.close()
 
-# Currently contains 49,980 lines in buildingHours.
 def main():
     update_image_links('backend/database/FUNow.db')
 
