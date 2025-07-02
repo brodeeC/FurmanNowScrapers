@@ -106,7 +106,7 @@ def vehicleNamesGet():
 @bp.route("/stopsGet", methods=["GET"])
 def stopsGet():
     results = SESSION.execute(select(StopWithDistance)).scalars().all()
-    return jsonify({"format":"weather","results": [entry.to_dict() for entry in results]})
+    return jsonify({"format":"stops","results": [entry.to_dict() for entry in results]})
 
 @bp.route("/weatherGet", methods=["GET"])
 def weatherGet():

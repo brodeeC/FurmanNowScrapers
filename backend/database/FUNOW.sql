@@ -1448,13 +1448,6 @@ CREATE TABLE IF NOT EXISTS shuttleLocations (
   nextStopID INTEGER DEFAULT NULL
 );
 
---
--- Dumping data for table shuttleLocations
---
-
-INSERT INTO shuttleLocations (id, vehicle, latitude, longitude, speed, direction, nextStopDistance, updated, nextStopID) VALUES
-(1, '503 Bus', NULL, NULL, NULL, NULL, 0.037184966854144186, '2025-06-16 14:19:12', 11),
-(2, 'Daily Shuttle', NULL, NULL, NULL, NULL, 0, '2025-06-16 14:19:12', 0);
 
 CREATE TRIGGER update_shuttleLocations_updated
 AFTER UPDATE ON shuttleLocations
@@ -2052,7 +2045,8 @@ CREATE INDEX IF NOT EXISTS idx_newsContent_publisherID ON newsContent(publisherI
 CREATE INDEX IF NOT EXISTS idx_TESTtimes_id ON TESTtimes(id);
 CREATE INDEX IF NOT EXISTS idx_times_id ON times(id);
 
-CREATE UNIQUE INDEX IF NOT EXISTS idx_stopsTable_id ON stopsTable(id);
+CREATE UNIQUE INDEX IF NOT EXISTS idx_unique_line_stop
+ON stopsTable (lineID, stopOrderID);
 
 CREATE VIEW stop_with_distance AS
 SELECT 
