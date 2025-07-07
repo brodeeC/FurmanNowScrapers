@@ -42,7 +42,7 @@ def update_image_links(db_path):
         conn.close()
 
 def main():
-    # update_image_links('backend/database/FUNow.db')
+    update_image_links('backend/database/FUNow.db')
 
 
     conn = sqlite3.connect('backend/database/FUNow.db')

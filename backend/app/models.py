@@ -490,12 +490,12 @@ class parkingZones(db.Model):
             "id": self.id,
             'zoneName': self.zoneName,
             'boundry': self.boundry,
-            'yellow': self.yellow,
-            'green': self.green,
-            'blue': self.blue,
-            'silver': self.silver,
-            'orange': self.orange,
-            'purple': self.purple,
-            'lightPurple': self.lightPurple,
-            'public_col': self.public_col
+            'yellow': self.yellow == 1,
+            'green': self.green == 1,
+            'blue': self.blue == 1,
+            'silver': self.silver == 1,
+            'orange': self.orange == 1,
+            'purple': self.purple == 1,
+            'lightPurple': self.lightPurple == 1,
+            'public_col': self.public_col == 1
         }
