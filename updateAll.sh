@@ -1,2 +1,2 @@
-python3 /home/csdaemon/FUNOWPy/athletics.py ; python3 /home/csdaemon/FUNOWPy/dhmenu.py ; python3 /home/csdaemon/FUNOWPy/diningHours.py ; python3 /home/csdaemon/FUNOWPy/eventsScraper.py ; python3 /home/csdaemon/FUNOWPy/hoursScraper.py ; python3 /home/csdaemon/FUNOWPy/importantDateFeed.py ; python3 /home/csdaemon/FUNOWPy/weathergov.py
-
+python3 AthleticsScraper.py ; python3 dhmenu.py ; python3 diningHours.py ; python3 eventsScraper.py ; python3 HoursOpenScraper.py ; python3 importantDScraper.py ;
+python3 LibrariesHoursScraper.py ; python3 NewsScraper.py ; python3 RouteScraper.py ; python3 VehicleScraper.py ; python3 WeatherScraper.py ; python3 DBCleaner.py ;
