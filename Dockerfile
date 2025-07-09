@@ -11,3 +11,6 @@ COPY backend/ .
 EXPOSE 8080
 
 CMD ["gunicorn", "main:app", "-b", "0.0.0.0:8080"]
+
+COPY updateAll.sh .
+RUN chmod +x updateAll.sh

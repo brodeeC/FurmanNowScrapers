@@ -4,7 +4,7 @@ Each route returns data necessary for hooks in the React-Native app.
 
 """
 
-from flask import jsonify, Blueprint
+from flask import jsonify, Blueprint, render_template
 from app import db
 from sqlalchemy.orm import Session
 from sqlalchemy import select, desc
@@ -34,9 +34,12 @@ from app.models import (
 bp = Blueprint('api', __name__, url_prefix='/FUNow/api')
 SESSION: Session = db.session
 
-## TODO: Go through PHP files and see how they're set up. Also set up database for these routes.
 ## TODO: Implement API Key for security and to hide API 
 ## Link if needed to look back: https://cs.furman.edu/~csdaemon/FUNow/stopsGet.php
+
+@bp.route('/privacyPolicy', methods=["GET"])
+def privacyPolicy():
+    return render_template('privacyPolicy.html')
 
 @bp.route("/athleticsGet", methods=["GET"])
 def athleticsGet():
