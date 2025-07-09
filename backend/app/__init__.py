@@ -21,7 +21,7 @@ def create_app():
     # Enable full CORS for development
     CORS(app, resources={r"/FUNow/api/*": {"origins": "*"}})
 
-    from app import routes
+    from backend.app import routes
     app.register_blueprint(routes.bp)
 
     return app

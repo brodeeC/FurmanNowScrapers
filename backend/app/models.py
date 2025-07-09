@@ -1,7 +1,7 @@
 """
 Defining database using SQLAlchemy to further abstract away SQL Queries.
 """
-from app import db
+from backend.app import db
 from datetime import datetime
 
 
