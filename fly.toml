@@ -6,18 +6,11 @@ app = "furmannowscrapers"
 [env]
   PORT = "8080"
 
-[[services]]
+[http_service]
   internal_port = 8080
-  protocol = "tcp"
+  force_https = true
 
-  [[services.ports]]
-    handlers = ["http"]
-    port = 80
-
-  [[services.ports]]
-    handlers = ["tls", "http"]
-    port = 443
-
-[[jobs]]
-  command = ["/bin/sh", "updateAll.sh"]
-  schedule = "0 * * * *"
+[schedules]
+  [[schedules.schedule]]
+    command = ["/bin/sh", "updateAll.sh"]
+    schedule = "0 */4 * * *"
