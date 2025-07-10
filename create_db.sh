@@ -1,0 +1,1 @@
+python3 dbSetup/create_db.py ; python3 ParkingSetup.py ; 

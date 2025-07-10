@@ -5,7 +5,7 @@ conn = sqlite3.connect('backend/database/FUNow.db')
 cursor = conn.cursor()
 
 # Read and execute the SQL file
-with open('backend/database/FUNow.sql', 'r') as f:
+with open('dbSetup/FUNOW.sql', 'r') as f:
     sql_script = f.read()
 
 cursor.executescript(sql_script)
