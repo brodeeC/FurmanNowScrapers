@@ -520,5 +520,5 @@ class userRatings(db.Model):
     def to_dict(self):
         return{
             'itemID': self.itemID,
-            'rating': self.averageScore(self)
+            'rating': self.averageScore
         }
