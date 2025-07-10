@@ -4,14 +4,14 @@ import polyline
 
 def handle_colors(colors):
     color_dict = {
-        'yellow': 0,
-        'green': 0,
-        'blue': 0,
-        'silver': 0,
-        'orange': 0,
-        'purple': 0,
-        'lightPurple': 0,
-        'public_col': 0
+        'yellow': False,
+        'green': False,
+        'blue': False,
+        'silver': False,
+        'orange': False,
+        'purple': False,
+        'lightPurple': False,
+        'public_col': False
     }
 
     if ',' in colors:
@@ -20,35 +20,29 @@ def handle_colors(colors):
         colors = colors.split(' ')
     
     for color in colors:
-        color_dict[color] = 1
+        color_dict[color] = True
     
     return color_dict
 
 def extract_data(file_path):
     with open(file_path, 'r') as f:
-        # Load data
         data = json.load(f)
 
-        # Iterate over features
         for feature in data['features']:
 
-            # Get coordinates
             coords = feature['geometry']['coordinates']
 
             # Flip to lat, lng for polyline.encode
             coords_latlng = [[lat, lng] for lng, lat in coords[0]]
             boundry = polyline.encode(coords_latlng)
 
-            # Get properties
             properties = feature['properties']
             _id = feature['id']
             zoneName = properties['Name']
 
-            # Determine active colors
             colors = properties['colors']
             color_dict = handle_colors(colors)
             
-            # Connect to database and insert data
             conn = sqlite3.connect('backend/database/FUNow.db')
             cursor = conn.cursor()
 

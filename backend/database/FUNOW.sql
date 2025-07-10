@@ -647,6 +647,7 @@ END;
 
 CREATE TABLE IF NOT EXISTS DHmenu (
   id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  itemID INTEGER NOT NULL, 
   meal TEXT NOT NULL,
   itemName TEXT NOT NULL,
   station TEXT NOT NULL,
@@ -664,6 +665,13 @@ BEGIN
   SET newestUpdate = CURRENT_TIMESTAMP
   WHERE updatedTable = 'DHmenu';
 END;
+
+CREATE TABLE IF NOT EXISTS userRatings (
+  itemID INTEGER NOT NULL PRIMARY KEY,
+  totalScore INTEGER NOT NULL DEFAULT 0,
+  numRatings INTEGER NOT NULL DEFAULT 0,
+  FOREIGN KEY (itemID) REFERENCES DHmenu(itemID)
+);
 
 -- --------------------------------------------------------
 

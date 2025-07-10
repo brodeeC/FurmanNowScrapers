@@ -12,10 +12,10 @@ class SQLiteCursorWrapper:
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.cursor.close()
 
-    def execute(self, query, params=()):
+    def execute(self, query, params=(), skip_conversion=False):
         try:
             # Convert MySQL query to SQLite format
-            converted_query = self._convert_query(query)
+            converted_query = self._convert_query(query) if not skip_conversion else query
             # Execute with converted query and original params
             return self.cursor.execute(converted_query, params)
         except sqlite3.Error as e:

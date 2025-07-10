@@ -1,13 +1,19 @@
+import sqlite3
 import requests
 from bs4 import BeautifulSoup
 import pymysql.cursors
 import re
 import datetime
+import zlib
 
 from Utilities.WebConnectors import formConnections
 
 TODAY = datetime.datetime.now().strftime("%Y-%m-%d")
 url = 'https://furman.cafebonappetit.com/cafe/' + TODAY
+
+def getID(meal, name, station):
+    itemStr = f'{meal}{name}{station}'
+    return zlib.crc32(itemStr.encode('utf-8'))
 
 r = requests.get(url)
 html = r.text
@@ -65,12 +71,17 @@ try:
             for item in menu[meal]:
                 name = item[0]
                 station = item[1]
-                sql = "insert DHmenu (`meal`, `itemName`, `station`) values (%s, %s, %s)"
-                cursor.execute(sql, (meal, name, station))
+                itemID = getID(meal, name, station)
+                # Insert DHmenu
+                sql = "insert DHmenu (`itemID`, `meal`, `itemName`, `station`) values (%s, %s, %s, %s)"
+                cursor.execute(sql, (itemID, meal, name, station))
+                # Insert Rating
+                sql = "INSERT OR IGNORE INTO userRatings (itemID) VALUES (?)"
+                cursor.execute(sql, (itemID,), skip_conversion=True)
     connection.commit()
 except:
     connection.rollback()
-    print(cursor.error)
+    print(sqlite3.Error)
 finally:
     connection.close()
 

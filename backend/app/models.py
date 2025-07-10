@@ -3,6 +3,7 @@ Defining database using SQLAlchemy to further abstract away SQL Queries.
 """
 from backend.app import db
 from datetime import datetime
+from sqlalchemy.ext.hybrid import hybrid_property
 
 
 class BuildingLocation(db.Model):
@@ -164,6 +165,7 @@ class DHMenu(db.Model):
     __tablename__ = 'dhMenu'
 
     id = db.Column(db.Integer, primary_key=True)
+    itemID = db.Column(db.Integer)
     meal = db.Column(db.Text, nullable=False)
     station = db.Column(db.Text, nullable=False)
     itemName = db.Column(db.Text, nullable=False)
@@ -171,6 +173,7 @@ class DHMenu(db.Model):
     def to_dict(self):
         return {
             "id": self.id,
+            "itemID": self.itemID,
             "meal": self.meal,
             "station": self.station,
             "itemName": self.itemName
@@ -490,12 +493,32 @@ class parkingZones(db.Model):
             "id": self.id,
             'zoneName': self.zoneName,
             'boundry': self.boundry,
-            'yellow': self.yellow == 1,
-            'green': self.green == 1,
-            'blue': self.blue == 1,
-            'silver': self.silver == 1,
-            'orange': self.orange == 1,
-            'purple': self.purple == 1,
-            'lightPurple': self.lightPurple == 1,
-            'public_col': self.public_col == 1
+            'yellow': self.yellow,
+            'green': self.green,
+            'blue': self.blue,
+            'silver': self.silver,
+            'orange': self.orange,
+            'purple': self.purple,
+            'lightPurple': self.lightPurple,
+            'public_col': self.public_col
+        }
+
+class userRatings(db.Model):
+    __tablename__ = 'userRatings'
+
+    itemID = db.Column(db.Integer, primary_key=True)
+    totalScore = db.Column(db.Integer, default=0, nullable=False)
+    numRatings = db.Column(db.Integer, default=0, nullable=False)
+
+    @hybrid_property
+    def averageScore(self):
+        if self.numRatings != 0:
+            return self.totalScore / self.numRatings
+        else:
+            return 0
+        
+    def to_dict(self):
+        return{
+            'itemID': self.itemID,
+            'rating': self.averageScore(self)
         }
