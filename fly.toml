@@ -20,4 +20,4 @@ app = "furmannowscrapers"
 
 [[jobs]]
   command = ["/bin/sh", "updateAll.sh"]
-  schedule = "0 */4 * * *"
+  schedule = "0 */6 * * *"
