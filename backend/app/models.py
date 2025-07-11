@@ -522,3 +522,33 @@ class userRatings(db.Model):
             'itemID': self.itemID,
             'rating': self.averageScore
         }
+    
+    
+class MenuWithRatings(db.Model):
+    __tablename__ = 'menu_with_ratings'
+
+    id = db.Column(db.Integer, primary_key=True)
+    itemID = db.Column(db.Integer)
+    meal = db.Column(db.Text, nullable=False)
+    station = db.Column(db.Text, nullable=False)
+    itemName = db.Column(db.Text, nullable=False)
+    totalScore = db.Column(db.Integer, default=0, nullable=False)
+    numRatings = db.Column(db.Integer, default=0, nullable=False)
+
+    @hybrid_property
+    def averageScore(self):
+        if self.numRatings != 0:
+            return self.totalScore / self.numRatings
+        else:
+            return 0
+        
+    def to_dict(self):
+        return{
+            'id': self.id,
+            'itemID': self.itemID,
+            'meal': self.meal,
+            'station': self.station,
+            'itemName': self.itemName,
+            'totalScore': self.totalScore,
+            'numRatings': self.numRatings
+        }

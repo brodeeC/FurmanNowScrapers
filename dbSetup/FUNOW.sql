@@ -2071,6 +2071,18 @@ FROM stopsTable s
 JOIN stopsDistanceTable d
   ON s.lineID = d.lineID AND s.stopOrderID = d.stopOrderID;
 
+CREATE VIEW menu_with_ratings AS
+SELECT
+  d.id,
+  d.itemID,
+  d.meal,
+  d.itemName,
+  d.station,
+  u.totalScore,
+  u.numRatings
+FROM DHmenu d
+JOIN userRatings u
+  ON d.itemID = u.itemID;
 
 --
 -- Indexes for dumped tables

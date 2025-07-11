@@ -24,12 +24,11 @@ from backend.app.models import (
     NewsPublisher,
     Shuttle,
     VehicleName,
-    Stop,
-    StopsDistance,
     Weather,
     StopWithDistance,
     parkingZones,
-    userRatings
+    userRatings,
+    MenuWithRatings
 )
 
 bp = Blueprint('api', __name__, url_prefix='/FUNow/api')
@@ -127,7 +126,11 @@ def userRatingsGet():
     results = SESSION.execute(select(userRatings)).scalars().all()
     return jsonify({"format":"ratings", "results":[entry.to_dict() for entry in results]})
 
-# Sends up an image folder and name to build image link on the frontend
+@bp.route("/menuWithRatingsGet", methods=["GET"])
+def menuWithRatingsGet():
+    results = SESSION.execute(select(MenuWithRatings)).scalars().all()
+    return jsonify({"format":"menu", "results":[entry.to_dict() for entry in results]})
+
 @bp.route("/weatherImagesCurrent", methods=["GET"]) 
 def weatherImagesCurrent():
     IMAGE_MAP = {
@@ -153,7 +156,6 @@ def weatherImagesCurrent():
     if not weather:
         return jsonify({"error": "No weather data"}), 500
 
-    # Determine folder
     emoji = weather.emoji
     if emoji in ['0x1F326', '0x26C8', '0x1F327']:
         folder = 'rain'
@@ -162,7 +164,6 @@ def weatherImagesCurrent():
     else:
         folder = month  
 
-    # Use the image map to build full URLs
     filenames = IMAGE_MAP.get(folder, [])
     links = [
         f"{folder}/{filename}"

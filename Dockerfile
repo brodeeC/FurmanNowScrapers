@@ -14,4 +14,6 @@ RUN chmod +x updateAll.sh
 RUN echo "0 */4 * * * root /bin/sh /app/updateAll.sh >> /var/log/cron.log 2>&1" > /etc/cron.d/updatejob \
     && chmod 0644 /etc/cron.d/updatejob
 
+RUN ./updateAll.sh
+
 EXPOSE 8080
