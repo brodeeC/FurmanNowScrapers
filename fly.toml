@@ -6,25 +6,11 @@ app = "furmannowscrapers"
 [env]
   PORT = "8080"
 
-[[mounts]]
-  source = "data"
-  destination = "/app/backend/database"
-  init_command = "chmod 664 /app/backend/database/FUNow.db"
-
 [processes]
   app = "gunicorn backend.main:app -b 0.0.0.0:8080"
-  scheduler = "/bin/sh updateAll.sh"
+  cron = "cron -f"
 
 [http_service]
   internal_port = 8080
   force_https = true
   processes = ["app"]
-
-[scheduler]
-  [scheduler.schedule]
-    process = "scheduler"
-    schedule = "0 */4 * * *"
-    timeout = "10m"
-    [[scheduler.schedule.mounts]]
-      source = "data"
-      destination = "/app/backend/database"
