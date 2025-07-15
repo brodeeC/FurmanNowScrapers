@@ -1,7 +1,13 @@
 import sqlite3
+import os
+import psycopg2
 
 def update_image_links(db_path):
-    conn = sqlite3.connect(db_path)
+    # conn = sqlite3.connect(db_path)
+    # cursor = conn.cursor()
+    database_url = os.environ['DATABASE_URL']
+
+    conn = psycopg2.connect(database_url)
     cursor = conn.cursor()
     
     try:
@@ -41,7 +47,12 @@ def update_image_links(db_path):
         conn.close()
 
 def remove_dup_stops(db_path):
-    conn = sqlite3.connect(db_path)
+    # conn = sqlite3.connect(db_path)
+    # cursor = conn.cursor()
+
+    database_url = os.environ['DATABASE_URL']
+
+    conn = psycopg2.connect(database_url)
     cursor = conn.cursor()
 
     stop_name = '600 Block Rutherford Rd'

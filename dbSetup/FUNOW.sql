@@ -1,22 +1,5 @@
 PRAGMA foreign_keys = ON;
--- phpMyAdmin SQL Dump
--- version 4.4.15.10
--- https://www.phpmyadmin.net
---
--- Host: localhost
--- Generation Time: Jun 16, 2025 at 02:19 PM
--- Server version: 5.5.68-MariaDB
--- PHP Version: 5.4.16
 
---
--- Database: FUNOW
---
-
--- --------------------------------------------------------
-
---
--- Table structure for table athletics
---
 
 CREATE TABLE IF NOT EXISTS athletics (
   eventdate TEXT NOT NULL,
@@ -38,18 +21,6 @@ CREATE TABLE IF NOT EXISTS athletics (
   lastUpdated TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
---
--- Dumping data for table athletics
---
-
--- INSERT INTO athletics (eventdate, time, conference, location_indicator, location, sportTitle, sportShort, opponent, noplayText, resultStatus, resultUs, resultThem, prescore_info, postscore_info, url, id, lastUpdated) VALUES
--- ('2025-06-13 00:00:00', 'ALL DAY', 0, 'A', 'Eugene, Ore.', 'Cross Country / Track & Field', 'TRACK', 'NCAA Championship', '', '', '', '', '', '', '/news/2025/6/13/cross-country-track-field-furmans-williams-places-third-in-steeplechase-at-ncaa-championship.aspx', 141412, '2025-06-16 14:00:02'),
--- ('2025-06-19 00:00:00', 'ALL DAY', 0, 'A', 'Eugene, Ore.', 'Cross Country / Track & Field', 'TRACK', 'USATF U20 Championship', '', '', '', '', '', '', 'null', 141413, '2025-06-16 14:00:02'),
--- ('2025-06-19 00:00:00', 'ALL DAY', 0, 'A', 'Eugene, Ore.', 'Cross Country / Track & Field', 'TRACK', 'USATF U20 Championship', '', '', '', '', '', '', 'null', 141414, '2025-06-16 14:00:02'),
--- ('2025-06-19 00:00:00', 'ALL DAY', 0, 'A', 'Eugene, Ore.', 'Cross Country / Track & Field', 'TRACK', 'USATF U20 Championship', '', '', '', '', '', '', 'null', 141415, '2025-06-16 14:00:02'),
--- ('2025-06-19 00:00:00', 'ALL DAY', 0, 'A', 'Eugene, Ore.', 'Cross Country / Track & Field', 'TRACK', 'USATF U20 Championship', '', '', '', '', '', '', 'null', 141416, '2025-06-16 14:00:02');
-
--- --------------------------------------------------------
 
 --
 -- Table structure for table benches

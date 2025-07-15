@@ -1,6 +1,8 @@
 import sqlite3
 import re
 from datetime import datetime
+import os
+import psycopg2
 
 class SQLiteCursorWrapper:
     def __init__(self, cursor):
@@ -46,9 +48,15 @@ class SQLiteCursorWrapper:
         return getattr(self.cursor, name)
 
 class SQLiteConnectionWrapper:
-    def __init__(self, path="backend/database/FUNow.db"):
-        self.conn = sqlite3.connect(path)
-        self.conn.row_factory = sqlite3.Row
+    def __init__(self, path="backend/database/FUNow.db"): # Path is for local database
+        
+        database_url = os.environ['DATABASE_URL']
+
+        self.conn = psycopg2.connect(database_url)
+        self.conn.row_factory = psycopg2.ROWID
+
+        # self.conn = sqlite3.connect(path)         # If using sqlite3
+        # self.conn.row_factory = sqlite3.Row
 
     def cursor(self):
         return SQLiteCursorWrapper(self.conn.cursor())

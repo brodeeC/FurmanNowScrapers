@@ -1,13 +1,20 @@
 import sqlite3
+import os
+import psycopg2
 
-# Connect to your SQLite database (or create it)
-conn = sqlite3.connect('backend/database/FUNow.db')
-cursor = conn.cursor()
+# Conect to sqlite3 db
+# conn = sqlite3.connect('backend/database/FUNow.db')
+# cursor = conn.cursor()
+
+database_url = os.environ['DATABASE_URL']
+
+conn = psycopg2.connect(database_url)
+cur = conn.cursor()
 
 # Read and execute the SQL file
 with open('dbSetup/FUNOW.sql', 'r') as f:
     sql_script = f.read()
 
-cursor.executescript(sql_script)
+cur.executemany(sql_script)
 conn.commit()
 conn.close()

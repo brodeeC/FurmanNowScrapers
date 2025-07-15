@@ -14,3 +14,4 @@ app = "furmannowscrapers"
   internal_port = 8080
   force_https = true
   processes = ["app"]
+
