@@ -1,7 +1,8 @@
-PRAGMA foreign_keys = ON;
+-- PRAGMA foreign_keys = ON;  -- SQLite command
 
 
 CREATE TABLE IF NOT EXISTS athletics (
+  id SERIAL PRIMARY KEY,
   eventdate TEXT NOT NULL,
   time TEXT NOT NULL,
   conference INTEGER NOT NULL,
@@ -17,8 +18,7 @@ CREATE TABLE IF NOT EXISTS athletics (
   prescore_info TEXT NOT NULL,
   postscore_info TEXT NOT NULL,
   url TEXT NOT NULL,
-  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-  lastUpdated TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+  lastUpdated TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 
@@ -27,13 +27,13 @@ CREATE TABLE IF NOT EXISTS athletics (
 --
 
 CREATE TABLE IF NOT EXISTS benches (
-  benchid INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-  material TEXT CHECK('Metal' IN ('Metal','Plastic','Wooden','Concrete')) NOT NULL,
+  benchid SERIAL PRIMARY KEY,
+  material TEXT NOT NULL CHECK (material IN ('Metal', 'Plastic', 'Wooden', 'Concrete')),
   description TEXT NOT NULL,
   dedication TEXT NOT NULL,
-  swinging INTEGER NOT NULL DEFAULT '0',
-  lakeview INTEGER NOT NULL DEFAULT '0',
-  picnic INTEGER NOT NULL DEFAULT '0',
+  swinging INTEGER NOT NULL DEFAULT 0,
+  lakeview INTEGER NOT NULL DEFAULT 0,
+  picnic INTEGER NOT NULL DEFAULT 0,
   latitude REAL NOT NULL,
   longitude REAL NOT NULL
 );
@@ -178,7 +178,7 @@ INSERT INTO benches (benchid, material, description, dedication, swinging, lakev
 --
 
 CREATE TABLE IF NOT EXISTS buildingHours (
-  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  id SERIAL PRIMARY KEY,
   buildingID INTEGER NOT NULL,
   day TEXT NOT NULL,
   dayorder INTEGER NOT NULL,
@@ -247,7 +247,7 @@ END;
 --
 
 CREATE TABLE IF NOT EXISTS buildingLocations (
-  buildingID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  buildingID SERIAL PRIMARY KEY,
   name TEXT NOT NULL,
   nickname TEXT DEFAULT NULL,
   category TEXT NOT NULL,
@@ -409,7 +409,7 @@ END;
 --
 
 CREATE TABLE IF NOT EXISTS BusStops (
-  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  id SERIAL PRIMARY KEY,
   stop TEXT NOT NULL,
   shortname TEXT NOT NULL,
   latitude REAL NOT NULL,
@@ -482,7 +482,7 @@ END;
 --
 
 CREATE TABLE IF NOT EXISTS clps (
-  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  id SERIAL PRIMARY KEY,
   title TEXT NOT NULL DEFAULT '-',
   description TEXT NOT NULL DEFAULT '-',
   location TEXT NOT NULL DEFAULT '-',
@@ -534,7 +534,7 @@ END;
 --
 
 CREATE TABLE IF NOT EXISTS contacts (
-  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  id SERIAL PRIMARY KEY,
   buildingID INTEGER NOT NULL,
   room TEXT NOT NULL,
   name TEXT DEFAULT NULL,
@@ -617,7 +617,7 @@ END;
 --
 
 CREATE TABLE IF NOT EXISTS DHmenu (
-  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  id SERIAL PRIMARY KEY,
   itemID INTEGER NOT NULL, 
   meal TEXT NOT NULL,
   itemName TEXT NOT NULL,
@@ -651,7 +651,7 @@ CREATE TABLE IF NOT EXISTS userRatings (
 --
 
 CREATE TABLE IF NOT EXISTS foodService (
-  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  id SERIAL PRIMARY KEY,
   name TEXT DEFAULT NULL,
   fullname TEXT NOT NULL DEFAULT '',
   location TEXT DEFAULT NULL,
@@ -719,7 +719,7 @@ END;
 --
 
 CREATE TABLE IF NOT EXISTS FU20_RestaurantHours (
-  hoursID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  hoursID SERIAL PRIMARY KEY,
   ManuallyEntered INTEGER NOT NULL DEFAULT '0',
   id INTEGER NOT NULL,
   meal TEXT DEFAULT NULL,
@@ -1025,41 +1025,14 @@ CREATE TABLE IF NOT EXISTS GolfSchedule (
   signedUp TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
---
--- Dumping data for table GolfSchedule
---
 
-INSERT INTO GolfSchedule (playerId, date, preferredTime, other, teeTime, rec, signedUp) VALUES
-('bc25', '2025-06-17', 'C', '', 0, 625, '2025-06-13 21:05:19'),
-('bc25', '2025-06-19', 'C', '', 0, 626, '2025-06-13 21:05:33'),
-('bc11', '2025-06-19', 'B', '', 0, 628, '2025-06-13 21:44:42'),
-('bg16', '2025-06-17', 'C', '', 0, 629, '2025-06-14 13:03:28'),
-('bg16', '2025-06-19', 'C', '', 0, 630, '2025-06-14 13:03:37'),
-('gl80', '2025-06-17', 'C', '', 0, 631, '2025-06-14 13:31:06'),
-('ww77', '2025-06-17', 'C', '', 0, 632, '2025-06-15 16:31:49'),
-('ww77', '2025-06-19', 'C', '', 0, 633, '2025-06-15 16:32:05'),
-('rt66', '2025-06-17', 'E', '', 0, 634, '2025-06-15 21:48:02'),
-('rt66', '2025-06-19', 'E', '', 0, 635, '2025-06-15 21:48:13'),
-('jc13', '2025-06-17', 'E', '', 0, 636, '2025-06-16 01:36:57'),
-('rc45', '2025-06-17', 'B', '', 0, 637, '2025-06-16 02:50:17'),
-('bc11', '2025-06-17', 'C', '', 0, 638, '2025-06-16 09:04:03'),
-('jr88', '2025-06-17', 'C', '', 0, 639, '2025-06-16 11:55:51'),
-('jr88', '2025-06-19', 'D', '', 0, 640, '2025-06-16 11:56:17'),
-('jp45', '2025-06-17', 'B', 'Anytime after 4:30 would work this week', 0, 641, '2025-06-16 12:21:26'),
-('hf695', '2025-06-17', 'D', '', 0, 642, '2025-06-16 12:50:59'),
-('jh11', '2025-06-17', 'D', '', 0, 643, '2025-06-16 13:08:40'),
-('jh11', '2025-06-19', 'D', '', 0, 644, '2025-06-16 13:08:48'),
-('sm45', '2025-06-17', 'D', '', 0, 645, '2025-06-16 13:46:48'),
-('jk15', '2025-06-17', 'B', '', 0, 646, '2025-06-16 13:58:56');
-
--- --------------------------------------------------------
 
 --
 -- Table structure for table healthSafety
 --
 
 CREATE TABLE IF NOT EXISTS healthSafety (
-  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  id SERIAL PRIMARY KEY,
   name TEXT NOT NULL,
   shortName TEXT DEFAULT NULL,
   content TEXT NOT NULL,
@@ -1132,7 +1105,7 @@ END;
 --
 
 CREATE TABLE IF NOT EXISTS importantDates (
-  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  id SERIAL PRIMARY KEY,
   title TEXT DEFAULT NULL,
   date date NOT NULL,
   startTime time NOT NULL,
@@ -1200,7 +1173,7 @@ END;
 --
 
 CREATE TABLE IF NOT EXISTS importantLinks (
-  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  id SERIAL PRIMARY KEY,
   priority INTEGER NOT NULL DEFAULT '1',
   name TEXT NOT NULL,
   content TEXT NOT NULL,
@@ -1240,7 +1213,7 @@ INSERT INTO importantLinks (id, priority, name, content, type) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS newsContent (
-  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  id SERIAL PRIMARY KEY,
   title TEXT NOT NULL,
   author TEXT NOT NULL,
   description TEXT NOT NULL,
@@ -1258,7 +1231,7 @@ CREATE TABLE IF NOT EXISTS newsContent (
 --
 
 CREATE TABLE IF NOT EXISTS newsPublishers (
-  publisherID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  publisherID SERIAL PRIMARY KEY,
   name TEXT NOT NULL,
   link TEXT NOT NULL,
   image TEXT NOT NULL,
@@ -1291,7 +1264,7 @@ INSERT INTO newsPublishers (publisherID, name, link, image, studentRun) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS parkingResources (
-  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  id SERIAL PRIMARY KEY,
   name TEXT NOT NULL,
   type TEXT CHECK('link' IN ('link','phone')) NOT NULL,
   resource TEXT NOT NULL
@@ -1315,7 +1288,7 @@ INSERT INTO parkingResources (id, name, type, resource) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS parkingZones (
-  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  id SERIAL PRIMARY KEY,
   zoneName TEXT NOT NULL,
   boundry TEXT NOT NULL,
   yellow INTEGER NOT NULL DEFAULT '0',
@@ -1334,7 +1307,7 @@ CREATE TABLE IF NOT EXISTS parkingZones (
 --
 
 CREATE TABLE IF NOT EXISTS restaurantMenu (
-  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  id SERIAL PRIMARY KEY,
   restaurant TEXT NOT NULL,
   item TEXT NOT NULL
 );
@@ -1416,7 +1389,7 @@ END;
 --
 
 CREATE TABLE IF NOT EXISTS shuttleLocations (
-  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  id SERIAL PRIMARY KEY,
   vehicle TEXT NOT NULL,
   latitude REAL(10,8) DEFAULT NULL,
   longitude REAL(10,8) DEFAULT NULL,
@@ -1515,7 +1488,7 @@ CREATE TABLE IF NOT EXISTS stopsDistanceTable (
 
 
 CREATE TABLE IF NOT EXISTS stopsTable (
-  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  id SERIAL PRIMARY KEY,
   lineID INTEGER NOT NULL,
   stopOrderID INTEGER NOT NULL,
   stopName TEXT NOT NULL,
@@ -1744,7 +1717,7 @@ INSERT INTO TestMenu (id, meal, itemName, station) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS TestNulls (
-  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  id SERIAL PRIMARY KEY,
   title TEXT NOT NULL,
   description TEXT NOT NULL,
   location TEXT NOT NULL
@@ -1765,7 +1738,7 @@ INSERT INTO TestNulls (id, title, description, location) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS TESTtimes (
-  hoursID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  hoursID SERIAL PRIMARY KEY,
   ManuallyEntered INTEGER NOT NULL DEFAULT '0',
   id INTEGER NOT NULL,
   meal TEXT DEFAULT NULL,
@@ -1815,7 +1788,7 @@ INSERT INTO TESTtimes (hoursID, ManuallyEntered, id, meal, start, end, dayOfWeek
 --
 
 CREATE TABLE IF NOT EXISTS times (
-  hoursID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  hoursID SERIAL PRIMARY KEY,
   id INTEGER NOT NULL,
   meal TEXT DEFAULT NULL,
   start time DEFAULT NULL,
@@ -1906,7 +1879,7 @@ END;
 --
 
 CREATE TABLE IF NOT EXISTS updateTimes (
-  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  id SERIAL PRIMARY KEY,
   newestUpdate TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updatedTable TEXT NOT NULL
 );
@@ -1935,7 +1908,7 @@ INSERT INTO updateTimes (id, newestUpdate, updatedTable) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS vehicleNames (
-  vehicleIndex INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  vehicleIndex SERIAL PRIMARY KEY,
   name TEXT NOT NULL,
   shortName TEXT NOT NULL,
   serviceTimes TEXT NOT NULL,
@@ -1968,7 +1941,7 @@ INSERT INTO vehicleNames (vehicleIndex, name, shortName, serviceTimes, locations
 --
 
 CREATE TABLE IF NOT EXISTS weather (
-  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  id SERIAL PRIMARY KEY,
   day TEXT DEFAULT NULL,
   start TEXT DEFAULT NULL,
   end TEXT DEFAULT NULL,
@@ -1991,7 +1964,7 @@ CREATE TABLE IF NOT EXISTS weather (
 --
 
 CREATE TABLE IF NOT EXISTS ZToDo (
-  recId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  recId SERIAL PRIMARY KEY,
   taskName TEXT NOT NULL,
   duration time NOT NULL DEFAULT '00:01:00',
   indoor INTEGER NOT NULL DEFAULT '1',

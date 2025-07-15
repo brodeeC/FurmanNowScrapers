@@ -15,6 +15,6 @@ cur = conn.cursor()
 with open('dbSetup/FUNOW.sql', 'r') as f:
     sql_script = f.read()
 
-cur.executemany(sql_script)
+cur.execute(sql_script)
 conn.commit()
 conn.close()

@@ -8,6 +8,9 @@ COPY ./ .
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
+COPY create_db.sh .
+RUN chmod +x create_db.sh
+
 COPY updateAll.sh .
 RUN chmod +x updateAll.sh
 
