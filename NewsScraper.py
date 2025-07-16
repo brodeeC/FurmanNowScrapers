@@ -133,7 +133,6 @@ class NewsScraper(Scraper):
     and have set up the Echo scraper to only do that when it can tell the page
     has been updated in the past few hours.
     '''    
-    # TODO: Once server acquired, switch this to new server operation.
     def getPDFintoPNG(source, fileName):
         pdfTempFile = f"/home/csdaemon/pdf_of_{fileName}.pdf"
         with open(pdfTempFile, 'wb') as pdf:
@@ -682,7 +681,7 @@ class ShiScraper(NewsScraper):
         return articles
 
 def purgeOldArticles(connection, publisherID):
-    sql = f"DELETE FROM `{NEWS_TABLE}` WHERE `publisherID` = {publisherID}"
+    sql = f'DELETE FROM "{NEWS_TABLE}" WHERE publisherID = {publisherID}'
     with connection.cursor() as cursor:
         try:
             cursor.execute(sql)

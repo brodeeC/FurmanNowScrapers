@@ -63,27 +63,33 @@ for mealBlock in soup.find_all('section', attrs={'class':re.compile("^panel s-wr
 #          cursorclass=pymysql.cursors.DictCursor)
 connection = formConnections()
 
-try:
-    with connection.cursor() as cursor:
-        removeSQL = "DELETE FROM DHmenu;"
-        cursor.execute(removeSQL)
+with connection.cursor() as cursor:
+    try:
+        cursor.execute('DELETE FROM "DHmenu"')
         for meal in menu:
             for item in menu[meal]:
                 name = item[0]
                 station = item[1]
                 itemID = getID(meal, name, station)
-                # Insert DHmenu
-                sql = "insert DHmenu (`itemID`, `meal`, `itemName`, `station`) values (%s, %s, %s, %s)"
+                
+                sql = """
+                    INSERT INTO "DHmenu" 
+                    ("itemID", "meal", "itemName", "station") 
+                    VALUES (%s, %s, %s, %s)
+                """
                 cursor.execute(sql, (itemID, meal, name, station))
-                # Insert Rating
-                sql = "INSERT OR IGNORE INTO userRatings (itemID) VALUES (?)"
-                cursor.execute(sql, (itemID,), skip_conversion=True)
-    connection.commit()
-except:
-    connection.rollback()
-    print(sqlite3.Error)
-finally:
-    connection.close()
+                
+                sql = """
+                    INSERT INTO "userRatings" ("itemID") 
+                    VALUES (%s)
+                    ON CONFLICT ("itemID") DO NOTHING
+                """
+                cursor.execute(sql, (itemID,))
+                
+        connection.commit()
+    except Exception as e:
+        connection.rollback()
+        raise Exception(f"Database operation failed: {str(e)}")
 
 
 #try:

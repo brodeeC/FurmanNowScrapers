@@ -117,23 +117,30 @@ class RouteScraper(Scraper, Queriable):
         self.lineRoute = None
  
     def updateInto(self, table, connection, commit=True):
-        pline = []
-        for p in self.lineRoute:
-            pline.append((p.lat, p.lon))
-        
-        encodedPolyline = polyline.encode(pline)
-        self.routePolyline = encodedPolyline
+        try:
+            pline = [(p.lat, p.lon) for p in self.lineRoute]
+            self.routePolyline = polyline.encode(pline)
 
-        query = "UPDATE `" + table + "` SET name = %s, routePolyline = %s WHERE vehicleIndex = %s"
-        attrs = (self.lineName, self.routePolyline, self.idInTable)
-    
-        RouteScraper.query(connection, (query, attrs), commit)
-        
-        if self.stopsTable is not None:
-            self.lineRoute[0].clearFrom(self.stopsTable, connection)
-            for point in self.lineRoute:
-                if isinstance(point, LineStop):
-                    point.insertInto(self.stopsTable, connection)
+            query = """
+                UPDATE "{table}"
+                SET name = %s, "routePolyline" = %s
+                WHERE "vehicleIndex" = %s
+            """.format(table=table)
+            
+            attrs = (self.lineName, self.routePolyline, self.idInTable)
+            
+            RouteScraper.query(connection, (query, attrs), commit)
+            
+            if self.stopsTable is not None:
+                self.lineRoute[0].clearFrom(self.stopsTable, connection)
+                for point in self.lineRoute:
+                    if isinstance(point, LineStop):
+                        point.insertInto(self.stopsTable, connection)
+                        
+        except Exception as e:
+            if commit:  
+                connection.rollback()
+            raise RuntimeError(f"Failed to update {table}: {str(e)}") from e
                 
     def saveRouteToJSONFile(self, filepath):
         dct = {"lineName" : self.lineName,

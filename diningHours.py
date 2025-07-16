@@ -23,7 +23,7 @@ r = requests.get(url)
 html = r.text
 soup = BeautifulSoup(html, features="html.parser")
 
-# filename = '/home/csdaemon/aux/userCred.txt' ## BUG: File not found.
+# filename = '/home/csdaemon/aux/userCred.txt' 
 # file = open(filename, 'r')
 # credentials = file.readlines()
 # username = credentials[0].strip()
@@ -88,30 +88,30 @@ for i in range (0, len(fullnames)):
 print(D)
 
 try:
-    i = 0
     for name in D:
         with connection.cursor() as cursor:
-            # Get the ID
-            sql = "SELECT id FROM foodService WHERE fullname = %s"
-            cursor.execute(sql, (name,))
-            result = cursor.fetchone()
-            if result:
-                id = result['id']
+            try:
+                sql = 'SELECT id FROM "foodService" WHERE fullname = %s'
+                cursor.execute(sql, (name,))
+                result = cursor.fetchone()
                 
-                # Delete old times
-                sql = "DELETE FROM `times` WHERE `id` = %s"
+                if not result:
+                    continue  
+                    
+                id = result[0]  
+                
+                sql = 'DELETE FROM "times" WHERE id = %s'
                 cursor.execute(sql, (id,))
                 
-                # Insert new times
                 for j in range(len(D[name][0])):
-                    if D[name][1][j] == "":  # Empty start time
-                        sql = """INSERT INTO `times` 
-                                (`id`, `dayOfWeek`, `dayOrder`) 
+                    if not D[name][1][j]:  
+                        sql = """INSERT INTO "times" 
+                                (id, dayOfWeek, dayOrder) 
                                 VALUES (%s, %s, %s)"""
                         cursor.execute(sql, (id, "Mon-Sun", 0))
                     else:
-                        sql = """INSERT INTO `times` 
-                                (`id`, `meal`, `start`, `end`, `dayOfWeek`, `dayOrder`) 
+                        sql = """INSERT INTO "times" 
+                                (id, meal, start_time, end_time, dayOfWeek, dayOrder) 
                                 VALUES (%s, %s, %s, %s, %s, %s)"""
                         cursor.execute(sql, (
                             id, 
@@ -121,10 +121,12 @@ try:
                             "Mon-Sun", 
                             0
                         ))
+                
                 connection.commit()
-        i += 1
-except Exception as e:
-    connection.rollback()
-    print(f"Error: {e}")
+            
+            except Exception as e:
+                connection.rollback()
+                print(f"Error processing {name}: {str(e)}")
+                raise  
 finally:
     connection.close()

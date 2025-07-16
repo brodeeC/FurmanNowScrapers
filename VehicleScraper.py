@@ -47,21 +47,33 @@ class Vehicle(Insertable, Directioned):
         self.updated = datetime.datetime.now()
 
     def updateInto(self, table, connection):
-        query = f"UPDATE `{table}` SET latitude = %s, longitude = %s, direction = %s, speed = %s, updated = %s, nextStopDistance = %s, nextStopID = %s WHERE vehicle = %s"
-        fields = (self.lat, self.lon, self.heading, self.speed, self.updated, self.nextStopDist, self.nextStopID, self.name)
+        query = """
+            UPDATE "{table}" 
+            SET latitude = %s, 
+                longitude = %s, 
+                direction = %s, 
+                speed = %s, 
+                updated = %s, 
+                "nextStopDistance" = %s, 
+                "nextStopID" = %s 
+            WHERE vehicle = %s
+        """.format(table=table)
+        fields = (self.lat, self.lon, self.heading, self.speed, 
+                 self.updated, self.nextStopDist, self.nextStopID, self.name)
         Vehicle.query(connection, (query, fields))
-        connection.commit()
         
     def insertInto(self, table, connection, commit=True):
-        attrs = [["vehicle", self.name],
-                 ["latitude", self.lat],
-                 ["longitude", self.lon],
-                 ["speed", self.speed],
-                 ["direction", self.heading],
-                 ["nextStopDistance", self.nextStopDist],
-                 ["nextStopID", self.nextStopID],
-                 ["updated", self.updated]]
-        print(attrs)        
+        attrs = [
+            ["vehicle", self.name],
+            ["latitude", self.lat],
+            ["longitude", self.lon],
+            ["speed", self.speed],
+            ["direction", self.heading],
+            ["nextStopDistance", self.nextStopDist],
+            ["nextStopID", self.nextStopID],
+            ["updated", self.updated]
+        ]
+        
         if self.capacity is not None:
             attrs.append(["capacity", self.capacity])
             
@@ -134,30 +146,56 @@ def main():
     shut += [(b, busRoute) for b in BusScraper(busRoute.lineIDExternal).tryPull()]
             
     connection = WebConnectors.formConnections()
-    
-    for shuttle, route in shut:
-        stopDists = route.distToStops(shuttle)
-        isRunning = not (shuttle.lat is None)
-        shuttle.nextStopID = stopDists[0][0].stopOrderID if isRunning else None
-        shuttle.nextStopDist = stopDists[0][1] if isRunning else None
-        
-        shuttle.updateInto(SHUTTLE_LOCATION_TABLE, connection)
-        Clearable._clearHelper(STOPS_DIST_TABLE, connection, [["lineID", route.idInTable]], True)
-        for i, stops in enumerate(stopDists):
-            attrs = [["stopOrderID", stops[0].stopOrderID],
-                     ["lineID", stops[0].lineTableID],
-                     ["distFromVehicle", stops[1] if isRunning else None],
-                     ["vehicleStopsUntil", i if isRunning else None]]
-            Insertable._insertIntoHelper(STOPS_DIST_TABLE, connection, attrs, True)
-            
-    clearOutdated = f"UPDATE {SHUTTLE_LOCATION_TABLE} SET latitude=?, longitude=?, direction=?, speed=?, updated=? WHERE updated < datetime('now', '-3 minutes')"
-    var = (None, None, None, None, datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
-    Queriable.query(connection, (clearOutdated, var))
 
-    clearStopsOutdated = f"UPDATE {STOPS_DIST_TABLE} SET distFromVehicle = ?, vehicleStopsUntil = ?, updated = ? WHERE updated < datetime('now', '-3 minutes')"
-    stopVars = (None, None, datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
-    Queriable.query(connection, (clearStopsOutdated, stopVars))
-    connection.close()
+    try:
+        for shuttle, route in shut:
+            stopDists = route.distToStops(shuttle)
+            isRunning = not (shuttle.lat is None)
+            shuttle.nextStopID = stopDists[0][0].stopOrderID if isRunning else None
+            shuttle.nextStopDist = stopDists[0][1] if isRunning else None
+            
+            shuttle.updateInto(SHUTTLE_LOCATION_TABLE, connection)
+            Clearable._clearHelper(STOPS_DIST_TABLE, connection, [["lineID", route.idInTable]], True)
+            for i, stops in enumerate(stopDists):
+                attrs = [
+                    ["stopOrderID", stops[0].stopOrderID],
+                    ["lineID", stops[0].lineTableID],
+                    ["distFromVehicle", stops[1] if isRunning else None],
+                    ["vehicleStopsUntil", i if isRunning else None],
+                    ["updated", datetime.datetime.now()]
+                ]
+                Insertable._insertIntoHelper(STOPS_DIST_TABLE, connection, attrs, True)
+                    
+                # Clear outdated vehicles (PostgreSQL version)
+                clearOutdated = """
+                    UPDATE "{table}"
+                    SET latitude = NULL,
+                        longitude = NULL,
+                        direction = NULL,
+                        speed = NULL,
+                        updated = %s
+                    WHERE updated < NOW() - INTERVAL '3 minutes'
+                """.format(table=SHUTTLE_LOCATION_TABLE)
+                Queriable.query(connection, (clearOutdated, (datetime.datetime.now(),)))
+                
+                # Clear outdated stops (PostgreSQL version)
+                clearStopsOutdated = """
+                    UPDATE "{table}"
+                    SET "distFromVehicle" = NULL,
+                        "vehicleStopsUntil" = NULL,
+                        updated = %s
+                    WHERE updated < NOW() - INTERVAL '3 minutes'
+                """.format(table=STOPS_DIST_TABLE)
+                Queriable.query(connection, (clearStopsOutdated, (datetime.datetime.now(),)))
+                
+                connection.commit()
+                
+    except Exception as e:
+        connection.rollback()
+        print(f"Error occurred: {e}")
+        raise
+    finally:
+        connection.close()
 
 if __name__ == "__main__":
     main()

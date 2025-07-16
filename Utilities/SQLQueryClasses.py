@@ -34,7 +34,7 @@ class Insertable(ABC, Queriable):
     # cursor.execute to run an insert statement 
     # (e.g. cursor.execute(*formulateInsert(table, attrs, dct))). 
     def _formulateInsert(table, attrs):
-        insert =  f"INSERT INTO `{table}` ("
+        insert =  f'INSERT INTO "{table}" ('
         vals = "VALUES ("
         for e in attrs:
             insert += f"{str(e[0])},"
@@ -71,25 +71,39 @@ class Selector(Queriable):
         elif isinstance(attrs, str) and attrs == "All":
             fieldsSelected = "*"
         
-        select = f"SELECT {fieldsSelected} FROM {table} "
-        if conds is None or len(conds) == 0:
+        select = f'SELECT {fieldsSelected} FROM "{table}"'
+        if not conds:
             return select, ()
 
-        select += "WHERE "
-        for c in conds:
-            select += " ".join(["",
-                                c[0], 
-                                "=" if len(c) <= 2 else c[2],
-                                "%s", 
-                                "OR" if len(c) <= 3 else c[3]])
-        select = select[:-2]
+        where_parts = []
+        params = []
         
-        return select, tuple(e[1] for e in conds)
+        for cond in conds:
+            if len(cond) == 2:
+                col, val = cond
+                op = "="
+                connector = "OR"
+            elif len(cond) == 3:
+                col, op, val = cond
+                connector = "OR"
+            elif len(cond) == 4:
+                col, op, val, connector = cond
+            else:
+                raise ValueError(f"Invalid condition format: {cond}")
+            
+            where_parts.append(f"{col} {op} %s {connector}")
+            params.append(val)
+        
+        # Join all conditions and remove the last connector
+        where_clause = " ".join(where_parts)
+        where_clause = where_clause[:-(len(connector)+1)] 
+        
+        return f"{select} WHERE {where_clause}", tuple(params)
 
 class Clearable(ABC, Queriable):
     
     def _formulateClear(table, conds=None) -> Tuple[str, Tuple[str]]:
-        delete = f"DELETE FROM `{table}`"
+        delete = f'DELETE FROM "{table}"'
         if conds is None or len(conds) == 0:
             return delete
         delete += " WHERE"

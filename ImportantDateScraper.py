@@ -120,7 +120,7 @@ def parseEvents(eventFeed):
     return parsed
 
 def purgeOldEvents(connection):
-    sql = f"DELETE FROM `{IMPORTANT_DATES_TABLE}`"
+    sql = f'DELETE FROM "{IMPORTANT_DATES_TABLE}"'
     with connection.cursor() as cursor:
         try:
             cursor.execute(sql)

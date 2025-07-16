@@ -263,14 +263,14 @@ def main():
                 cursor.execute(removeSQL)
                 id = 1
                 for name,event in syncDinDict.items():
-                    insert =  "INSERT INTO clps (id,title,description,location,date,start,end,organization,eventType) "
+                    insert =  "INSERT INTO clps (id,title,description,location,date,start_time,end_time,organization,eventType) "
                     vals = "VALUES ('"+str(id)+"', '"+event["title"]+"', '"+event["description"]+"', '"+event["location"]+"', '"+event["date"]+"', '"+event["start"]+"', '"+event["end"]+"', '"+event["organization"]+"', '"+event["eventType"]+"');"
                     insertSQL = insert+vals
                     id += 1
                     cursor.execute(insertSQL)
                     print(f'&:{event["title"]} @ {event["start"]} on {event["date"]}')
                 for name,event in clpDict.items():
-                    insert =  "INSERT INTO clps (id,title,description,location,date,start,end,organization,eventType) "
+                    insert =  "INSERT INTO clps (id,title,description,location,date,start_time,end_time,organization,eventType) "
                     vals = "VALUES ('"+str(id)+"', '"+event["title"]+"', '"+event["description"]+"', '"+event["location"]+"', '"+event["date"]+"', '"+event["start"]+"', '"+event["end"]+"', '"+event["organization"]+"', '"+event["eventType"]+"');"
                     insertSQL = insert+vals
                     id += 1

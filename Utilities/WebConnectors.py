@@ -11,6 +11,10 @@ from abc import ABC, abstractmethod
 import traceback
 import json
 from typing import List
+import psycopg2
+import os
+from psycopg2.extras import DictCursor
+
 
 
 from Utilities.SQLiteCursorWrapper import SQLiteConnectionWrapper
@@ -107,7 +111,20 @@ def formConnections():
     #                              write_timeout = 2)
 
     #SQLiteConnectionWrapper("backend/database/FUNow.db") # Use local db to test scrapers and find bug.
-    return PostgresConnection()
+    try:
+        conn = psycopg2.connect(
+            dsn=os.environ['DATABASE_URL'],
+            cursor_factory=DictCursor,
+            connect_timeout=2,
+            application_name="FUNOW"
+        )
+        conn.autocommit = False
+        with conn.cursor() as cursor:
+            cursor.execute("SET TIME ZONE 'UTC';")
+        return conn
+    except psycopg2.Error as e:
+        print(f"Connection failed: {e}")
+        raise
 
 def youTubePullLatest(channelID, numRequested = 10):
     filename = "backend/aux/youtubeAPICred.txt"

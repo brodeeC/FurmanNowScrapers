@@ -34,8 +34,8 @@ WEATHER_TABLE = "weather"
 class Forecast(Clearable, Insertable):
     idnum : int
     day : str
-    start : str
-    end : str
+    start_time : str
+    end_time : str
     isDaytime : str
     currTemp : int
     highTemp : int
@@ -64,8 +64,8 @@ class Forecast(Clearable, Insertable):
         # the field "id" in the table.
         attrs = [["id",        self.idnum],
                  ["day",        self.day], 
-                 ["start",      self.start],
-                 ["end",        self.end],
+                 ["start_time",      self.start_time],
+                 ["end_time",        self.end_time],
                  ["isDayTime",  self.isDaytime],
                  ["tempCurrent", self.currTemp],
                  ["tempHi",     self.highTemp],

@@ -26,18 +26,19 @@ class PostgresConnection:
             raise
     
     def _convert_query(self, query):
-        """Convert MySQL-style queries to PostgreSQL format"""
-        # Replace backticks with PostgreSQL's double quotes
-        query = query.replace('`', '"')
-        
-        # Replace MySQL's %s placeholders if they exist
-        if '%s' in query and not any(w in query.upper() for w in ['LIKE', 'ILIKE']):
-            query = query.replace('%s', '%s')  # PostgreSQL also uses %s
-        
-        # Fix INSERT statements if needed
-        query = re.sub(r'INSERT\s+(IGNORE\s+)?INTO\s+', 'INSERT INTO ', query, flags=re.IGNORECASE)
+        """Convert MySQL-style queries to PostgreSQL format by converting backticked identifiers to double quotes"""
+        query = re.sub(
+            r'`([^`]+)`', 
+            r'"\1"', 
+            query
+        )
         
         return query
+
+    def rollback(self):
+        """Explicit rollback method"""
+        if self.conn and not self.conn.closed:
+            self.conn.rollback()
 
     @contextmanager
     def cursor(self):
