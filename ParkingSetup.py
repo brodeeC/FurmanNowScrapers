@@ -51,9 +51,9 @@ def extract_data(file_path):
             cursor = conn.cursor()
 
             cursor.execute("""
-                INSERT INTO parkingZones (
+                INSERT INTO "parkingZones" (
                     id, zoneName, boundry, yellow, green, blue, silver, orange, purple, lightPurple, public_col
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)  
             """, (
                 _id,
                 zoneName,

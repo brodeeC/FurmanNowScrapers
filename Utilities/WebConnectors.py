@@ -14,6 +14,7 @@ from typing import List
 
 
 from Utilities.SQLiteCursorWrapper import SQLiteConnectionWrapper
+from Utilities.PostgreCursorWrapper import PostgresConnection
 
 class Scraper(ABC):
     
@@ -105,7 +106,8 @@ def formConnections():
     #                              read_timeout = 2,
     #                              write_timeout = 2)
 
-    return SQLiteConnectionWrapper("backend/database/FUNow.db") # Use local db to test scrapers and find bug.
+    #SQLiteConnectionWrapper("backend/database/FUNow.db") # Use local db to test scrapers and find bug.
+    return PostgresConnection()
 
 def youTubePullLatest(channelID, numRequested = 10):
     filename = "backend/aux/youtubeAPICred.txt"
