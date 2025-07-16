@@ -542,8 +542,8 @@ CREATE TABLE IF NOT EXISTS clps (
   description TEXT NOT NULL DEFAULT '-',
   location TEXT NOT NULL DEFAULT '-',
   date date DEFAULT NULL,
-  start time DEFAULT NULL,
-  end time DEFAULT NULL,
+  start_time time DEFAULT NULL,
+  end_time time DEFAULT NULL,
   organization TEXT NOT NULL DEFAULT '-',
   eventType TEXT NOT NULL DEFAULT 'CLP',
   lastUpdated TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
@@ -798,8 +798,8 @@ CREATE TABLE IF NOT EXISTS FU20_RestaurantHours (
   ManuallyEntered INTEGER NOT NULL DEFAULT '0',
   id INTEGER NOT NULL,
   meal TEXT DEFAULT NULL,
-  start time DEFAULT NULL,
-  end time DEFAULT NULL,
+  start_time time DEFAULT NULL,
+  end_time time DEFAULT NULL,
   dayOfWeek TEXT DEFAULT NULL,
   dayOrder INTEGER NOT NULL
 );
@@ -972,7 +972,7 @@ CREATE TABLE IF NOT EXISTS GolfPlayers (
   startYear year(4) NOT NULL,
   authpwd TEXT NOT NULL,
   hpwd TEXT NOT NULL,
-  rec INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  rec SERIAL PRIMARY KEY,
   carrier TEXT NOT NULL,
   phone TEXT NOT NULL,
   lateRequest INTEGER NOT NULL
@@ -1079,7 +1079,7 @@ CREATE TABLE IF NOT EXISTS GolfRounds (
   points INTEGER NOT NULL,
   playToTarget INTEGER NOT NULL,
   specialDay INTEGER NOT NULL DEFAULT '0',
-  rec INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT
+  rec SERIAL PRIMARY KEY
 );
 
 --
@@ -1096,7 +1096,7 @@ CREATE TABLE IF NOT EXISTS GolfSchedule (
   preferredTime TEXT NOT NULL DEFAULT 'any',
   other TEXT NOT NULL,
   teeTime INTEGER NOT NULL DEFAULT '0',
-  rec INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  rec SERIAL PRIMARY KEY,
   signedUp TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -1524,8 +1524,8 @@ EXECUTE FUNCTION rm_after_delete();
 CREATE TABLE IF NOT EXISTS shuttleLocations (
   id SERIAL PRIMARY KEY,
   vehicle TEXT NOT NULL,
-  latitude REAL(10,8) DEFAULT NULL,
-  longitude REAL(10,8) DEFAULT NULL,
+  latitude DECIMAL(10,8) DEFAULT NULL, 
+  longitude DECIMAL(10,8) DEFAULT NULL,
   speed INTEGER DEFAULT NULL,
   direction INTEGER DEFAULT NULL,
   nextStopDistance REAL DEFAULT NULL,
@@ -1562,7 +1562,7 @@ CREATE TABLE IF NOT EXISTS Standups (
   priorDay TEXT NOT NULL,
   thisDay TEXT NOT NULL,
   blockers TEXT NOT NULL,
-  recNum INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT
+  recNum SERIAL PRIMARY KEY
 );
 
 --
@@ -1894,7 +1894,7 @@ CREATE TABLE IF NOT EXISTS TESTtimes (
 -- Dumping data for table TESTtimes
 --
 
-INSERT INTO TESTtimes (hoursID, ManuallyEntered, id, meal, start, end, dayOfWeek, dayOrder) VALUES
+INSERT INTO TESTtimes (hoursID, ManuallyEntered, id, meal, start_time, end_time, dayOfWeek, dayOrder) VALUES
 (14, 1, 23, NULL, '11:00:00', '21:00:00', 'Mon-Fri', 0),
 (16, 1, 23, NULL, '14:00:00', '21:00:00', 'Sun', 6),
 (18, 1, 28, NULL, '08:30:00', '18:00:00', 'Mon-Fri', 0),
@@ -1945,7 +1945,7 @@ CREATE TABLE IF NOT EXISTS times (
 -- Dumping data for table times
 --
 
-INSERT INTO times (hoursID, id, meal, start, end, dayOfWeek, dayOrder, lastUpdated) VALUES
+INSERT INTO times (hoursID, id, meal, start_time, end_time, dayOfWeek, dayOrder, lastUpdated) VALUES
 (6, 22, NULL, '11:00:00', '21:00:00', 'Mon-Fri', 0, '0000-00-00 00:00:00'),
 (7, 22, NULL, '14:00:00', '21:00:00', 'Sun', 6, '0000-00-00 00:00:00'),
 (13, 21, NULL, '08:00:00', '21:00:00', 'Mon-Fri', 0, '0000-00-00 00:00:00'),
@@ -2082,8 +2082,8 @@ INSERT INTO vehicleNames (vehicleIndex, name, shortName, serviceTimes, locations
 CREATE TABLE IF NOT EXISTS weather (
   id SERIAL PRIMARY KEY,
   day TEXT DEFAULT NULL,
-  start TEXT DEFAULT NULL,
-  end TEXT DEFAULT NULL,
+  start_time TEXT DEFAULT NULL,
+  end_time TEXT DEFAULT NULL,
   isDayTime TEXT NOT NULL DEFAULT 'True',
   tempCurrent INTEGER DEFAULT NULL,
   tempHi INTEGER NOT NULL,

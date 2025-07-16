@@ -1,6 +1,8 @@
 import json
 import sqlite3
 import polyline
+import psycopg2
+import os
 
 def handle_colors(colors):
     color_dict = {
@@ -43,7 +45,9 @@ def extract_data(file_path):
             colors = properties['colors']
             color_dict = handle_colors(colors)
             
-            conn = sqlite3.connect('backend/database/FUNow.db')
+            database_url = os.environ['DATABASE_URL']
+
+            conn = psycopg2.connect(database_url)
             cursor = conn.cursor()
 
             cursor.execute("""
