@@ -1,7 +1,5 @@
-PRAGMA foreign_keys = ON;
-
-
 CREATE TABLE IF NOT EXISTS athletics (
+  id SERIAL PRIMARY KEY,
   eventdate TEXT NOT NULL,
   time TEXT NOT NULL,
   conference INTEGER NOT NULL,
@@ -17,8 +15,7 @@ CREATE TABLE IF NOT EXISTS athletics (
   prescore_info TEXT NOT NULL,
   postscore_info TEXT NOT NULL,
   url TEXT NOT NULL,
-  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-  lastUpdated TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+  lastUpdated TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 
@@ -27,13 +24,13 @@ CREATE TABLE IF NOT EXISTS athletics (
 --
 
 CREATE TABLE IF NOT EXISTS benches (
-  benchid INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-  material TEXT CHECK('Metal' IN ('Metal','Plastic','Wooden','Concrete')) NOT NULL,
+  benchid SERIAL PRIMARY KEY,
+  material TEXT NOT NULL CHECK (material IN ('Metal', 'Plastic', 'Wooden', 'Concrete')),
   description TEXT NOT NULL,
   dedication TEXT NOT NULL,
-  swinging INTEGER NOT NULL DEFAULT '0',
-  lakeview INTEGER NOT NULL DEFAULT '0',
-  picnic INTEGER NOT NULL DEFAULT '0',
+  swinging INTEGER NOT NULL DEFAULT 0,
+  lakeview INTEGER NOT NULL DEFAULT 0,
+  picnic INTEGER NOT NULL DEFAULT 0,
   latitude REAL NOT NULL,
   longitude REAL NOT NULL
 );
@@ -178,68 +175,93 @@ INSERT INTO benches (benchid, material, description, dedication, swinging, lakev
 --
 
 CREATE TABLE IF NOT EXISTS buildingHours (
-  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  id SERIAL PRIMARY KEY,
   buildingID INTEGER NOT NULL,
   day TEXT NOT NULL,
   dayorder INTEGER NOT NULL,
-  Start time DEFAULT NULL,
-  End time DEFAULT NULL,
+  start_time TIME DEFAULT NULL,
+  end_time TIME DEFAULT NULL,
   lastUpdated TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (buildingID) REFERENCES buildingLocations(buildingID)
 );
 
---
--- Triggers buildingHours
---
--- BEFORE UPDATE: Delete from updateTimes
+CREATE OR REPLACE FUNCTION buildingHours_beforeUpdate_func()
+RETURNS TRIGGER AS $$
+BEGIN
+  DELETE FROM updateTimes WHERE updatedTable = 'buildingHours';
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION buildingHours_deleteUpdateTimesOnDelete_func()
+RETURNS TRIGGER AS $$
+BEGIN
+  DELETE FROM updateTimes WHERE updatedTable = 'buildingHours';
+  RETURN OLD;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION buildingHours_deleteUpdateTimesOnInsert_func()
+RETURNS TRIGGER AS $$
+BEGIN
+  DELETE FROM updateTimes WHERE updatedTable = 'buildingHours';
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION buildingHours_deleted_func()
+RETURNS TRIGGER AS $$
+BEGIN
+  INSERT INTO updateTimes (updatedTable) VALUES ('buildingHours');
+  RETURN NULL;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION buildingHours_inserted_func()
+RETURNS TRIGGER AS $$
+BEGIN
+  INSERT INTO updateTimes (updatedTable) VALUES ('buildingHours');
+  RETURN NULL;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION buildingHours_updated_func()
+RETURNS TRIGGER AS $$
+BEGIN
+  INSERT INTO updateTimes (updatedTable) VALUES ('buildingHours');
+  RETURN NULL;
+END;
+$$ LANGUAGE plpgsql;
+
 CREATE TRIGGER buildingHours_beforeUpdate
 BEFORE UPDATE ON buildingHours
 FOR EACH ROW
-BEGIN
-  DELETE FROM updateTimes WHERE updatedTable = 'buildingHours';
-END;
+EXECUTE FUNCTION buildingHours_beforeUpdate_func();
 
--- BEFORE DELETE: Delete from updateTimes
 CREATE TRIGGER buildingHours_deleteUpdateTimesOnDelete
 BEFORE DELETE ON buildingHours
 FOR EACH ROW
-BEGIN
-  DELETE FROM updateTimes WHERE updatedTable = 'buildingHours';
-END;
+EXECUTE FUNCTION buildingHours_deleteUpdateTimesOnDelete_func();
 
--- BEFORE INSERT: Delete from updateTimes
 CREATE TRIGGER buildingHours_deleteUpdateTimesOnInsert
 BEFORE INSERT ON buildingHours
 FOR EACH ROW
-BEGIN
-  DELETE FROM updateTimes WHERE updatedTable = 'buildingHours';
-END;
+EXECUTE FUNCTION buildingHours_deleteUpdateTimesOnInsert_func();
 
--- AFTER DELETE: Insert into updateTimes
 CREATE TRIGGER buildingHours_deleted
 AFTER DELETE ON buildingHours
 FOR EACH ROW
-BEGIN
-  INSERT INTO updateTimes (updatedTable) VALUES ('buildingHours');
-END;
+EXECUTE FUNCTION buildingHours_deleted_func();
 
--- AFTER INSERT: Insert into updateTimes
 CREATE TRIGGER buildingHours_inserted
 AFTER INSERT ON buildingHours
 FOR EACH ROW
-BEGIN
-  INSERT INTO updateTimes (updatedTable) VALUES ('buildingHours');
-END;
+EXECUTE FUNCTION buildingHours_inserted_func();
 
--- AFTER UPDATE: Insert into updateTimes
 CREATE TRIGGER buildingHours_updated
 AFTER UPDATE ON buildingHours
 FOR EACH ROW
-BEGIN
-  INSERT INTO updateTimes (updatedTable) VALUES ('buildingHours');
-END;
-
-
+EXECUTE FUNCTION buildingHours_updated_func();
 -- --------------------------------------------------------
 
 --
@@ -247,7 +269,7 @@ END;
 --
 
 CREATE TABLE IF NOT EXISTS buildingLocations (
-  buildingID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  buildingID SERIAL PRIMARY KEY,
   name TEXT NOT NULL,
   nickname TEXT DEFAULT NULL,
   category TEXT NOT NULL,
@@ -351,57 +373,85 @@ INSERT INTO buildingLocations (buildingID, name, nickname, category, hasHours, w
 (96, 'Writing and Media Lab', 'WML', 'auxiliary', 0, 'https://www.furman.edu/academics/center-academic-success/writing-resources/', 'Basement floor of the library', 34.9244, -82.4389, NULL, 'The Writing and Media Lab''s trained student Consultants provide one-on-one or small group assistance with student writing and multimedia projects.. Located in the basement.', 10, '2024-04-04 18:12:40'),
 (97, 'Bookstore Café', NULL, 'auxiliary', 0, 'https://furman.cafebonappetit.com/cafe/bookstore-cafe/', NULL, 34.9245, -82.4409, NULL, 'The Bookstore Café is a bistro-style café. Grab a coffee and pastry while you read your new textbooks!', 10, '2024-04-11 17:29:51');
 
---
--- Triggers buildingLocations
---
--- AFTER DELETE: Insert into updateTimes
+
+
+CREATE OR REPLACE FUNCTION buildingLocations_afterDelete_func()
+RETURNS TRIGGER AS $$
+BEGIN
+  INSERT INTO updateTimes (updatedTable) VALUES ('buildingLocations');
+  RETURN NULL;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION buildingLocations_afterUpdate_func()
+RETURNS TRIGGER AS $$
+BEGIN
+  INSERT INTO updateTimes (updatedTable) VALUES ('buildingLocations');
+  RETURN NULL;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION buildingLocations_beforeDelete_func()
+RETURNS TRIGGER AS $$
+BEGIN
+  DELETE FROM updateTimes WHERE updatedTable = 'buildingLocations';
+  RETURN OLD;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION buildingLocations_beforeUpdate_func()
+RETURNS TRIGGER AS $$
+BEGIN
+  DELETE FROM updateTimes WHERE updatedTable = 'buildingLocations';
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION buildingLocations_deleteUpdateTimesOnInsert_func()
+RETURNS TRIGGER AS $$
+BEGIN
+  DELETE FROM updateTimes WHERE updatedTable = 'buildingLocations';
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION buildingLocations_inserted_func()
+RETURNS TRIGGER AS $$
+BEGIN
+  INSERT INTO updateTimes (updatedTable) VALUES ('buildingLocations');
+  RETURN NULL;
+END;
+$$ LANGUAGE plpgsql;
+
 CREATE TRIGGER buildingLocations_afterDelete
 AFTER DELETE ON buildingLocations
 FOR EACH ROW
-BEGIN
-  INSERT INTO updateTimes (updatedTable) VALUES ('buildingLocations');
-END;
+EXECUTE FUNCTION buildingLocations_afterDelete_func();
 
--- AFTER UPDATE: Insert into updateTimes
 CREATE TRIGGER buildingLocations_afterUpdate
 AFTER UPDATE ON buildingLocations
 FOR EACH ROW
-BEGIN
-  INSERT INTO updateTimes (updatedTable) VALUES ('buildingLocations');
-END;
+EXECUTE FUNCTION buildingLocations_afterUpdate_func();
 
--- BEFORE DELETE: Delete from updateTimes
 CREATE TRIGGER buildingLocations_beforeDelete
 BEFORE DELETE ON buildingLocations
 FOR EACH ROW
-BEGIN
-  DELETE FROM updateTimes WHERE updatedTable = 'buildingLocations';
-END;
+EXECUTE FUNCTION buildingLocations_beforeDelete_func();
 
--- BEFORE UPDATE: Delete from updateTimes
 CREATE TRIGGER buildingLocations_beforeUpdate
 BEFORE UPDATE ON buildingLocations
 FOR EACH ROW
-BEGIN
-  DELETE FROM updateTimes WHERE updatedTable = 'buildingLocations';
-END;
+EXECUTE FUNCTION buildingLocations_beforeUpdate_func();
 
--- BEFORE INSERT: Delete from updateTimes
 CREATE TRIGGER buildingLocations_deleteUpdateTimesOnInsert
 BEFORE INSERT ON buildingLocations
 FOR EACH ROW
-BEGIN
-  DELETE FROM updateTimes WHERE updatedTable = 'buildingLocations';
-END;
+EXECUTE FUNCTION buildingLocations_deleteUpdateTimesOnInsert_func();
 
--- AFTER INSERT: Insert into updateTimes
 CREATE TRIGGER buildingLocations_inserted
 AFTER INSERT ON buildingLocations
 FOR EACH ROW
-BEGIN
-  INSERT INTO updateTimes (updatedTable) VALUES ('buildingLocations');
-END;
-
+EXECUTE FUNCTION buildingLocations_inserted_func();
 -- --------------------------------------------------------
 
 --
@@ -409,7 +459,7 @@ END;
 --
 
 CREATE TABLE IF NOT EXISTS BusStops (
-  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  id SERIAL PRIMARY KEY,
   stop TEXT NOT NULL,
   shortname TEXT NOT NULL,
   latitude REAL NOT NULL,
@@ -465,15 +515,20 @@ INSERT INTO BusStops (id, stop, shortname, latitude, longitude, route, vehicleNa
 (75, 'Walmart in Travelers Rest', 'Walmart', 34.960352, -82.431366, 'Walmart Shuttle', 'walmart'),
 (76, 'South Housing', 'SoHo', 34.922471, -82.440974, 'Daily Shuttle', 'amshuttle');
 
---
--- Triggers BusStops
---
+
+CREATE OR REPLACE FUNCTION busstops_after_insert_func()
+RETURNS TRIGGER AS $$
+BEGIN
+  INSERT INTO updateTimes (updatedTable) VALUES ('stopData');
+  RETURN NULL;
+END;
+$$ LANGUAGE plpgsql;
+
+
 CREATE TRIGGER AfterInsert
 AFTER INSERT ON BusStops
 FOR EACH ROW
-BEGIN
-  INSERT INTO updateTimes (updatedTable) VALUES ('stopData');
-END;
+EXECUTE FUNCTION busstops_after_insert_func();
 
 -- --------------------------------------------------------
 
@@ -482,7 +537,7 @@ END;
 --
 
 CREATE TABLE IF NOT EXISTS clps (
-  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  id SERIAL PRIMARY KEY,
   title TEXT NOT NULL DEFAULT '-',
   description TEXT NOT NULL DEFAULT '-',
   location TEXT NOT NULL DEFAULT '-',
@@ -494,39 +549,25 @@ CREATE TABLE IF NOT EXISTS clps (
   lastUpdated TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
---
--- Triggers clps
---
--- BEFORE INSERT: Update updateTimes
-CREATE TRIGGER cl_onupdate
-BEFORE INSERT ON clps
-FOR EACH ROW
+
+CREATE OR REPLACE FUNCTION clps_update_timestamp()
+RETURNS TRIGGER AS $$
 BEGIN
   UPDATE updateTimes
   SET newestUpdate = CURRENT_TIMESTAMP
   WHERE updatedTable = 'clps';
+  
+  IF TG_OP = 'INSERT' AND TG_WHEN = 'BEFORE' THEN
+    RETURN NEW;
+  ELSE
+    RETURN NULL;
+  END IF;
 END;
+$$ LANGUAGE plpgsql;
 
--- AFTER INSERT: Update updateTimes
-CREATE TRIGGER clps_on_insert
-AFTER INSERT ON clps
-FOR EACH ROW
-BEGIN
-  UPDATE updateTimes
-  SET newestUpdate = CURRENT_TIMESTAMP
-  WHERE updatedTable = 'clps';
-END;
-
--- AFTER DELETE: Update updateTimes
-CREATE TRIGGER clps_onDelete
-AFTER DELETE ON clps
-FOR EACH ROW
-BEGIN
-  UPDATE updateTimes
-  SET newestUpdate = CURRENT_TIMESTAMP
-  WHERE updatedTable = 'clps';
-END;
-
+CREATE TRIGGER clps_on_update BEFORE INSERT ON clps FOR EACH ROW EXECUTE FUNCTION clps_update_timestamp();
+CREATE TRIGGER clps_on_insert AFTER INSERT ON clps FOR EACH ROW EXECUTE FUNCTION clps_update_timestamp();
+CREATE TRIGGER clps_on_delete AFTER DELETE ON clps FOR EACH ROW EXECUTE FUNCTION clps_update_timestamp();
 -- --------------------------------------------------------
 
 --
@@ -534,7 +575,7 @@ END;
 --
 
 CREATE TABLE IF NOT EXISTS contacts (
-  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  id SERIAL PRIMARY KEY,
   buildingID INTEGER NOT NULL,
   room TEXT NOT NULL,
   name TEXT DEFAULT NULL,
@@ -577,38 +618,51 @@ INSERT INTO contacts (id, buildingID, room, name, number, lastUpdated, priorityL
 (99, 0, '', 'Give to Furman', '8642942475', '2020-06-30 02:30:21', 0),
 (100, 21, '', 'Furman Chapel / Office of Spiritual Life', '8642942133', '2024-02-27 00:30:56', 0);
 
---
--- Triggers contacts
---
--- AFTER DELETE: Update updateTimes
+
+CREATE OR REPLACE FUNCTION contacts_after_delete()
+RETURNS TRIGGER AS $$
+BEGIN
+  UPDATE updateTimes
+  SET newestUpdate = CURRENT_TIMESTAMP
+  WHERE updatedTable = 'contacts';
+  RETURN OLD;
+END;
+$$ LANGUAGE plpgsql;
+
 CREATE TRIGGER contacts_afterDelete
 AFTER DELETE ON contacts
 FOR EACH ROW
+EXECUTE FUNCTION contacts_after_delete();
+
+CREATE OR REPLACE FUNCTION contacts_after_update()
+RETURNS TRIGGER AS $$
 BEGIN
   UPDATE updateTimes
   SET newestUpdate = CURRENT_TIMESTAMP
   WHERE updatedTable = 'contacts';
+  RETURN NEW;
 END;
+$$ LANGUAGE plpgsql;
 
--- AFTER UPDATE: Update updateTimes
 CREATE TRIGGER contacts_afterUpdate
 AFTER UPDATE ON contacts
 FOR EACH ROW
+EXECUTE FUNCTION contacts_after_update();
+
+CREATE OR REPLACE FUNCTION contacts_after_insert()
+RETURNS TRIGGER AS $$
 BEGIN
   UPDATE updateTimes
   SET newestUpdate = CURRENT_TIMESTAMP
   WHERE updatedTable = 'contacts';
+  RETURN NEW;
 END;
+$$ LANGUAGE plpgsql;
 
--- AFTER INSERT: Update updateTimes
-CREATE TRIGGER contacts_inserted
+CREATE TRIGGER contacts_afterInsert
 AFTER INSERT ON contacts
 FOR EACH ROW
-BEGIN
-  UPDATE updateTimes
-  SET newestUpdate = CURRENT_TIMESTAMP
-  WHERE updatedTable = 'contacts';
-END;
+EXECUTE FUNCTION contacts_after_insert();
 
 -- --------------------------------------------------------
 
@@ -617,7 +671,7 @@ END;
 --
 
 CREATE TABLE IF NOT EXISTS DHmenu (
-  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  id SERIAL PRIMARY KEY,
   itemID INTEGER NOT NULL, 
   meal TEXT NOT NULL,
   itemName TEXT NOT NULL,
@@ -628,14 +682,22 @@ CREATE TABLE IF NOT EXISTS DHmenu (
 --
 -- Triggers DHmenu
 --
-CREATE TRIGGER dh_insert
-AFTER INSERT ON DHmenu
-FOR EACH ROW
+CREATE OR REPLACE FUNCTION dh_after_insert()
+RETURNS TRIGGER AS $$
 BEGIN
   UPDATE updateTimes
   SET newestUpdate = CURRENT_TIMESTAMP
   WHERE updatedTable = 'DHmenu';
+  RETURN NEW;
 END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER dh_insert
+AFTER INSERT ON DHmenu
+FOR EACH ROW
+EXECUTE FUNCTION dh_after_insert();
+
+
 
 CREATE TABLE IF NOT EXISTS userRatings (
   itemID INTEGER NOT NULL PRIMARY KEY,
@@ -651,7 +713,7 @@ CREATE TABLE IF NOT EXISTS userRatings (
 --
 
 CREATE TABLE IF NOT EXISTS foodService (
-  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  id SERIAL PRIMARY KEY,
   name TEXT DEFAULT NULL,
   fullname TEXT NOT NULL DEFAULT '',
   location TEXT DEFAULT NULL,
@@ -679,38 +741,51 @@ INSERT INTO foodService (id, name, fullname, location, latitude, longitude, freq
 (29, NULL, 'Traditions Grille', 'in the Clubhouse of the Golf Course', 34.931827, -82.449969, 0, 0, ''),
 (30, NULL, 'P-Den', 'Lower level of Trone', 34.924735, -82.440381, 0, 0, '');
 
---
--- Triggers foodService
---
--- AFTER DELETE: Update updateTimes
+
+CREATE OR REPLACE FUNCTION foodservice_after_delete()
+RETURNS TRIGGER AS $$
+BEGIN
+  UPDATE updateTimes
+  SET newestUpdate = CURRENT_TIMESTAMP
+  WHERE updatedTable = 'foodService';
+  RETURN OLD;
+END;
+$$ LANGUAGE plpgsql;
+
 CREATE TRIGGER foodService_afterDelete
 AFTER DELETE ON foodService
 FOR EACH ROW
+EXECUTE FUNCTION foodservice_after_delete();
+
+CREATE OR REPLACE FUNCTION foodservice_after_update()
+RETURNS TRIGGER AS $$
 BEGIN
   UPDATE updateTimes
   SET newestUpdate = CURRENT_TIMESTAMP
   WHERE updatedTable = 'foodService';
+  RETURN NEW;
 END;
+$$ LANGUAGE plpgsql;
 
--- AFTER UPDATE: Update updateTimes
 CREATE TRIGGER foodService_afterUpdate
 AFTER UPDATE ON foodService
 FOR EACH ROW
+EXECUTE FUNCTION foodservice_after_update();
+
+CREATE OR REPLACE FUNCTION foodservice_after_insert()
+RETURNS TRIGGER AS $$
 BEGIN
   UPDATE updateTimes
   SET newestUpdate = CURRENT_TIMESTAMP
   WHERE updatedTable = 'foodService';
+  RETURN NEW;
 END;
+$$ LANGUAGE plpgsql;
 
--- AFTER INSERT: Update updateTimes
 CREATE TRIGGER foodService_inserted
 AFTER INSERT ON foodService
 FOR EACH ROW
-BEGIN
-  UPDATE updateTimes
-  SET newestUpdate = CURRENT_TIMESTAMP
-  WHERE updatedTable = 'foodService';
-END;
+EXECUTE FUNCTION foodservice_after_insert();
 
 -- --------------------------------------------------------
 
@@ -719,7 +794,7 @@ END;
 --
 
 CREATE TABLE IF NOT EXISTS FU20_RestaurantHours (
-  hoursID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  hoursID SERIAL PRIMARY KEY,
   ManuallyEntered INTEGER NOT NULL DEFAULT '0',
   id INTEGER NOT NULL,
   meal TEXT DEFAULT NULL,
@@ -1025,41 +1100,14 @@ CREATE TABLE IF NOT EXISTS GolfSchedule (
   signedUp TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
---
--- Dumping data for table GolfSchedule
---
 
-INSERT INTO GolfSchedule (playerId, date, preferredTime, other, teeTime, rec, signedUp) VALUES
-('bc25', '2025-06-17', 'C', '', 0, 625, '2025-06-13 21:05:19'),
-('bc25', '2025-06-19', 'C', '', 0, 626, '2025-06-13 21:05:33'),
-('bc11', '2025-06-19', 'B', '', 0, 628, '2025-06-13 21:44:42'),
-('bg16', '2025-06-17', 'C', '', 0, 629, '2025-06-14 13:03:28'),
-('bg16', '2025-06-19', 'C', '', 0, 630, '2025-06-14 13:03:37'),
-('gl80', '2025-06-17', 'C', '', 0, 631, '2025-06-14 13:31:06'),
-('ww77', '2025-06-17', 'C', '', 0, 632, '2025-06-15 16:31:49'),
-('ww77', '2025-06-19', 'C', '', 0, 633, '2025-06-15 16:32:05'),
-('rt66', '2025-06-17', 'E', '', 0, 634, '2025-06-15 21:48:02'),
-('rt66', '2025-06-19', 'E', '', 0, 635, '2025-06-15 21:48:13'),
-('jc13', '2025-06-17', 'E', '', 0, 636, '2025-06-16 01:36:57'),
-('rc45', '2025-06-17', 'B', '', 0, 637, '2025-06-16 02:50:17'),
-('bc11', '2025-06-17', 'C', '', 0, 638, '2025-06-16 09:04:03'),
-('jr88', '2025-06-17', 'C', '', 0, 639, '2025-06-16 11:55:51'),
-('jr88', '2025-06-19', 'D', '', 0, 640, '2025-06-16 11:56:17'),
-('jp45', '2025-06-17', 'B', 'Anytime after 4:30 would work this week', 0, 641, '2025-06-16 12:21:26'),
-('hf695', '2025-06-17', 'D', '', 0, 642, '2025-06-16 12:50:59'),
-('jh11', '2025-06-17', 'D', '', 0, 643, '2025-06-16 13:08:40'),
-('jh11', '2025-06-19', 'D', '', 0, 644, '2025-06-16 13:08:48'),
-('sm45', '2025-06-17', 'D', '', 0, 645, '2025-06-16 13:46:48'),
-('jk15', '2025-06-17', 'B', '', 0, 646, '2025-06-16 13:58:56');
-
--- --------------------------------------------------------
 
 --
 -- Table structure for table healthSafety
 --
 
 CREATE TABLE IF NOT EXISTS healthSafety (
-  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  id SERIAL PRIMARY KEY,
   name TEXT NOT NULL,
   shortName TEXT DEFAULT NULL,
   content TEXT NOT NULL,
@@ -1092,38 +1140,51 @@ INSERT INTO healthSafety (id, name, shortName, content, type, icon, priority) VA
 (22, 'Parking Regulations', NULL, 'https://www.furman.edu/university-police/wp-content/uploads/sites/25/2023/10/FU-Parking-Regs-updated-2023-3.pdf', 'link', '', 1),
 (23, 'Suicide Prevention Hotline', NULL, '988', 'phone', '', 5);
 
---
--- Triggers healthSafety
---
--- BEFORE UPDATE: Update updateTimes
+
+CREATE OR REPLACE FUNCTION hs_before_update()
+RETURNS TRIGGER AS $$
+BEGIN
+  UPDATE updateTimes
+  SET newestUpdate = CURRENT_TIMESTAMP
+  WHERE updatedTable = 'healthSafety';
+  RETURN NEW;  
+END;
+$$ LANGUAGE plpgsql;
+
 CREATE TRIGGER hs_on_update
 BEFORE UPDATE ON healthSafety
 FOR EACH ROW
+EXECUTE FUNCTION hs_before_update();
+
+CREATE OR REPLACE FUNCTION hs_after_delete()
+RETURNS TRIGGER AS $$
 BEGIN
   UPDATE updateTimes
   SET newestUpdate = CURRENT_TIMESTAMP
   WHERE updatedTable = 'healthSafety';
+  RETURN OLD;  
 END;
+$$ LANGUAGE plpgsql;
 
--- AFTER DELETE: Update updateTimes
 CREATE TRIGGER hs_ondelete
 AFTER DELETE ON healthSafety
 FOR EACH ROW
+EXECUTE FUNCTION hs_after_delete();
+
+CREATE OR REPLACE FUNCTION hs_after_insert()
+RETURNS TRIGGER AS $$
 BEGIN
   UPDATE updateTimes
   SET newestUpdate = CURRENT_TIMESTAMP
   WHERE updatedTable = 'healthSafety';
+  RETURN NEW;  
 END;
+$$ LANGUAGE plpgsql;
 
--- AFTER INSERT: Update updateTimes
 CREATE TRIGGER hs_oninsert
 AFTER INSERT ON healthSafety
 FOR EACH ROW
-BEGIN
-  UPDATE updateTimes
-  SET newestUpdate = CURRENT_TIMESTAMP
-  WHERE updatedTable = 'healthSafety';
-END;
+EXECUTE FUNCTION hs_after_insert();
 
 -- --------------------------------------------------------
 
@@ -1132,7 +1193,7 @@ END;
 --
 
 CREATE TABLE IF NOT EXISTS importantDates (
-  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  id SERIAL PRIMARY KEY,
   title TEXT DEFAULT NULL,
   date date NOT NULL,
   startTime time NOT NULL,
@@ -1143,55 +1204,87 @@ CREATE TABLE IF NOT EXISTS importantDates (
   lastUpdated TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
--- Triggers importantDates
---
--- AFTER DELETE: Insert into updateTimes
+
+CREATE OR REPLACE FUNCTION importantdates_after_delete()
+RETURNS TRIGGER AS $$
+BEGIN
+  INSERT INTO updateTimes (updatedTable, newestUpdate) 
+  VALUES ('importantDates', CURRENT_TIMESTAMP);
+  RETURN OLD;
+END;
+$$ LANGUAGE plpgsql;
+
 CREATE TRIGGER importantDates_afterDelete
 AFTER DELETE ON importantDates
 FOR EACH ROW
-BEGIN
-  INSERT INTO updateTimes (updatedTable) VALUES ('importantDates');
-END;
+EXECUTE FUNCTION importantdates_after_delete();
 
--- AFTER UPDATE: Insert into updateTimes
+CREATE OR REPLACE FUNCTION importantdates_after_update()
+RETURNS TRIGGER AS $$
+BEGIN
+  INSERT INTO updateTimes (updatedTable, newestUpdate) 
+  VALUES ('importantDates', CURRENT_TIMESTAMP);
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
 CREATE TRIGGER importantDates_afterUpdate
 AFTER UPDATE ON importantDates
 FOR EACH ROW
-BEGIN
-  INSERT INTO updateTimes (updatedTable) VALUES ('importantDates');
-END;
+EXECUTE FUNCTION importantdates_after_update();
 
--- BEFORE DELETE: Delete from updateTimes
+CREATE OR REPLACE FUNCTION importantdates_before_delete()
+RETURNS TRIGGER AS $$
+BEGIN
+  DELETE FROM updateTimes WHERE updatedTable = 'importantDates';
+  RETURN OLD;
+END;
+$$ LANGUAGE plpgsql;
+
 CREATE TRIGGER importantDates_beforeDelete
 BEFORE DELETE ON importantDates
 FOR EACH ROW
+EXECUTE FUNCTION importantdates_before_delete();
+
+CREATE OR REPLACE FUNCTION importantdates_before_update()
+RETURNS TRIGGER AS $$
 BEGIN
   DELETE FROM updateTimes WHERE updatedTable = 'importantDates';
+  RETURN NEW;
 END;
+$$ LANGUAGE plpgsql;
 
--- BEFORE UPDATE: Delete from updateTimes
 CREATE TRIGGER importantDates_beforeUpdate
 BEFORE UPDATE ON importantDates
 FOR EACH ROW
+EXECUTE FUNCTION importantdates_before_update();
+
+CREATE OR REPLACE FUNCTION importantdates_before_insert()
+RETURNS TRIGGER AS $$
 BEGIN
   DELETE FROM updateTimes WHERE updatedTable = 'importantDates';
+  RETURN NEW;
 END;
+$$ LANGUAGE plpgsql;
 
--- BEFORE INSERT: Delete from updateTimes
 CREATE TRIGGER importantDates_deleteUpdateTimes
 BEFORE INSERT ON importantDates
 FOR EACH ROW
-BEGIN
-  DELETE FROM updateTimes WHERE updatedTable = 'importantDates';
-END;
+EXECUTE FUNCTION importantdates_before_insert();
 
--- AFTER INSERT: Insert into updateTimes
+CREATE OR REPLACE FUNCTION importantdates_after_insert()
+RETURNS TRIGGER AS $$
+BEGIN
+  INSERT INTO updateTimes (updatedTable, newestUpdate) 
+  VALUES ('importantDates', CURRENT_TIMESTAMP);
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
 CREATE TRIGGER importantDates_inserted
 AFTER INSERT ON importantDates
 FOR EACH ROW
-BEGIN
-  INSERT INTO updateTimes (updatedTable) VALUES ('importantDates');
-END;
+EXECUTE FUNCTION importantdates_after_insert();
 
 -- --------------------------------------------------------
 
@@ -1200,7 +1293,7 @@ END;
 --
 
 CREATE TABLE IF NOT EXISTS importantLinks (
-  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  id SERIAL PRIMARY KEY,
   priority INTEGER NOT NULL DEFAULT '1',
   name TEXT NOT NULL,
   content TEXT NOT NULL,
@@ -1240,7 +1333,7 @@ INSERT INTO importantLinks (id, priority, name, content, type) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS newsContent (
-  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  id SERIAL PRIMARY KEY,
   title TEXT NOT NULL,
   author TEXT NOT NULL,
   description TEXT NOT NULL,
@@ -1258,7 +1351,7 @@ CREATE TABLE IF NOT EXISTS newsContent (
 --
 
 CREATE TABLE IF NOT EXISTS newsPublishers (
-  publisherID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  publisherID SERIAL PRIMARY KEY,
   name TEXT NOT NULL,
   link TEXT NOT NULL,
   image TEXT NOT NULL,
@@ -1291,7 +1384,7 @@ INSERT INTO newsPublishers (publisherID, name, link, image, studentRun) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS parkingResources (
-  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  id SERIAL PRIMARY KEY,
   name TEXT NOT NULL,
   type TEXT CHECK('link' IN ('link','phone')) NOT NULL,
   resource TEXT NOT NULL
@@ -1315,7 +1408,7 @@ INSERT INTO parkingResources (id, name, type, resource) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS parkingZones (
-  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  id SERIAL PRIMARY KEY,
   zoneName TEXT NOT NULL,
   boundry TEXT NOT NULL,
   yellow INTEGER NOT NULL DEFAULT '0',
@@ -1334,7 +1427,7 @@ CREATE TABLE IF NOT EXISTS parkingZones (
 --
 
 CREATE TABLE IF NOT EXISTS restaurantMenu (
-  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  id SERIAL PRIMARY KEY,
   restaurant TEXT NOT NULL,
   item TEXT NOT NULL
 );
@@ -1376,38 +1469,51 @@ INSERT INTO restaurantMenu (id, restaurant, item) VALUES
 (41, 'Traditions Grille', 'Beer and Wine'),
 (42, 'Papa John''s Pizza', 'Pizza');
 
---
--- Triggers restaurantMenu
---
--- AFTER INSERT: Update updateTimes
+
+CREATE OR REPLACE FUNCTION rm_after_insert()
+RETURNS TRIGGER AS $$
+BEGIN
+  UPDATE updateTimes
+  SET newestUpdate = CURRENT_TIMESTAMP
+  WHERE updatedTable = 'restaurantMenu';
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
 CREATE TRIGGER rm_on_insert
 AFTER INSERT ON restaurantMenu
 FOR EACH ROW
+EXECUTE FUNCTION rm_after_insert();
+
+CREATE OR REPLACE FUNCTION rm_before_update()
+RETURNS TRIGGER AS $$
 BEGIN
   UPDATE updateTimes
   SET newestUpdate = CURRENT_TIMESTAMP
   WHERE updatedTable = 'restaurantMenu';
+  RETURN NEW;
 END;
+$$ LANGUAGE plpgsql;
 
--- BEFORE UPDATE: Update updateTimes
 CREATE TRIGGER rm_on_update
 BEFORE UPDATE ON restaurantMenu
 FOR EACH ROW
+EXECUTE FUNCTION rm_before_update();
+
+CREATE OR REPLACE FUNCTION rm_after_delete()
+RETURNS TRIGGER AS $$
 BEGIN
   UPDATE updateTimes
   SET newestUpdate = CURRENT_TIMESTAMP
   WHERE updatedTable = 'restaurantMenu';
+  RETURN OLD;
 END;
+$$ LANGUAGE plpgsql;
 
--- AFTER DELETE: Update updateTimes
 CREATE TRIGGER rm_ondelete
 AFTER DELETE ON restaurantMenu
 FOR EACH ROW
-BEGIN
-  UPDATE updateTimes
-  SET newestUpdate = CURRENT_TIMESTAMP
-  WHERE updatedTable = 'restaurantMenu';
-END;
+EXECUTE FUNCTION rm_after_delete();
 
 -- --------------------------------------------------------
 
@@ -1416,7 +1522,7 @@ END;
 --
 
 CREATE TABLE IF NOT EXISTS shuttleLocations (
-  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  id SERIAL PRIMARY KEY,
   vehicle TEXT NOT NULL,
   latitude REAL(10,8) DEFAULT NULL,
   longitude REAL(10,8) DEFAULT NULL,
@@ -1428,12 +1534,21 @@ CREATE TABLE IF NOT EXISTS shuttleLocations (
 );
 
 
+CREATE OR REPLACE FUNCTION update_shuttlelocations_timestamp()
+RETURNS TRIGGER AS $$
+BEGIN
+  UPDATE shuttleLocations 
+  SET updated = CURRENT_TIMESTAMP 
+  WHERE id = NEW.id;  
+  
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
 CREATE TRIGGER update_shuttleLocations_updated
 AFTER UPDATE ON shuttleLocations
 FOR EACH ROW
-BEGIN
-  UPDATE shuttleLocations SET updated = CURRENT_TIMESTAMP WHERE id = OLD.id;
-END;
+EXECUTE FUNCTION update_shuttlelocations_timestamp();
 
 -- --------------------------------------------------------
 
@@ -1515,7 +1630,7 @@ CREATE TABLE IF NOT EXISTS stopsDistanceTable (
 
 
 CREATE TABLE IF NOT EXISTS stopsTable (
-  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  id SERIAL PRIMARY KEY,
   lineID INTEGER NOT NULL,
   stopOrderID INTEGER NOT NULL,
   stopName TEXT NOT NULL,
@@ -1744,7 +1859,7 @@ INSERT INTO TestMenu (id, meal, itemName, station) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS TestNulls (
-  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  id SERIAL PRIMARY KEY,
   title TEXT NOT NULL,
   description TEXT NOT NULL,
   location TEXT NOT NULL
@@ -1765,12 +1880,12 @@ INSERT INTO TestNulls (id, title, description, location) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS TESTtimes (
-  hoursID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  hoursID SERIAL PRIMARY KEY,
   ManuallyEntered INTEGER NOT NULL DEFAULT '0',
   id INTEGER NOT NULL,
   meal TEXT DEFAULT NULL,
-  start time DEFAULT NULL,
-  end time DEFAULT NULL,
+  start_time TIME DEFAULT NULL,
+  end_time TIME DEFAULT NULL,
   dayOfWeek TEXT DEFAULT NULL,
   dayOrder INTEGER NOT NULL
 );
@@ -1815,11 +1930,11 @@ INSERT INTO TESTtimes (hoursID, ManuallyEntered, id, meal, start, end, dayOfWeek
 --
 
 CREATE TABLE IF NOT EXISTS times (
-  hoursID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  hoursID SERIAL PRIMARY KEY,
   id INTEGER NOT NULL,
   meal TEXT DEFAULT NULL,
-  start time DEFAULT NULL,
-  end time DEFAULT NULL,
+  start_time TIME DEFAULT NULL,
+  end_time TIME DEFAULT NULL,
   dayOfWeek TEXT DEFAULT NULL,
   dayOrder INTEGER NOT NULL,
   lastUpdated TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -1848,85 +1963,92 @@ INSERT INTO times (hoursID, id, meal, start, end, dayOfWeek, dayOrder, lastUpdat
 (12458, 25, NULL, NULL, NULL, 'Mon-Sun', 0, '2025-01-11 05:01:01'),
 (12459, 29, 'Open', '08:00:00', '18:00:00', 'Mon-Sun', 0, '2025-01-11 05:01:01');
 
---
--- Triggers times
---
--- AFTER DELETE: Insert into updateTimes
-CREATE TRIGGER times_afterDelete
-AFTER DELETE ON times
-FOR EACH ROW
-BEGIN
-  INSERT INTO updateTimes (updatedTable) VALUES ('times');
-END;
-
--- AFTER UPDATE: Insert into updateTimes
-CREATE TRIGGER times_afterUpdate
-AFTER UPDATE ON times
-FOR EACH ROW
-BEGIN
-  INSERT INTO updateTimes (updatedTable) VALUES ('times');
-END;
-
--- BEFORE DELETE: Delete from updateTimes
-CREATE TRIGGER times_beforeDelete
-BEFORE DELETE ON times
-FOR EACH ROW
+CREATE OR REPLACE FUNCTION times_beforeUpdate_func()
+RETURNS TRIGGER AS $$
 BEGIN
   DELETE FROM updateTimes WHERE updatedTable = 'times';
+  RETURN NEW;
 END;
+$$ LANGUAGE plpgsql;
 
--- BEFORE UPDATE: Delete from updateTimes
+CREATE OR REPLACE FUNCTION times_beforeDelete_func()
+RETURNS TRIGGER AS $$
+BEGIN
+  DELETE FROM updateTimes WHERE updatedTable = 'times';
+  RETURN OLD;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION times_deleteUpdateTimesOnInsert_func()
+RETURNS TRIGGER AS $$
+BEGIN
+  DELETE FROM updateTimes WHERE updatedTable = 'times';
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION times_deleted_func()
+RETURNS TRIGGER AS $$
+BEGIN
+  INSERT INTO updateTimes (updatedTable) VALUES ('times');
+  RETURN NULL;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION times_inserted_func()
+RETURNS TRIGGER AS $$
+BEGIN
+  INSERT INTO updateTimes (updatedTable) VALUES ('times');
+  RETURN NULL;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION times_updated_func()
+RETURNS TRIGGER AS $$
+BEGIN
+  INSERT INTO updateTimes (updatedTable) VALUES ('times');
+  RETURN NULL;
+END;
+$$ LANGUAGE plpgsql;
+
 CREATE TRIGGER times_beforeUpdate
 BEFORE UPDATE ON times
 FOR EACH ROW
-BEGIN
-  DELETE FROM updateTimes WHERE updatedTable = 'times';
-END;
+EXECUTE FUNCTION times_beforeUpdate_func();
 
--- BEFORE INSERT: Delete from updateTimes
+CREATE TRIGGER times_beforeDelete
+BEFORE DELETE ON times
+FOR EACH ROW
+EXECUTE FUNCTION times_beforeDelete_func();
+
 CREATE TRIGGER times_deleteUpdateTimes
 BEFORE INSERT ON times
 FOR EACH ROW
-BEGIN
-  DELETE FROM updateTimes WHERE updatedTable = 'times';
-END;
+EXECUTE FUNCTION times_deleteUpdateTimesOnInsert_func();
 
--- AFTER INSERT: Insert into updateTimes
+CREATE TRIGGER times_deleted
+AFTER DELETE ON times
+FOR EACH ROW
+EXECUTE FUNCTION times_deleted_func();
+
 CREATE TRIGGER times_inserted
 AFTER INSERT ON times
 FOR EACH ROW
-BEGIN
-  INSERT INTO updateTimes (updatedTable) VALUES ('times');
-END;
+EXECUTE FUNCTION times_inserted_func();
+
+CREATE TRIGGER times_updated
+AFTER UPDATE ON times
+FOR EACH ROW
+EXECUTE FUNCTION times_updated_func();
 
 -- --------------------------------------------------------
 
---
--- Table structure for table updateTimes
---
 
 CREATE TABLE IF NOT EXISTS updateTimes (
-  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  id SERIAL PRIMARY KEY,
   newestUpdate TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updatedTable TEXT NOT NULL
 );
-
---
--- Dumping data for table updateTimes
---
-
-INSERT INTO updateTimes (id, newestUpdate, updatedTable) VALUES
-(135, '2024-06-13 00:34:29', 'healthSafety'),
-(6766, '2025-06-16 04:00:02', 'clps'),
-(7402, '2024-06-13 00:34:29', 'foodService'),
-(7404, '2024-06-13 00:34:29', 'contacts'),
-(7414, '2024-06-13 00:34:29', 'vehicleNames'),
-(7416, '2025-06-16 04:01:04', 'DHmenu'),
-(7417, '2024-06-13 00:34:29', 'restaurantMenu'),
-(117242, '2024-06-13 00:34:29', 'buildingLocations'),
-(492567, '2025-01-05 05:00:06', 'importantDates'),
-(496764, '2025-01-11 05:01:01', 'times'),
-(497072, '2025-01-11 16:00:01', 'buildingHours');
 
 -- --------------------------------------------------------
 
@@ -1935,7 +2057,7 @@ INSERT INTO updateTimes (id, newestUpdate, updatedTable) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS vehicleNames (
-  vehicleIndex INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  vehicleIndex SERIAL PRIMARY KEY,
   name TEXT NOT NULL,
   shortName TEXT NOT NULL,
   serviceTimes TEXT NOT NULL,
@@ -1952,23 +2074,13 @@ CREATE TABLE IF NOT EXISTS vehicleNames (
   message TEXT NOT NULL
 );
 
---
--- Dumping data for table vehicleNames
---
-
 INSERT INTO vehicleNames (vehicleIndex, name, shortName, serviceTimes, locations, colorRed, colorGreen, colorBlue, iconName, routePolyline, website, color, averageSpeed, averageStopSeconds, message) VALUES
 (1, '503 Bus', '', 'M-Sat 5:55am-7:55pm', 'Front Gate/Cherrydale/Downtown', 0.71, 0.92, 0.64, 'location.circle', 'izvsEvg}uNc@hAw@j@SPSNOJONKFWPMJQLq@h@YTQLIFYLWJYL??]@o@\\a@RULe@OSK[Oe@EW@KAQAk@ASORNq@Dq@Ac@GW?O?S?Y?U@M?mA@JUYTQ?I?c@?k@?W@??]I[?{@B_@G[Aw@CI?{BC^OkCLQFI?w@@w@?G?UAg@AQ?o@?_@AcA?y@?U?M?m@?]AU@COCECICMEOQUEEOIQKcAm@e@WYQOIMIe@WqAu@aAk@WQq@c@{@i@g@]k@]k@_@q@c@GE_@UcAo@g@u@gAYg@[YSUQSUKQMUYo@Os@SaAi@sC_@uBESCOWqAG[UcABIOi@Ai@E]CSCQE_@AGK{@E]EQG[Wy@?UQ]]c@g@YIEKIUMSKOEcA[QGi@Qg@QYMq@]PQe@B[Se@[ECEE]]SSKKGIk@s@QUSYCEa@o@Yg@e@aAISMWgA_C}@iB??QPGFq@j@ONe@l@S\\ELCDEPCTGlA?VIbAk@v@[LDFQNmBrAMHSJg@X]Pw@\\k@RIBqAZ]FO?MAMGKIKOGQWm@M[M]GWAIAS@MBQBMFUBIBGRa@JQLUHOFa@MA[GyA[YGcCi@gAUeB_@QCWAS?Q?W@UDK@MDSGCNQFKDMH[NKFUP???TBt@@p@?l@?@?XAPCfAA^Af@IlAE@CZAJMhAObASdAUdAU~@M@GRUp@O@GRKTUh@iAfCq@xAq@tAc@|@GPQZgAjAAt@mAhCEHS@m@lACBEHSb@u@jBcApBk@V@v@IZGXI^AT?NAf@@b@?FF\\@HDPPl@Pb@DH@j@NX??@d@DPFZBT?HBnAJPe@Pu@ZID[PW^MHMFe@ZGBMJk@@i@b@m@f@qApAoBnB}A~AaDDSRs@t@q@n@UV[XkBlB_B~Ag@f@kCjC_Ad@JLyAzAy@x@EFgAdAeAfAiAhAMJ_A~@KL]ZKL[X[\\e@d@m@j@o@r@ONe@b@{@|@ED[ZWXgAjAWXSVMJqAhAe@d@e@b@o@p@o@n@u@t@aAAkBlBYVi@j@g@f@gAfAiAjAeFdFyDzDo@l@oApA}@~@QPqBnB[\\SPMJONg@d@qCdB??UL[NOH]JeDz@c@Pa@Ry@^u@d@w@j@o@j@o@n@_@b@]b@]f@e@x@U@Wh@eB|Dc@|@}@pAe@r@k@r@i@j@i@f@k@d@q@d@u@@s@\\u@Xw@Tw@R{@Le@Fk@Dk@Bk@@wB@uA?w@AcAAsACo@?K?i@W_Bu@mBy@[O]Ka@EW@WHYNWXQ\\K\\If@YjAaA|DMh@GVLFHDLFTJNOIGFQNi@BIZw@TYf@g@d@_@j@Y|@U|AInB?N?hA?fA?tJ?dAEhAG|@Mz@Qr@Qx@Yt@]x@a@t@e@r@g@bA}@p@s@l@w@t@iAt@s@j@k@r@sAT_@^g@@g@^e@FGTI^WTIZ?JKz@Jd@FXFhA\\LBJBj@LPDLBBEJYZkADODSL_@Lg@BGJ[Ja@Ni@H]JGB[H_@HUDKDMHMPSHGFGJGHCAMI]EMK]??pCeBf@e@NOLKRQZ]pBoBPQ|@_AnAqAn@m@xD{DdFeFhAkAfAgAf@g@h@k@XWjBmBAaAt@u@n@o@n@q@d@c@d@e@pAiALKRWVYfAkAd@@M[Z[DEz@}@d@c@NOn@s@l@k@d@e@Z]ZYJM\\[JM~@_ALKhAiAdAgAfAeADGx@y@xA{A|@SI_@jCkCf@g@~A_BjBmBZYTWp@o@r@u@RSDaD|A_BnBoBpAqAl@g@h@c@j@a@LKFCd@[LG\\QPAZMAa@XK?U?IN[CgAC]Ge@O_@T?i@M??OYa@k@EIQc@Qm@EQAIG]?GAc@@g@?O@UH_@FYH[h@oAbAqBt@kBRc@DIBCl@mARa@DIlAiChAaCP[FQb@}@p@uAp@yAhAgCTi@JUFSNa@Tq@FSLa@T_ATeAReANcALiA@KB[Da@HmA@g@@_@BgA@Q?Y?a@?m@Aq@Cu@?U??TQJGZOLIJEPGVGLEJA@RRYVAP?R?V@PBdB^fATbCh@XFxAZZFL@G@INMTKPS@CFCHGTCLCPAL@R@HFVL\\LZVl@FPJNJHLFL@N?\\GpA[HCj@Sv@]\\Qf@YRKLIlBsAZAIMTUj@w@HcA?WFmABUDQBEDMR]d@m@NOp@k@FGPQ??|@hBfA~BLVOHXHd@AXf@@n@BDRXPTj@r@FHJJRR\\\\DDDBDZ^?ZRRLp@\\XLf@Ph@PPFbAZNDRJTLJHHDf@X\\b@P\\EPGCGKKSYe@?Iz@vAVx@FZDPD\\Jz@@FD^BPBRD\\@h@Nh@CHTbAFZVpABNDR^tBh@rCRANr@Xn@LTJPRTTPXRf@ZnBnAw@AzBp@^TFDp@b@j@^j@\\f@\\z@h@p@b@VPAj@pAt@WD|@PLHNHXPd@VbAl@PJNHDDPTDNBLBHBDBNTA\\@l@?L?T?x@?bA?^@n@?P?f@@T@F?v@?Bf@r@i@H?PF\\?jAB~BBMTTUv@Bz@Bh@@R@X?\\I????VAj@?b@?H?P?L?lAAJNn@@SHb@GD?N?V??Ub@Fp@@p@E??j@@P@J@PR^HRBZLXNPD^C^SHEj@[G[\\A??XMVKXMHGPMXUp@i@PMLKVQJGNONKRORQv@k@Z?Xq@l@e@NMLIb@a@f@a@NKhAaAHE\\Yx@q@f@]\\WLKHGJGLKFGVQHGTQXUNMLQNWHQJUFULF@LPFHBNDJDDBJBPFjBn@^LFBf@N@NJD\\JHDJDF@JDPJLJDFFHJPBDRXTZ??FUBO@EDOBMDS@EDUDQ??BMM[OEOG{@PfAx@??RJ??AFADERCLENADCNGTGVe@tBCNOl@ALCHUK}Am@a@QOIe@QQKOGiCeAeBu@}CsAi@W}Aq@_@OKEaAm@OE??EJIZEP??K\\I^g@jBSt@CPETOh@U|@IJ', 'https://greenlink.cadavl.com:4437/SWIV/GTA', '#2c8358', 40, 50, 'The Greenlink 503 bus runs between campus and downtown Greenville Monday through Friday, 5:30 a.m. - 11:30 p.m., and 8:30 a.m. to 6:30 p.m. on Saturdays.'),
 (2, 'Campus Shuttle', '', 'Morning & Afternoon', 'various campus', 0.34375, 0.171875, 0.511719, 'car', 'kretE~cvNA??CAAACEEIEA?A?A@CDOVEFm@l@GHQVO\\GVANCR??@?\\FLDDDFFBH??hAY^Ih@O\\MFCVMJC@UnBkApAu@^Sn@_@v@e@HE\\Wj@_@??l@A@DP\\p@tAV|@DLHZDRF\\Nf@P\\FHBB@BTV^\\h@Z^Jj@H@@??LA@?AO@NB?PEPM@AvD@BQHYN]LSRQRGXCVAPBb@R@GAFNHxAlAf@n@FJDJBJBP@d@@RAFABQ@Sd@INGFKFk@P??FVDHIDHE\\hANd@??IJCDQZSZADCFEP?N?@@D@NFN?BBBBHFN@BDF?@h@A\\b@v@j@B@\\LZND?b@@b@B@EJAt@]FGv@w@Z[JS?Q?ICKIQACS]CEe@}@AASa@Uc@GM[XZYMUUa@??AaAZ[Z[RSr@mA??P?PENGPMDMDDEEDKFc@?QEOGSKQOMOEWA??c@c@eCoCuB}Bq@k@?A?@s@k@}D}BgCyA??AO?MAKAGCGCGCIEGGGEGECEEECGCWGGAI?E?K@E@YJKFIJKNGP?DOENDCJCZ@X??aA[a@Ma@MKCy@SEAeBTOFIDUNGDWRKJ??EQDPYV]Xa@^WPKHk@^]VIDw@d@o@^_@RqAt@oBjAa@TKBWLGB]Li@N_@HiAX??CIGGEEME]GA???BS@OFWN]PJF@DAJEPOTSNUR]BI?C?A', 'https://furmansaferide.ridesystems.net/routes/3/stops', '#582c83', 15, 30, 'The Campus Shuttle operates on campus from  7:30 a.m. to 11:30 a.m. and 1 p.m. to 5 p.m. on weekdays.'),
 (3, 'Walmart Shuttle', '', '', '', 0, 0, 0, '', '_sdtEladvN\\DBOJUGg@?QBa@HQF_@v@{CPBRPRNTB\\A@KVYNo@H{@Ms@SUCe@Ls@Fo@To@Jg@X_AJq@\\oAZcALMpAu@n@Jh@Nh@^ZXFZENKNMBoA?wAFoB?eB@i@?kC@wB?s@?y@@{@AcB?{BAyC?w@?qB?aA?}B?gA?}B@s@FmDP[DgDd@S@eDf@m@PeBX{@LcB@a@JwB@mGnAwH|AmDn@aFdAgEdAsD~A}E~BkBj@yARo@DaAHmCN{CZcAPu@Ps@Vk@PcAd@{@Zi@XaCz@cDv@qANiA@[?kCQiCe@kDu@}Bw@iCeAuBcA}AgAqAcA_Ay@_ByAc@_@qDyD_A_ABUFINWXYd@g@b@_@^]LQDQIQMGQ?y@e@QMg@We@OMGUS?WFSF_@LeAXsAHU?O[Aa@GKZShAKjAL^VNAZAb@RNXJRHXNJDRLPLLFPJHL@XGVIRKNWPYR_@Xa@h@SPKR?RHLPDPLFFPPfQfPvB~BtCjBlDv@hEb@dMO|Ky@xF_AD_BxEaCzOuHvDgAhAUt[oGlYaFr@MfAC|S_@~C?zHBnGFp@d@VZH@BZB~@ITK@E@ETIRGDQNYRW\\AX?V?\\CXCd@Mj@Ur@GRMh@IPKTK^MTIRETFNHH??', 'https://www.furman.edu/university-police/saferide-shuttle/', '#2c5883', 0, 0, 'The Walmart Shuttle takes students from Lakeside/Clark Murphy to the Travelers Rest Walmart on Sunday evenings.');
 
--- --------------------------------------------------------
-
---
--- Table structure for table weather
---
-
 CREATE TABLE IF NOT EXISTS weather (
-  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  id SERIAL PRIMARY KEY,
   day TEXT DEFAULT NULL,
   start TEXT DEFAULT NULL,
   end TEXT DEFAULT NULL,
@@ -1986,14 +2098,11 @@ CREATE TABLE IF NOT EXISTS weather (
   emoji TEXT DEFAULT NULL
 );
 
---
--- Table structure for table ZToDo
---
 
 CREATE TABLE IF NOT EXISTS ZToDo (
-  recId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  recId SERIAL PRIMARY KEY,
   taskName TEXT NOT NULL,
-  duration time NOT NULL DEFAULT '00:01:00',
+  duration_time TIME NOT NULL DEFAULT '00:01:00',
   indoor INTEGER NOT NULL DEFAULT '1',
   minTemp INTEGER NOT NULL DEFAULT '50',
   maxTemp INTEGER NOT NULL DEFAULT '90',
@@ -2005,7 +2114,7 @@ CREATE TABLE IF NOT EXISTS ZToDo (
   instructions TEXT NOT NULL,
   media TEXT NOT NULL,
   notes TEXT NOT NULL,
-  lastCompleted date NOT NULL,
+  lastCompleted DATE NOT NULL,
   repeatDays INTEGER NOT NULL
 );
 
@@ -2016,7 +2125,6 @@ CREATE UNIQUE INDEX IF NOT EXISTS idx_GolfSchedule_playerId_date ON GolfSchedule
 CREATE UNIQUE INDEX IF NOT EXISTS idx_vehicleNames_name ON vehicleNames(name);
 CREATE UNIQUE INDEX IF NOT EXISTS idx_ZToDo_recId ON ZToDo(recId);
 
--- For Normal Indexes (MySQL: ADD KEY / ADD INDEX):
 CREATE INDEX IF NOT EXISTS idx_buildingHours_buildingID ON buildingHours(buildingID);
 CREATE INDEX IF NOT EXISTS idx_FU20_RestaurantHours_id ON FU20_RestaurantHours(id);
 CREATE INDEX IF NOT EXISTS idx_GolfRounds_rec ON GolfRounds(rec);
@@ -2054,352 +2162,3 @@ SELECT
 FROM DHmenu d
 JOIN userRatings u
   ON d.itemID = u.itemID;
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table athletics
---
-
---
--- Indexes for table benches
---
-
---
--- Indexes for table buildingHours
---
-
---
--- Indexes for table buildingLocations
---
-
---
--- Indexes for table BusStops
--- --
--- ALTER TABLE BusStops
---   ADD PRIMARY KEY (id);
-
--- --
--- -- Indexes for table clps
--- --
--- ALTER TABLE clps
---   ADD PRIMARY KEY (id);
-
--- --
--- -- Indexes for table contacts
--- --
--- ALTER TABLE contacts
---   ADD PRIMARY KEY (id);
-
--- --
--- -- Indexes for table DHmenu
--- --
--- ALTER TABLE DHmenu
---   ADD PRIMARY KEY (id);
-
--- --
--- -- Indexes for table foodService
--- --
--- ALTER TABLE foodService
---   ADD PRIMARY KEY (id),
---   ADD UNIQUE KEY fullname (fullname);
-
--- --
--- -- Indexes for table FU20_RestaurantHours
--- --
--- ALTER TABLE FU20_RestaurantHours
---   ADD PRIMARY KEY (hoursID),
---   ADD KEY id (id);
-
--- --
--- -- Indexes for table GolfDay
--- --
--- ALTER TABLE GolfDay
---   ADD PRIMARY KEY (day);
-
--- --
--- -- Indexes for table GolfPlayers
--- --
--- ALTER TABLE GolfPlayers
---   ADD PRIMARY KEY (rec),
---   ADD UNIQUE KEY playerId (playerId);
-
--- --
--- -- Indexes for table GolfRounds
--- --
--- ALTER TABLE GolfRounds
---   ADD PRIMARY KEY (rec),
---   ADD UNIQUE KEY playerId (playerId,playDate),
---   ADD KEY REC (rec);
-
--- --
--- -- Indexes for table GolfSchedule
--- --
--- ALTER TABLE GolfSchedule
---   ADD PRIMARY KEY (rec),
---   ADD UNIQUE KEY playerId (playerId,date);
-
--- --
--- -- Indexes for table healthSafety
--- --
--- ALTER TABLE healthSafety
---   ADD PRIMARY KEY (id);
-
--- --
--- -- Indexes for table importantDates
--- --
--- ALTER TABLE importantDates
---   ADD PRIMARY KEY (id);
-
--- --
--- -- Indexes for table importantLinks
--- --
--- ALTER TABLE importantLinks
---   ADD PRIMARY KEY (id);
-
--- --
--- -- Indexes for table newsContent
--- --
--- ALTER TABLE newsContent
---   ADD PRIMARY KEY (id),
---   ADD UNIQUE KEY id (id),
---   ADD KEY publisherID (publisherID);
-
--- --
--- -- Indexes for table newsPublishers
--- --
--- ALTER TABLE newsPublishers
---   ADD PRIMARY KEY (publisherID);
-
--- --
--- -- Indexes for table parkingResources
--- --
--- ALTER TABLE parkingResources
---   ADD PRIMARY KEY (id);
-
--- --
--- -- Indexes for table parkingZones
--- --
--- ALTER TABLE parkingZones
---   ADD PRIMARY KEY (id);
-
--- --
--- -- Indexes for table restaurantMenu
--- --
--- ALTER TABLE restaurantMenu
---   ADD PRIMARY KEY (id);
-
--- --
--- -- Indexes for table shuttleLocations
--- --
--- ALTER TABLE shuttleLocations
---   ADD PRIMARY KEY (id);
-
--- --
--- -- Indexes for table Standups
--- --
--- ALTER TABLE Standups
---   ADD PRIMARY KEY (recNum);
-
--- --
--- -- Indexes for table stopsTable
--- --
--- ALTER TABLE stopsTable
---   ADD UNIQUE KEY id (id);
-
--- --
--- -- Indexes for table TestNulls
--- --
--- ALTER TABLE TestNulls
---   ADD PRIMARY KEY (id);
-
--- --
--- -- Indexes for table TESTtimes
--- --
--- ALTER TABLE TESTtimes
---   ADD PRIMARY KEY (hoursID),
---   ADD KEY id (id);
-
--- --
--- -- Indexes for table times
--- --
--- ALTER TABLE times
---   ADD PRIMARY KEY (hoursID),
---   ADD KEY id (id);
-
--- --
--- -- Indexes for table updateTimes
--- --
--- ALTER TABLE updateTimes
---   ADD PRIMARY KEY (id);
-
--- --
--- -- Indexes for table vehicleNames
--- --
--- ALTER TABLE vehicleNames
---   ADD PRIMARY KEY (vehicleIndex),
---   ADD UNIQUE KEY name (name);
-
--- --
--- -- Indexes for table weather
--- --
--- ALTER TABLE weather
---   ADD PRIMARY KEY (id);
-
--- --
--- -- Indexes for table ZToDo
--- --
--- ALTER TABLE ZToDo
---   ADD PRIMARY KEY (recId),
---   ADD UNIQUE KEY recId (recId);
-
--- --
--- -- AUTO_INCREMENT for dumped tables
--- --
-
--- --
--- -- AUTO_INCREMENT for table athletics
--- --
--- ALTER TABLE athletics
---   MODIFY id INTEGER PRIMARY KEY AUTOINCREMENT,;
--- --
--- -- AUTO_INCREMENT for table buildingHours
--- --
--- ALTER TABLE buildingHours
---   MODIFY id INTEGER PRIMARY KEY AUTOINCREMENT,;
--- --
--- -- AUTO_INCREMENT for table buildingLocations
--- --
--- ALTER TABLE buildingLocations
---   MODIFY buildingID INTEGER PRIMARY KEY AUTOINCREMENT,;
--- --
--- -- AUTO_INCREMENT for table BusStops
--- --
--- ALTER TABLE BusStops
---   MODIFY id INTEGER PRIMARY KEY AUTOINCREMENT,;
--- --
--- -- AUTO_INCREMENT for table clps
--- --
--- ALTER TABLE clps
---   MODIFY id INTEGER PRIMARY KEY AUTOINCREMENT,;
--- --
--- -- AUTO_INCREMENT for table contacts
--- --
--- ALTER TABLE contacts
---   MODIFY id INTEGER PRIMARY KEY AUTOINCREMENT,;
--- --
--- -- AUTO_INCREMENT for table DHmenu
--- --
--- ALTER TABLE DHmenu
---   MODIFY id INTEGER PRIMARY KEY AUTOINCREMENT,;
--- --
--- -- AUTO_INCREMENT for table foodService
--- --
--- ALTER TABLE foodService
---   MODIFY id INTEGER PRIMARY KEY AUTOINCREMENT,;
--- --
--- -- AUTO_INCREMENT for table FU20_RestaurantHours
--- --
--- ALTER TABLE FU20_RestaurantHours
---   MODIFY hoursID INTEGER PRIMARY KEY AUTOINCREMENT,;
--- --
--- -- AUTO_INCREMENT for table GolfPlayers
--- --
--- ALTER TABLE GolfPlayers
---   MODIFY rec INTEGER PRIMARY KEY AUTOINCREMENT,;
--- --
--- -- AUTO_INCREMENT for table GolfRounds
--- --
--- ALTER TABLE GolfRounds
---   MODIFY rec INTEGER PRIMARY KEY AUTOINCREMENT,;
--- --
--- -- AUTO_INCREMENT for table GolfSchedule
--- --
--- ALTER TABLE GolfSchedule
---   MODIFY rec INTEGER PRIMARY KEY AUTOINCREMENT,;
--- --
--- -- AUTO_INCREMENT for table healthSafety
--- --
--- ALTER TABLE healthSafety
---   MODIFY id INTEGER PRIMARY KEY AUTOINCREMENT,;
--- --
--- -- AUTO_INCREMENT for table importantDates
--- --
--- ALTER TABLE importantDates
---   MODIFY id INTEGER PRIMARY KEY AUTOINCREMENT,;
--- --
--- -- AUTO_INCREMENT for table importantLinks
--- --
--- ALTER TABLE importantLinks
---   MODIFY id INTEGER PRIMARY KEY AUTOINCREMENT,;
--- --
--- -- AUTO_INCREMENT for table newsContent
--- --
--- ALTER TABLE newsContent
---   MODIFY id INTEGER PRIMARY KEY AUTOINCREMENT,;
--- --
--- -- AUTO_INCREMENT for table newsPublishers
--- --
--- ALTER TABLE newsPublishers
---   MODIFY publisherID INTEGER PRIMARY KEY AUTOINCREMENT,;
--- --
--- -- AUTO_INCREMENT for table parkingResources
--- --
--- ALTER TABLE parkingResources
---   MODIFY id INTEGER PRIMARY KEY AUTOINCREMENT,;
--- --
--- -- AUTO_INCREMENT for table parkingZones
--- --
--- ALTER TABLE parkingZones
---   MODIFY id INTEGER PRIMARY KEY AUTOINCREMENT,;
--- --
--- -- AUTO_INCREMENT for table restaurantMenu
--- --
--- ALTER TABLE restaurantMenu
---   MODIFY id INTEGER PRIMARY KEY AUTOINCREMENT,;
--- --
--- -- AUTO_INCREMENT for table shuttleLocations
--- --
--- ALTER TABLE shuttleLocations
---   MODIFY id INTEGER PRIMARY KEY AUTOINCREMENT,;
--- --
--- -- AUTO_INCREMENT for table Standups
--- --
--- ALTER TABLE Standups
---   MODIFY recNum INTEGER PRIMARY KEY AUTOINCREMENT,;
--- --
--- -- AUTO_INCREMENT for table stopsTable
--- --
--- ALTER TABLE stopsTable
---   MODIFY id INTEGER PRIMARY KEY AUTOINCREMENT,;
--- --
--- -- AUTO_INCREMENT for table TestNulls
--- --
--- ALTER TABLE TestNulls
---   MODIFY id INTEGER PRIMARY KEY AUTOINCREMENT,;
--- --
--- -- AUTO_INCREMENT for table TESTtimes
--- --
--- ALTER TABLE TESTtimes
---   MODIFY hoursID INTEGER PRIMARY KEY AUTOINCREMENT,;
--- --
--- -- AUTO_INCREMENT for table times
--- --
--- ALTER TABLE times
---   MODIFY hoursID INTEGER PRIMARY KEY AUTOINCREMENT,;
--- --
--- -- AUTO_INCREMENT for table updateTimes
--- --
--- ALTER TABLE updateTimes
---   MODIFY id INTEGER PRIMARY KEY AUTOINCREMENT,;
--- --
--- -- AUTO_INCREMENT for table vehicleNames
--- --
--- ALTER TABLE vehicleNames
---   MODIFY vehicleIndex INTEGER PRIMARY KEY AUTOINCREMENT,;
--- --
--- -- Constraints for dumped tables
--- --
-

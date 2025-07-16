@@ -12,7 +12,7 @@ conn = psycopg2.connect(database_url)
 cur = conn.cursor()
 
 # Read and execute the SQL file
-with open('dbSetup/FUNOW.sql', 'r') as f:
+with open('dbSetup/POSTGRE.sql', 'r') as f:
     sql_script = f.read()
 
 cur.execute(sql_script)
