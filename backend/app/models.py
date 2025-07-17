@@ -550,5 +550,6 @@ class MenuWithRatings(db.Model):
             'station': self.station,
             'itemName': self.itemName,
             'totalScore': self.totalScore,
-            'numRatings': self.numRatings
+            'numRatings': self.numRatings,
+            'score': self.averageScore
         }

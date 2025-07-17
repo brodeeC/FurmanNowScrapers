@@ -1152,7 +1152,7 @@ CREATE TABLE IF NOT EXISTS "newsContent" (
   linktocontent TEXT NOT NULL,
   "publisherID" INTEGER NOT NULL,
   section TEXT DEFAULT NULL,
-  publishdate TEXT NOT NULL,
+  publishdate TIMESTAMP NOT NULL,
   imagelink TEXT DEFAULT NULL
 );
 
