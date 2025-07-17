@@ -19,7 +19,6 @@ WEBCALENDAR_LINK = "https://25livepub.collegenet.com/calendars/university-academ
 FAILED_DATE_PARSE = "FAILED || DATE || PARSE"
 END_TAG = "<br/>"
 
-## TODO: Time scraping fails 100% of the time.
 
 # Takes as input the "description" field of the RSS feed and determines
 # which calendar the event belongs to; most fall under either "Registrar" or

@@ -93,24 +93,6 @@ class Scraper(ABC):
         return dct if dct is not None else default
 
 def formConnections():
-    # filename = '/home/csdaemon/aux/userCred.txt'
-    # username = ''
-    # password = ''
-    # with open(filename, 'r') as file:
-    #     credentials = file.readlines()
-    #     username = credentials[0].strip()
-    #     password = credentials[1].strip()
-    
-    # connection = pymysql.connect(host='cs.furman.edu', \
-    #                              user=username, \
-    #                              password=password, \
-    #                              db='FUNOW', \
-    #                              charset='utf8mb4', \
-    #                              cursorclass=pymysql.cursors.DictCursor,
-    #                              read_timeout = 2,
-    #                              write_timeout = 2)
-
-    #SQLiteConnectionWrapper("backend/database/FUNow.db") # Use local db to test scrapers and find bug.
     try:
         conn = psycopg2.connect(
             dsn=os.environ['DATABASE_URL'],

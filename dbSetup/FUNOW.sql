@@ -1,3 +1,5 @@
+-- Creates local sqlite database
+
 PRAGMA foreign_keys = ON;
 
 

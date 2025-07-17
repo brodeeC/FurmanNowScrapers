@@ -50,17 +50,6 @@ for mealBlock in soup.find_all('section', attrs={'class':re.compile("^panel s-wr
             
 #print(menu)
 
-#UPDATE THE DATABASE
-# filename = '/home/csdaemon/aux/userCred.txt'
-# file = open(filename, 'r')
-# credentials = file.readlines()
-# username = credentials[0].strip()
-# password = credentials[1].strip()
-# connection = pymysql.connect(host='localhost',
-#          user=username, password=password,
-#          db='FUNOW',
-#          charset='utf8mb4',
-#          cursorclass=pymysql.cursors.DictCursor)
 connection = formConnections()
 
 with connection.cursor() as cursor:
@@ -90,27 +79,3 @@ with connection.cursor() as cursor:
     except Exception as e:
         connection.rollback()
         raise Exception(f"Database operation failed: {str(e)}")
-
-
-#try:
-#	for name in fullnames:
-#			sql = "insert `foodService` (`fullname`) values (%s)"
-#			cursor.execute(sql, (name))
-#		connection.commit()
-#	i = 0
-#	for name in D:
-#		with connection.cursor() as cursor:
-#			sql = "SELECT id from foodService where fullname = (%s)"
-#			cursor.execute(sql, name)
-#			id = cursor.fetchone()
-#			id = id['id']
-#		for j in range(0, len(D[name][0])):
-#			with connection.cursor() as cursor:
-#				sql = "insert `times` (`id`, `meal`, `start`, `end`) values (%s, %s, %s, %s)"
-#				cursor.execute(sql, (id, meals[i][j], starts[i][j], ends[i][j]))
-#		connection.commit()
-#		i += 1
-#except:
-#	connection.rollback()
-#finally:
-#	connection.close()

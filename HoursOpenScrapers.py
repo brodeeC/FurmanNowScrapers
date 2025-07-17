@@ -122,8 +122,6 @@ class TimesScraper(WebConnectors.Scraper):
     def _pull() -> List[Schedule]:
         raise NotImplementedError()
         
-## TODO: Change Bell Tower Bookstore
-## -> Bell Tower Bookstore & Bistro in buildingLocations table
 class TroneScraper(TimesScraper):    
     
     def parseTroneTitle(container):

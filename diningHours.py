@@ -23,14 +23,6 @@ r = requests.get(url)
 html = r.text
 soup = BeautifulSoup(html, features="html.parser")
 
-# filename = '/home/csdaemon/aux/userCred.txt' 
-# file = open(filename, 'r')
-# credentials = file.readlines()
-# username = credentials[0].strip()
-# password = credentials[1].strip()
-
-# connection = pymysql.connect(host='localhost', user=username, password=password, db='FUNOW',
-# charset='utf8mb4', cursorclass=pymysql.cursors.DictCursor)
 connection = formConnections()
 
 fullnames = []
