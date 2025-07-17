@@ -92,13 +92,13 @@ def remove_dup_stops():
             if stop_name is None:
                 cursor.execute("""
                     DELETE FROM "stopsTable"
-                    WHERE stopName IS NULL
+                    WHERE "stopName" IS NULL
                     AND ("lineID" != %s OR "stopOrderID" != %s)
                 """, (smallest[0], smallest[1]))
             else:
                 cursor.execute("""
                     DELETE FROM "stopsTable"
-                    WHERE stopName = %s
+                    WHERE "stopName" = %s
                     AND ("lineID" != %s OR "stopOrderID" != %s)
                 """, (stop_name, smallest[0], smallest[1]))
 

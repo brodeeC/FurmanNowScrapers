@@ -210,8 +210,8 @@ class Schedule():
                          ["day", day],
                          ["dayorder", Schedule._daysOfWeek.index(day)]]
                 if not (ranges.isClosed() or ranges.isFailed()):
-                    attrs += [["start", ranges.openingStr()],
-                              ["end", ranges.closingStr()]]
+                    attrs += [["start_time", ranges.openingStr()],
+                              ["end_time", ranges.closingStr()]]
                 Queriable.cursorQuery(cursor, 
                                       Insertable._formulateInsert(insertTable, attrs)
                                       )  
@@ -267,14 +267,14 @@ class Schedule():
             for scraper_name, db_name in special_cases.items():
                 if scraper_name.lower() in self.name.lower():
                     cursor.execute("""
-                        SELECT buildingID FROM {}
-                        WHERE name = ? OR nickname = ?
-                        LIMIT 1
-                    """.format(namesIDTable), (db_name, db_name))
-                    result = cursor.fetchone()
-                    if result:
-                        print(f"Special case matched '{self.name}' to '{db_name}'")
-                        return result['buildingID']
+                    SELECT "buildingID" FROM "{}"
+                    WHERE "name" = %s OR "nickname" = %s
+                    LIMIT 1
+                """.format(namesIDTable), (db_name, db_name))
+                result = cursor.fetchone()
+                if result:
+                    print(f"Special case matched '{self.name}' to '{db_name}'")
+                    return result['buildingID']
             
             print(f"No buildingID found for: {self.name}")
             return None

@@ -13,7 +13,7 @@ url = 'https://furman.cafebonappetit.com/cafe/' + TODAY
 
 def getID(meal, name, station):
     itemStr = f'{meal}{name}{station}'
-    return zlib.crc32(itemStr.encode('utf-8'))
+    return zlib.crc32(itemStr.encode('utf-8')) % 2147483647
 
 r = requests.get(url)
 html = r.text
@@ -73,18 +73,18 @@ with connection.cursor() as cursor:
                 itemID = getID(meal, name, station)
                 
                 sql = """
-                    INSERT INTO "DHmenu" 
-                    ("itemID", "meal", "itemName", "station") 
-                    VALUES (%s, %s, %s, %s)
-                """
-                cursor.execute(sql, (itemID, meal, name, station))
-                
-                sql = """
                     INSERT INTO "userRatings" ("itemID") 
                     VALUES (%s)
                     ON CONFLICT ("itemID") DO NOTHING
                 """
                 cursor.execute(sql, (itemID,))
+
+                sql = """
+                    INSERT INTO "DHmenu" 
+                    ("itemID", "meal", "itemName", "station") 
+                    VALUES (%s, %s, %s, %s)
+                """
+                cursor.execute(sql, (itemID, meal, name, station))
                 
         connection.commit()
     except Exception as e:

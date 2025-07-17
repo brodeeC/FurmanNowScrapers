@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS "buildingLocations" (
   polyline TEXT DEFAULT NULL,
   description TEXT DEFAULT NULL,
   frequency INTEGER NOT NULL DEFAULT '10',
-  last_updated TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+  last_updated TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 --
 -- Dumping data for table buildingLocations
@@ -396,7 +396,7 @@ CREATE TABLE IF NOT EXISTS "buildingHours" (
   dayorder INTEGER NOT NULL,
   start_time TIME DEFAULT NULL,
   end_time TIME DEFAULT NULL,
-  "lastUpdated" TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  "lastUpdated" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY ("buildingID") REFERENCES "buildingLocations"("buildingID")
 );
 
@@ -573,7 +573,7 @@ CREATE TABLE IF NOT EXISTS "clps" (
   end_time time DEFAULT NULL,
   organization TEXT NOT NULL DEFAULT '-',
   "eventType" TEXT NOT NULL DEFAULT 'CLP',
-  "lastUpdated" TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+  "lastUpdated" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 
@@ -607,7 +607,7 @@ CREATE TABLE IF NOT EXISTS "contacts" (
   room TEXT NOT NULL,
   name TEXT DEFAULT NULL,
   number TEXT NOT NULL,
-  "lastUpdated" TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  "lastUpdated" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   "priorityLevel" INTEGER NOT NULL DEFAULT '0'
 );
 
@@ -693,6 +693,12 @@ EXECUTE FUNCTION contacts_after_insert();
 
 -- --------------------------------------------------------
 
+CREATE TABLE IF NOT EXISTS "userRatings" (
+  "itemID" INTEGER NOT NULL PRIMARY KEY,
+  "totalScore" INTEGER NOT NULL DEFAULT 0,
+  "numRatings" INTEGER NOT NULL DEFAULT 0
+);
+
 --
 -- Table structure for table DHmenu
 --
@@ -703,7 +709,8 @@ CREATE TABLE IF NOT EXISTS "DHmenu" (
   meal TEXT NOT NULL,
   "itemName" TEXT NOT NULL,
   station TEXT NOT NULL,
-  "lastUpdated" TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+  "lastUpdated" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY ("itemID") REFERENCES "userRatings"("itemID")
 );
 
 ALTER TABLE "DHmenu" ADD CONSTRAINT "DHmenu_itemID_unique" UNIQUE ("itemID");
@@ -725,15 +732,6 @@ CREATE TRIGGER dh_insert
 AFTER INSERT ON "DHmenu"
 FOR EACH ROW
 EXECUTE FUNCTION dh_after_insert();
-
-
-
-CREATE TABLE IF NOT EXISTS "userRatings" (
-  "itemID" INTEGER NOT NULL PRIMARY KEY,
-  "totalScore" INTEGER NOT NULL DEFAULT 0,
-  "numRatings" INTEGER NOT NULL DEFAULT 0,
-  FOREIGN KEY ("itemID") REFERENCES "DHmenu"("itemID")
-);
 
 -- --------------------------------------------------------
 
@@ -910,7 +908,7 @@ CREATE TABLE IF NOT EXISTS "GolfSchedule" (
   other TEXT NOT NULL,
   "teeTime" INTEGER NOT NULL DEFAULT '0',
   rec SERIAL PRIMARY KEY,
-  "signedUp" TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+  "signedUp" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 
@@ -1014,7 +1012,7 @@ CREATE TABLE IF NOT EXISTS "importantDates" (
   category TEXT DEFAULT NULL,
   description TEXT,
   term TEXT,
-  "lastUpdated" TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+  "lastUpdated" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 
@@ -1342,7 +1340,7 @@ CREATE TABLE IF NOT EXISTS "shuttleLocations" (
   speed INTEGER DEFAULT NULL,
   direction INTEGER DEFAULT NULL,
   "nextStopDistance" REAL DEFAULT NULL,
-  updated TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   "nextStopID" INTEGER DEFAULT NULL
 );
 
@@ -1435,7 +1433,7 @@ CREATE TABLE IF NOT EXISTS "stopsDistanceTable" (
   "lineID" INTEGER NOT NULL,
   "stopOrderID" INTEGER NOT NULL,
   "distFromVehicle" REAL DEFAULT NULL,
-  updated TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   "vehicleStopsUntil" INTEGER DEFAULT NULL
 );
 
@@ -1450,7 +1448,7 @@ CREATE TABLE IF NOT EXISTS "stopsTable" (
   latitude REAL NOT NULL,
   longitude REAL NOT NULL,
   "distFromStart" REAL NOT NULL,
-  updated TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP
+  updated TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 
@@ -1750,31 +1748,11 @@ CREATE TABLE IF NOT EXISTS times (
   end_time TIME DEFAULT NULL,
   "dayOfWeek" TEXT DEFAULT NULL,
   "dayOrder" INTEGER NOT NULL,
-  "lastUpdated" TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  "lastUpdated" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (id) REFERENCES "foodService"(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
---
--- Dumping data for table times
---
 
-INSERT INTO times ("hoursID", id, meal, start_time, end_time, "dayOfWeek", "dayOrder", "lastUpdated") VALUES
-(6, 22, NULL, '11:00:00', '21:00:00', 'Mon-Fri', 0, '0000-00-00 00:00:00'),
-(7, 22, NULL, '14:00:00', '21:00:00', 'Sun', 6, '0000-00-00 00:00:00'),
-(13, 21, NULL, '08:00:00', '21:00:00', 'Mon-Fri', 0, '0000-00-00 00:00:00'),
-(14, 23, NULL, '11:00:00', '21:00:00', 'Mon-Fri', 0, '0000-00-00 00:00:00'),
-(16, 23, NULL, '14:00:00', '21:00:00', 'Sun', 6, '0000-00-00 00:00:00'),
-(18, 28, NULL, '08:30:00', '18:00:00', 'Mon-Fri', 0, '0000-00-00 00:00:00'),
-(19, 28, NULL, '10:00:00', '15:00:00', 'Sat-Sun', 5, '0000-00-00 00:00:00'),
-(1568, 10, NULL, '11:00:00', '23:59:00', 'Mon-Thu', 0, '0000-00-00 00:00:00'),
-(1569, 10, NULL, '11:00:00', '01:00:00', 'Fri-Sat', 4, '0000-00-00 00:00:00'),
-(1570, 10, NULL, '11:00:00', '23:00:00', 'Sun', 6, '0000-00-00 00:00:00'),
-(11376, 17, NULL, NULL, NULL, 'Mon-Sun', 0, '2024-08-19 04:01:02'),
-(11377, 18, NULL, NULL, NULL, 'Mon-Sun', 0, '2024-08-19 04:01:02'),
-(12456, 13, NULL, NULL, NULL, 'Mon-Sun', 0, '2025-01-11 05:01:01'),
-(12457, 30, NULL, NULL, NULL, 'Mon-Sun', 0, '2025-01-11 05:01:01'),
-(12458, 25, NULL, NULL, NULL, 'Mon-Sun', 0, '2025-01-11 05:01:01'),
-(12459, 29, 'Open', '08:00:00', '18:00:00', 'Mon-Sun', 0, '2025-01-11 05:01:01');
 
 CREATE OR REPLACE FUNCTION times_beforeUpdate_func()
 RETURNS TRIGGER AS $$
@@ -1859,7 +1837,7 @@ EXECUTE FUNCTION times_updated_func();
 
 CREATE TABLE IF NOT EXISTS "updateTimes" (
   id SERIAL PRIMARY KEY,
-  "newestUpdate" TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  "newestUpdate" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   "updatedTable" TEXT NOT NULL
 );
 

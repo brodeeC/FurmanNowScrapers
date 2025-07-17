@@ -50,8 +50,8 @@ class BuildingHours(db.Model):
     buildingID = db.Column(db.Integer, db.ForeignKey('buildingLocations.buildingID'), nullable=False)
     day = db.Column(db.Text, nullable=False)
     dayorder = db.Column(db.Integer, nullable=False)
-    Start = db.Column(db.Time)
-    End = db.Column(db.Time)
+    start_time = db.Column(db.Time)
+    end_time = db.Column(db.Time)
     lastUpdated = db.Column(db.DateTime, default=datetime.now)
 
     def to_dict(self):
@@ -60,8 +60,8 @@ class BuildingHours(db.Model):
             "buildingID": self.buildingID,
             "day": self.day,
             "dayorder": self.dayorder,
-            "Start": self.Start.isoformat() if self.Start else None,
-            "End": self.End.isoformat() if self.End else None,
+            "Start": self.start_time.isoformat() if self.start_time else None,
+            "End": self.end_time.isoformat() if self.end_time else None,
             "lastUpdated": self.lastUpdated.isoformat() if self.lastUpdated else None,
         }
 
@@ -117,8 +117,8 @@ class CLP(db.Model):
     description = db.Column(db.Text)
     location = db.Column(db.Text)
     date = db.Column(db.Text, nullable=False)
-    start = db.Column(db.Time)
-    end = db.Column(db.Time)
+    start_time = db.Column(db.Time)
+    end_time = db.Column(db.Time)
     organization = db.Column(db.Text)
     eventType = db.Column(db.Text)
     lastUpdated = db.Column(db.DateTime, default=datetime.now)
@@ -130,8 +130,8 @@ class CLP(db.Model):
             "description": self.description,
             "location": self.location,
             "date": self.date,
-            "start": self.start.isoformat() if self.start else None,
-            "end": self.end.isoformat() if self.end else None,
+            "start": self.start_time.isoformat() if self.start_time else None,
+            "end": self.end_time.isoformat() if self.end_time else None,
             "organization": self.organization,
             "eventType": self.eventType,
             "lastUpdated": self.lastUpdated.isoformat() if self.lastUpdated else None
@@ -162,7 +162,7 @@ class Contact(db.Model):
 
 
 class DHMenu(db.Model):
-    __tablename__ = 'dhMenu'
+    __tablename__ = 'DHmenu'
 
     id = db.Column(db.Integer, primary_key=True)
     itemID = db.Column(db.Integer)
@@ -412,8 +412,8 @@ class Weather(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     day = db.Column(db.Text, nullable=False)
-    start = db.Column(db.Text, nullable=False)
-    end = db.Column(db.Text, nullable=False)
+    start_time = db.Column(db.Text, nullable=False)
+    end_time = db.Column(db.Text, nullable=False)
     isDayTime = db.Column(db.Integer, nullable=False)
     tempCurrent = db.Column(db.Integer)
     tempHi = db.Column(db.Integer)
@@ -431,8 +431,8 @@ class Weather(db.Model):
         return {
             "id": self.id,
             "day": self.day,
-            "start": self.start,
-            "end": self.end,
+            "start": self.start_time,
+            "end": self.end_time,
             "isDayTime": self.isDayTime,
             "tempCurrent": self.tempCurrent,
             "tempHi": self.tempHi,
