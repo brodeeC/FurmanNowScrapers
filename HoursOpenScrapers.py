@@ -230,10 +230,7 @@ class PACScraper(TimesScraper):
             scheds.append(PACScraper._parseTable(c))
         return scheds
 
-## ERROR: list index out of range
-# ['']
-# Failed to parse open-close times; placing failed time.
-## TODO: Figure out what this affects and how.
+
 class EnrollmentScraper(TimesScraper):
     """ Pulls opening hours for Enrollment Services. """ 
     def _pull(self) -> List[Schedule]:
@@ -281,10 +278,7 @@ class CounselingScraper(TimesScraper):
             sched.addDayRangeTime(days, ranges)
         return [sched]
 
-## TODO: Change Bread and Bowl -> Blend and Bowl in buildingLocations
-## TODO: Also, HTTPSConnectionPool(host='furman.cafebonappetit.com', port=443): Read timed out. (read timeout=10)
-## Failed in pulling with <class '__main__.BonAppetitScraper'>; website seems to have moved.
-### This works some times.
+
 class BonAppetitScraper(TimesScraper):
     """ Parses the hours for the restraunts listed on the Bon Appetit website. """
     def _parseHours(scheds, soup, dayOfWeek):

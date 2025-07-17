@@ -52,7 +52,7 @@ def extract_data(file_path):
 
             cursor.execute("""
                 INSERT INTO "parkingZones" (
-                    id, zoneName, boundry, yellow, green, blue, silver, orange, purple, lightPurple, public_col
+                    id, "zoneName", boundry, yellow, green, blue, silver, orange, purple, "lightPurple", public_col
                 ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)  
             """, (
                 _id,

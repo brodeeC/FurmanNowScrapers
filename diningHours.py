@@ -106,12 +106,12 @@ try:
                 for j in range(len(D[name][0])):
                     if not D[name][1][j]:  
                         sql = """INSERT INTO "times" 
-                                (id, dayOfWeek, dayOrder) 
+                                (id, "dayOfWeek", "dayOrder") 
                                 VALUES (%s, %s, %s)"""
                         cursor.execute(sql, (id, "Mon-Sun", 0))
                     else:
                         sql = """INSERT INTO "times" 
-                                (id, meal, start_time, end_time, dayOfWeek, dayOrder) 
+                                (id, meal, start_time, end_time, "dayOfWeek", "dayOrder") 
                                 VALUES (%s, %s, %s, %s, %s, %s)"""
                         cursor.execute(sql, (
                             id, 

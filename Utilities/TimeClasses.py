@@ -220,8 +220,8 @@ class Schedule():
         try:
             # First try exact matches
             query = """
-                SELECT buildingID FROM {}
-                WHERE name = ? OR nickname = ?
+                SELECT "buildingID" FROM "{}"
+                WHERE "name" = %s OR "nickname" = %s
                 LIMIT 1
             """.format(namesIDTable)
             cursor.execute(query, (self.name, self.name))
@@ -232,14 +232,14 @@ class Schedule():
             
             # If no exact match, try fuzzy matching
             query = """
-                SELECT buildingID FROM {}
-                WHERE name LIKE ? OR nickname LIKE ?
+            SELECT "buildingID" FROM "{}"
+                WHERE "name" LIKE %s OR "nickname" LIKE %s
                 ORDER BY 
                     CASE 
-                        WHEN name = ? THEN 1
-                        WHEN nickname = ? THEN 2
-                        WHEN name LIKE ? THEN 3
-                        WHEN nickname LIKE ? THEN 4
+                        WHEN "name" = %s THEN 1
+                        WHEN "nickname" = %s THEN 2
+                        WHEN "name" LIKE %s THEN 3
+                        WHEN "nickname" LIKE %s THEN 4
                         ELSE 5
                     END
                 LIMIT 1

@@ -37,7 +37,7 @@ class Insertable(ABC, Queriable):
         insert =  f'INSERT INTO "{table}" ('
         vals = "VALUES ("
         for e in attrs:
-            insert += f"{str(e[0])},"
+            insert += f'"{str(e[0])}",'
             vals += "%s,"
         atr = (e[1] for e in attrs)
             
@@ -91,7 +91,7 @@ class Selector(Queriable):
             else:
                 raise ValueError(f"Invalid condition format: {cond}")
             
-            where_parts.append(f"{col} {op} %s {connector}")
+            where_parts.append(f'"{col}" {op} %s {connector}')
             params.append(val)
         
         # Join all conditions and remove the last connector
@@ -109,7 +109,7 @@ class Clearable(ABC, Queriable):
         delete += " WHERE"
 
         for cond in conds:
-            delete += f" {cond[0]} {'=' if len(cond) <= 2 else cond[2]} %s {'OR' if len(cond) <= 3 else cond[3]}"
+            delete += f''' "{cond[0]}" {'=' if len(cond) <= 2 else cond[2]} %s {'OR' if len(cond) <= 3 else cond[3]}'''
         atr = (e[1] for e in conds)
 
         return delete[:-2], tuple(atr)

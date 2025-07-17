@@ -681,7 +681,7 @@ class ShiScraper(NewsScraper):
         return articles
 
 def purgeOldArticles(connection, publisherID):
-    sql = f'DELETE FROM "{NEWS_TABLE}" WHERE publisherID = {publisherID}'
+    sql = f'DELETE FROM "{NEWS_TABLE}" WHERE "publisherID" = {publisherID}'
     with connection.cursor() as cursor:
         try:
             cursor.execute(sql)

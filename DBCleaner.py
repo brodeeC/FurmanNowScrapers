@@ -20,18 +20,13 @@ def update_image_links():
         for row in rows:
             rowid, image_link = row
             if image_link and '/articleImages' in image_link:
-                # Find the position of '/articleImages'
                 pos = image_link.find('/articleImages')
-                # Keep everything from '/articleImages' onward
                 new_link = image_link[pos:]
                 
-                # Only update if the link actually changed
                 if new_link != image_link:
                     updates.append((new_link, rowid))
         
-        # Update all changed records in a single transaction
         if updates:
-            # Using psycopg2's sql module for safe query construction
             query = sql.SQL("""
                 UPDATE "newsContent" 
                 SET imagelink = %s 
@@ -55,13 +50,12 @@ def remove_dup_stops():
     cursor = conn.cursor()
 
     try:
-        # First find all stop names (including NULL) that have duplicates
         cursor.execute("""
-            SELECT stopName, COUNT(*) as count
+            SELECT "stopName", COUNT(*) as count
             FROM stop_with_distance
-            GROUP BY stopName
+            GROUP BY "stopName"
             HAVING COUNT(*) > 1
-            ORDER BY stopName NULLS FIRST
+            ORDER BY "stopName" NULLS FIRST
         """)
         duplicate_stops = cursor.fetchall()
 
@@ -75,18 +69,17 @@ def remove_dup_stops():
             stop_name, count = stop
             print(f"\nProcessing {'unnamed stops' if stop_name is None else stop_name} ({count} entries)")
 
-            # Get all entries for this stop name
             if stop_name is None:
                 cursor.execute("""
-                    SELECT lineID, stopOrderID, id
+                    SELECT "lineID", "stopOrderID"
                     FROM stop_with_distance
-                    WHERE stopName IS NULL
+                    WHERE "stopName" IS NULL
                 """)
             else:
                 cursor.execute("""
-                    SELECT lineID, stopOrderID, id
+                    SELECT "lineID", "stopOrderID"
                     FROM stop_with_distance
-                    WHERE stopName = %s
+                    WHERE "stopName" = %s
                 """, (stop_name,))
             
             rows = cursor.fetchall()
@@ -100,13 +93,13 @@ def remove_dup_stops():
                 cursor.execute("""
                     DELETE FROM "stopsTable"
                     WHERE stopName IS NULL
-                    AND (lineID != %s OR stopOrderID != %s)
+                    AND ("lineID" != %s OR "stopOrderID" != %s)
                 """, (smallest[0], smallest[1]))
             else:
                 cursor.execute("""
                     DELETE FROM "stopsTable"
                     WHERE stopName = %s
-                    AND (lineID != %s OR stopOrderID != %s)
+                    AND ("lineID" != %s OR "stopOrderID" != %s)
                 """, (stop_name, smallest[0], smallest[1]))
 
             deleted_count = cursor.rowcount

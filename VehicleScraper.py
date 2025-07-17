@@ -166,7 +166,6 @@ def main():
                 ]
                 Insertable._insertIntoHelper(STOPS_DIST_TABLE, connection, attrs, True)
                     
-                # Clear outdated vehicles (PostgreSQL version)
                 clearOutdated = """
                     UPDATE "{table}"
                     SET latitude = NULL,
@@ -178,7 +177,6 @@ def main():
                 """.format(table=SHUTTLE_LOCATION_TABLE)
                 Queriable.query(connection, (clearOutdated, (datetime.datetime.now(),)))
                 
-                # Clear outdated stops (PostgreSQL version)
                 clearStopsOutdated = """
                     UPDATE "{table}"
                     SET "distFromVehicle" = NULL,
