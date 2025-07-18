@@ -1,1 +1,1 @@
-*/2 * * * * /bin/sh /app/updateAll.sh >> /var/log/cron.log 2>&1
+0 */4 * * * /bin/sh /app/updateAll.sh >> /var/log/cron.log 2>&1
