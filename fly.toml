@@ -8,7 +8,7 @@ app = "furmannowscrapers"
 
 [processes]
   app = "gunicorn backend.main:app -b 0.0.0.0:8080"
-  cron = "cron -f"
+  cron = "supercronic /app/crontab"
 
 [http_service]
   internal_port = 8080

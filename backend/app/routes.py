@@ -178,20 +178,3 @@ def weatherImagesCurrent():
             "links": links
         }
     })
-
-@bp.route('/internal/update-all', methods=['POST'])
-def update_all():
-    # TODO Add api key / headers to only allow internal running.
-    try:
-        result = subprocess.run(
-            ["/bin/sh", "/app/updateAll.sh"],
-            capture_output=True,
-            text=True
-        )
-        return jsonify({
-            "success": True,
-            "output": result.stdout,
-            "error": result.stderr
-        }), 200
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
