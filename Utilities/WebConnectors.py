@@ -16,10 +16,6 @@ import os
 from psycopg2.extras import DictCursor
 
 
-
-from Utilities.SQLiteCursorWrapper import SQLiteConnectionWrapper
-from Utilities.PostgreCursorWrapper import PostgresConnection
-
 class Scraper(ABC):
     
     failed : bool 
@@ -109,7 +105,7 @@ def formConnections():
         raise
 
 def youTubePullLatest(channelID, numRequested = 10):
-    filename = "backend/aux/youtubeAPICred.txt"
+    filename = "app/backend/aux/youtubeAPICred.txt"
     with open(filename, "r") as file:
         apiKey = file.readlines()[0].strip()
         headers = {"Accept": "application/json", "Referer": "Mozilla"}
@@ -122,7 +118,7 @@ def youTubePullLatest(channelID, numRequested = 10):
 
 def getLibraryAPIToken():
     link = "https://libcal.furman.edu/1.1/oauth/token"
-    filename = "backend/aux/libraryAPICred.txt" 
+    filename = "app/backend/aux/libraryAPICred.txt" 
     file = open(filename, 'r')
     credentials = file.readlines()
     clientID = credentials[0].strip()

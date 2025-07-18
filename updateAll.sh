@@ -1,2 +1,4 @@
-python3 AthleticsScraper.py ; python3 dhmenu.py ; python3 diningHours.py ; python3 eventsScraper.py ; python3 HoursOpenScrapers.py ; python3 ImportantDScraper.py ;
-python3 LibrariesHoursScraper.py ; python3 NewsScraper.py ; python3 RouteScraper.py ; python3 VehicleScraper.py ; python3 WeatherScraper.py ; python3 DBCleaner.py ;
+/usr/local/bin/python3 /app/AthleticsScraper.py ; /usr/local/bin/python3 /app/dhmenu.py ; /usr/local/bin/python3 /app/diningHours.py ; 
+/usr/local/bin/python3 /app/eventsScraper.py ; /usr/local/bin/python3 /app/HoursOpenScrapers.py ; /usr/local/bin/python3 /app/ImportantDScraper.py ;
+/usr/local/bin/python3 /app/LibrariesHoursScraper.py ; /usr/local/bin/python3 /app/NewsScraper.py ; /usr/local/bin/python3 /app/RouteScraper.py ; 
+/usr/local/bin/python3 /app/VehicleScraper.py ; /usr/local/bin/python3 /app/WeatherScraper.py ; /usr/local/bin/python3 /app/DBCleaner.py ;

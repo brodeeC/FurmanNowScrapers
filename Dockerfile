@@ -14,7 +14,16 @@ RUN chmod +x create_db.sh
 COPY updateAll.sh .
 RUN chmod +x updateAll.sh
 
-RUN echo "0 */4 * * * root /bin/sh /app/updateAll.sh >> /var/log/cron.log 2>&1" > /etc/cron.d/updatejob \
-    && chmod 0644 /etc/cron.d/updatejob
+COPY updateRoute.sh .
+RUN chmod +x updateRoute.sh
+
+RUN touch /var/log/cron.log
+
+
+# RUN echo "0 */4 * * * root /bin/sh /app/updateRoute.sh >> /var/log/cron.log 2>&1" > /etc/cron.d/updatejob \
+#     && chmod 0644 /etc/cron.d/updatejob
+RUN echo "*/2 * * * * root /bin/sh /app/updateRoute.sh >> /var/log/cron.log 2>&1" > /etc/cron.d/updatejob && chmod 0644 /etc/cron.d/updatejob
+
+RUN service cron start
 
 EXPOSE 8080
