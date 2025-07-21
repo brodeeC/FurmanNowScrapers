@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS athletics (
   id SERIAL PRIMARY KEY,
   eventdate TEXT NOT NULL,
   time TEXT NOT NULL,
-  conference INTEGER NOT NULL,
+  conference BOOLEAN NOT NULL,
   location_indicator TEXT NOT NULL,
   location TEXT NOT NULL,
   "sportTitle" TEXT NOT NULL,
@@ -1006,7 +1006,7 @@ EXECUTE FUNCTION hs_after_insert();
 CREATE TABLE IF NOT EXISTS "importantDates" (
   id SERIAL PRIMARY KEY,
   title TEXT DEFAULT NULL,
-  date date NOT NULL,
+  'date' DATE NOT NULL,
   "startTime" time NOT NULL,
   "endTime" time NOT NULL,
   category TEXT DEFAULT NULL,

@@ -28,11 +28,9 @@ def parseItem(entry):
     raw_description = normalize('NFKD', raw_description)
     souped = soup(raw_description, "html.parser")
 
-    # Extract text for date + time
     full_text = souped.get_text(separator=' ', strip = True)
     time_and_date = clean_field_value(full_text.split('Event Name')[0])
 
-    # Extract fields from <b> tags
     fields = {}
     for b in souped.find_all("b"):
         label = b.get_text(strip = True).rstrip(':').lower()
@@ -44,11 +42,9 @@ def parseItem(entry):
     dt = parseDate(time_and_date)
     time_range = parseStartEnd(time_and_date)
 
-    # Build the term string
     event_name = fields.get("event name", '')
     term = f"  {event_name} "
 
-    # Use fallback category logic
     category = fields.get('organization', '')
     if category == "Registrar" or not category:
         category = "Academic Dates & Holidays"
