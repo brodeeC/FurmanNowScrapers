@@ -116,20 +116,22 @@ class CLP(db.Model):
     title = db.Column(db.Text, nullable=False)
     description = db.Column(db.Text)
     location = db.Column(db.Text)
-    date = db.Column(db.Text, nullable=False)
+    date = db.Column(db.DateTime, nullable=False)
     start_time = db.Column(db.Time)
     end_time = db.Column(db.Time)
     organization = db.Column(db.Text)
     eventType = db.Column(db.Text)
     lastUpdated = db.Column(db.DateTime, default=datetime.now)
+    
 
     def to_dict(self):
+        print(self.date)
         return {
             "id": self.id,
             "title": self.title,
             "description": self.description,
             "location": self.location,
-            "date": self.date,
+            "date": self.date.strftime("%Y-%m-%d"),
             "start": self.start_time.isoformat() if self.start_time else None,
             "end": self.end_time.isoformat() if self.end_time else None,
             "organization": self.organization,
@@ -208,7 +210,7 @@ class ImportantDate(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.Text, nullable=False)
-    date = db.Column(db.Text, nullable=False)
+    date = db.Column(db.Date, nullable=False)
     startTime = db.Column(db.Time)
     endTime = db.Column(db.Time)
     category = db.Column(db.Text)
@@ -220,7 +222,7 @@ class ImportantDate(db.Model):
         return {
             "id": self.id,
             "title": self.title,
-            "date": self.date,
+            "date": self.date.strftime("%Y-%m-%d"),
             "startTime": self.startTime.isoformat() if self.startTime else None,
             "endTime": self.endTime.isoformat() if self.endTime else None,
             "category": self.category,

@@ -1006,7 +1006,7 @@ EXECUTE FUNCTION hs_after_insert();
 CREATE TABLE IF NOT EXISTS "importantDates" (
   id SERIAL PRIMARY KEY,
   title TEXT DEFAULT NULL,
-  'date' DATE NOT NULL,
+  date date NOT NULL,
   "startTime" time NOT NULL,
   "endTime" time NOT NULL,
   category TEXT DEFAULT NULL,
