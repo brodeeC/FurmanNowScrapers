@@ -16,7 +16,7 @@ COPY ./ .
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-RUN chmod +x create_db.sh
+# RUN chmod +x create_db.sh Only needed if POSTGRE.sql is edited or something about ParkingSetup.py changed
 
 RUN chmod +x updateAll.sh
 

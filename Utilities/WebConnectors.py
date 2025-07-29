@@ -4,7 +4,7 @@ Created on Sun Jan 21 23:57:41 2024
 
 @author: mdavi
 """
-import pymysql
+# import pymysql MySQL packaged
 from bs4 import BeautifulSoup as soup
 import requests
 from abc import ABC, abstractmethod
