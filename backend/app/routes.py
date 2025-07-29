@@ -4,13 +4,12 @@ Each route returns data necessary for hooks in the React-Native app.
 
 """
 
-from flask import jsonify, Blueprint, render_template, request
+from flask import jsonify, Blueprint, render_template
 from backend.app import db
 from sqlalchemy.orm import Session
 from sqlalchemy import select, desc
 from datetime import datetime
 import pytz
-import subprocess
 from backend.app.models import (
     BuildingHours,
     BuildingLocation,
