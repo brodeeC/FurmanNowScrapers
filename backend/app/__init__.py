@@ -1,7 +1,6 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
-from backend.app import routes
 #from pathlib import Path   Needed for sqlite database
 import os
 
@@ -14,6 +13,7 @@ def create_app():
 
     if database_url.startswith('postgres://'):
         database_url = database_url.replace('postgres://', 'postgresql://', 1)
+    app.config['SQLALCHEMY_DATABASE_URI'] = database_url
 
     ## Defines path for a sqlite database
     # BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,9 +26,9 @@ def create_app():
 
     db.init_app(app)
 
-    # Enable full CORS for development
     CORS(app, resources={r"/FUNow/api/*": {"origins": "*"}})
 
+    from backend.app import routes # Putting this at the top will cause a circular import
     app.register_blueprint(routes.bp)
 
     return app
