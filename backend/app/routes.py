@@ -59,7 +59,24 @@ def buildingGet():
 @bp.route("/clpGet", methods=["GET"])
 def clpGet():
     results = SESSION.execute(select(CLP)).scalars().all()
-    return jsonify({"format":"clp","results": [entry.to_dict() for entry in results]})
+    if results:
+        return jsonify({"format":"clp","results": [entry.to_dict() for entry in results]})
+    else:
+        curr_date = datetime.now(pytz.timezone('America/New_York'))
+        return jsonify({
+            "format": "clp",
+            "results": [{
+                "id": 0,
+                "title": "No events found",
+                "location": "Furman University",
+                "start": curr_date.strftime("%H:%M:%S"),
+                "end": curr_date.strftime("%H:%M:%S"),
+                "description": "There are currently no CLPs available.",
+                "organization": "-",
+                "date": curr_date.strftime("%Y-%m-%d"),
+                "eventType": "CLP"
+            }]
+        })
 
 @bp.route("/contactsGet", methods=["GET"])
 def contactsGet():
